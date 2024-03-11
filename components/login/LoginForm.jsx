@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = () => (
-    <div className="relative z-10 bg-white rounded-xl border border-gray/20">
+    <div className="relative z-10 bg-white rounded-xl border border-gray/20 m-4 sm:m-0">
         <Formik
             initialValues={{
                 companyName: '',
@@ -35,7 +35,7 @@ const LoginForm = () => (
             }}
         >
             {({ errors, touched }) => (
-                <Form className="rounded-3xl bg-white px-4 py-8 dark:bg-[#101626] lg:px-8">
+                <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                     <div className="grid gap-10 md:grid-cols-1 mb-10">
                         <div className="relative">
                             <Field
