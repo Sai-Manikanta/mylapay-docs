@@ -1,6 +1,4 @@
-// import { CiLogin } from "react-icons/ci";
-// import { MdOutlineCelebration } from "react-icons/md";
-// import { AiFillThunderbolt } from "react-icons/ai";
+import Link from 'next/link'
 
 export default function AccessSteps() {
     return (
@@ -69,9 +67,12 @@ export default function AccessSteps() {
                                 </div>
                             </div>
 
-                            <button className="mt-14 font-semibold px-5 pr-6 w-52 text-white text-center text-sm rounded-md bg-bluelight hover:before:bg-bluedark relative h-[50px] overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase btn_2">
-                                <span className="relative z-10 text-[13px] py-4 ">Sign up</span>
-                            </button>
+
+                            <Link href="/login">
+                                <button className="mt-14 font-semibold px-5 pr-6 w-52 text-white text-center text-sm rounded-md bg-bluelight hover:before:bg-bluedark relative h-[50px] overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase btn_2">
+                                    <span className="relative z-10 text-[13px] py-4 ">Sign up</span>
+                                </button>
+                            </Link>
 
                             {/* <p className="text-base text-gray-900 font-semibold md:text-lg">
                                 A quick overview of the steps required to get started with integrating with Mylapay Solutions

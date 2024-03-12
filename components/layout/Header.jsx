@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import { Dialog, Popover } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -9,9 +10,9 @@ export default function Header() {
         <header className="bg-white wrapper sticky top-0 shadow-sm z-50">
             <nav className="flex items-center justify-between py-6 px-4 sm:px-0" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <Link href="/" className="-m-1.5 p-1.5">
                         <img className="h-8 w-auto" src="https://mylapay.com/assets/img/mylapaylogo.png" alt="" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
@@ -28,28 +29,28 @@ export default function Header() {
 
 
                 <Popover.Group className="hidden lg:flex lg:items-center">
-                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href="/product-apis" className="text-sm font-semibold leading-6 text-gray-900">
                         Product APIs
-                    </a>
-                    <a href="#" className="ml-8 text-sm font-semibold leading-6 text-gray-900">
+                    </Link>
+                    <Link href="#" className="ml-8 text-sm font-semibold leading-6 text-gray-900">
                         Developer Guides
-                    </a>
-                    <a href="#" className="ml-8 mr-4 text-sm font-semibold leading-6 text-gray-900">
+                    </Link>
+                    <Link href="#" className="ml-8 mr-4 text-sm font-semibold leading-6 text-gray-900">
                         Back to Mylapay
-                    </a>
+                    </Link>
 
                     <div className='flex gap-x-3'>
-                        <a class="px-0 py-0 h_btn" href="#">
+                        <Link class="px-0 py-0 h_btn" href="#">
                             <div class="mr-1 w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
                                 <span class="relative z-10">
                                     Get in touch
                                 </span>
                             </div>
-                        </a>
+                        </Link>
 
-                        <a href="#" class="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                        <Link href="/login" class="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
                             <span class="relative z-10">Login</span>
-                        </a>
+                        </Link>
                     </div>
                 </Popover.Group>
             </nav>
@@ -69,35 +70,29 @@ export default function Header() {
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-gray-500/10">
                             <div className="space-y-2 py-6">
-                                <a
+                                <Link
                                     href="#"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white"
                                 >
-                                    Products
-                                </a>
-                                <a
+                                    Product APIs
+                                </Link>
+                                <Link
                                     href="#"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white"
                                 >
-                                    Resources
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white"
-                                >
-                                    Developer
-                                </a>
-                                <a class="px-0 py-0 h_btn" href="#">
+                                    Developer Guides
+                                </Link>
+                                <Link class="px-0 py-0 h_btn" href="#">
                                     <div class="mr-1 w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
                                         <span class="relative z-10">
                                             Get in touch
                                         </span>
                                     </div>
-                                </a>
+                                </Link>
 
-                                <a href="#" class="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                <Link href="/login" class="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
                                     <span class="relative z-10">Login</span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
