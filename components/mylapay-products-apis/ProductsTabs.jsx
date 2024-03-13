@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react'
-import ReactJson from 'react-json-view'
+// import ReactJson from 'react-json-view'
 import { GoGraph } from "react-icons/go"
 import { IoMdSwitch } from "react-icons/io"
 import { RiSecurePaymentLine } from "react-icons/ri";
@@ -225,7 +225,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -233,7 +233,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                         <div>
@@ -241,7 +241,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -249,7 +249,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +379,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -387,7 +387,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                         <div>
