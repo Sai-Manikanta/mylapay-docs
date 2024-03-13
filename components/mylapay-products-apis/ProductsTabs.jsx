@@ -1,5 +1,7 @@
+import { lazy } from "react"
 import { Tab } from '@headlessui/react'
-import ReactJson from 'react-json-view'
+// import ReactJson from 'react-json-view'
+const LazyReactJson = lazy(() => import("react-json-view"))
 import { GoGraph } from "react-icons/go"
 import { IoMdSwitch } from "react-icons/io"
 import { RiSecurePaymentLine } from "react-icons/ri";
@@ -225,7 +227,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                <ReactJson
+                                                <LazyReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -241,7 +243,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                <ReactJson
+                                                <LazyReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -379,7 +381,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                {/* <ReactJson
+                                                {/* <LazyReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -395,7 +397,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                {/* <ReactJson
+                                                {/* <LazyReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -513,7 +515,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                {/* <ReactJson
+                                                {/* <LazyReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -529,7 +531,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                {/* <ReactJson
+                                                {/* <LazyReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
