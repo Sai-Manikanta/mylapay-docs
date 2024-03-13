@@ -127,7 +127,7 @@ function ProductsTabs() {
                                             <div>
                                                 {/* <h3 className="font-semibold text-xl">Customizable</h3> */}
 
-                                                <p className="text-md text-black hover:text-bluedark">
+                                                <p className="text-md text-black ">
                                                     Seamless and secure authentication for online payments
                                                 </p>
 
@@ -153,7 +153,7 @@ function ProductsTabs() {
                                                 </svg>
                                             </span>
                                             <div>
-                                                <p className="text-md text-black hover:text-bluedark">
+                                                <p className="text-md text-black ">
                                                     Mylapay 3-D Secure (3DS) Version 2.3.1 certified by EMVCo
                                                 </p>
                                             </div>
@@ -163,12 +163,44 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Used by
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Regions
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Supported Cards
+                                        </h3>
+
+                                        <div className='inline-flex items-center gap-x-5'>
+                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
+                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
+                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                        </div>
+                                    </div>
+
+
+                                    <div className='mt-6'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                             How to start testing our APIs
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark">
+                                        <p className="text-md text-black ">
                                             Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Just fill in you login credentials on the testing page and click Send.
-
                                         </p>
                                     </div>
 
@@ -177,7 +209,7 @@ function ProductsTabs() {
                                             API Endpoints
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-2">
+                                        <p className="text-md text-black  mb-2">
                                             You need to include this URL before each URL endpoint to make API calls.
                                         </p>
 
@@ -212,11 +244,11 @@ function ProductsTabs() {
                                             JWT Headers
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-3">
+                                        <p className="text-md text-black  mb-3">
                                             Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
                                         </p>
 
-                                        <p className="text-md text-black hover:text-bluedark">
+                                        <p className="text-md text-black ">
                                             To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                                         </p>
                                     </div>
@@ -283,7 +315,7 @@ function ProductsTabs() {
                                             <div>
                                                 {/* <h3 className="font-semibold text-xl">Customizable</h3> */}
 
-                                                <p className="text-md text-black hover:text-bluedark">
+                                                <p className="text-md text-black ">
                                                     Elevate your payment experience with higher success rate
                                                 </p>
 
@@ -310,7 +342,7 @@ function ProductsTabs() {
                                                 <IoMdSwitch className="w-5 h-5" />
                                             </span>
                                             <div>
-                                                <p className="text-md text-black hover:text-bluedark">
+                                                <p className="text-md text-black ">
                                                     Mylapay Switch
                                                 </p>
                                             </div>
@@ -320,10 +352,43 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Used by
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Regions
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Supported Cards
+                                        </h3>
+
+                                        <div className='inline-flex items-center gap-x-5'>
+                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
+                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
+                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                        </div>
+                                    </div>
+
+
+                                    <div className='mt-6'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                             How to start testing our APIs
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark">
+                                        <p className="text-md text-black ">
                                             Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Just fill in you login credentials on the testing page and click Send.
                                         </p>
                                     </div>
@@ -366,11 +431,11 @@ function ProductsTabs() {
                                             JWT Headers
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-3">
+                                        <p className="text-md text-black  mb-3">
                                             Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
                                         </p>
 
-                                        <p className="text-md text-black hover:text-bluedark break-all">
+                                        <p className="text-md text-black  break-all">
                                             To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                                         </p>
                                     </div>
@@ -437,7 +502,7 @@ function ProductsTabs() {
                                             <div>
                                                 {/* <h3 className="font-semibold text-xl">Customizable</h3> */}
 
-                                                <p className="text-md text-black hover:text-bluedark">
+                                                <p className="text-md text-black ">
                                                 Simplify your Payment journey with efficient post-authorization process management
                                                 </p>
 
@@ -450,10 +515,43 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Used by
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Regions
+                                        </h3>
+
+                                        <p className="text-md text-black">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+
+                                    <div className='mt-8'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Supported Cards
+                                        </h3>
+
+                                        <div className='inline-flex items-center gap-x-5'>
+                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
+                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
+                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                        </div>
+                                    </div>
+
+
+                                    <div className='mt-6'>
+                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                             How to start testing our APIs
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark">
+                                        <p className="text-md text-black ">
                                             Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Just fill in you login credentials on the testing page and click Send.
 
                                         </p>
@@ -464,7 +562,7 @@ function ProductsTabs() {
                                             API Endpoints
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-2">
+                                        <p className="text-md text-black  mb-2">
                                             You need to include this URL before each URL endpoint to make API calls.
                                         </p>
 
@@ -477,7 +575,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-2">
+                                        <p className="text-md text-black  mb-2">
                                             Use the URL to access and initiate authentication request.
                                         </p>
 
@@ -500,11 +598,11 @@ function ProductsTabs() {
                                             JWT Headers
                                         </h3>
 
-                                        <p className="text-md text-black hover:text-bluedark mb-3">
+                                        <p className="text-md text-black  mb-3">
                                             Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
                                         </p>
 
-                                        <p className="text-md text-black hover:text-bluedark break-all">
+                                        <p className="text-md text-black  break-all">
                                             To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                                         </p>
                                     </div>
