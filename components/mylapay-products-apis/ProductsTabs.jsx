@@ -395,7 +395,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -403,7 +403,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -513,7 +513,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -521,7 +521,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                         <div>
@@ -529,7 +529,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                <ReactJson
+                                                {/* <ReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -537,7 +537,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -548,26 +548,6 @@ function ProductsTabs() {
                 </div>
             </div>
         </div>
-    )
-    return (
-        <section className="bg-[#F4F4F4] p-4">
-            <div className="wrapper bg-white py-10">
-                <div className="wrapper">
-                    <Tab.Group>
-                        <Tab.List>
-                            <Tab>Tab 1</Tab>
-                            <Tab>Tab 2</Tab>
-                            <Tab>Tab 3</Tab>
-                        </Tab.List>
-                        <Tab.Panels>
-                            <Tab.Panel>Content 1</Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
-                            <Tab.Panel>Content 3</Tab.Panel>
-                        </Tab.Panels>
-                    </Tab.Group>
-                </div>
-            </div>
-        </section>
     )
 }
 
