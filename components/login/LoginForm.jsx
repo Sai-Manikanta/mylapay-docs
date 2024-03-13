@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { countryList } from '../../data/countryList'
 
 const validationSchema = Yup.object().shape({
     companyName: Yup.string().required('Company Name is required'),
@@ -80,18 +81,30 @@ const LoginForm = () => (
 
 
                     <div className="grid gap-10 md:grid-cols-2 mb-10">
+
                         <div className="relative">
                             <Field
-                                type="text"
+                                as="select"
+                                id="country"
                                 name="country"
                                 className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                placeholder=" "
-                            />
+                            >
+                                <option value="">Choose country</option>
+                                {countryList.map(country => (
+                                    <option key={country} value={country}>
+                                        {country}
+                                    </option>
+                                ))}
+
+                                {/* <option value="Authorization">Authorization</option>
+                                <option value="Intellengine">Intellengine</option> */}
+                            </Field>
                             <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                 Country
                             </label>
                             <ErrorMessage name="country" component="div" className="text-sm mt-2 text-red" />
                         </div>
+
                         <div className="relative">
                             <Field
                                 type="text"
@@ -149,7 +162,7 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                         </div>
-                        
+
 
                         <div className="relative">
                             <Field
@@ -168,18 +181,7 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                         </div>
-
                     </div>
-
-
-
-
-
-
-
-
-
-
 
 
                     {/* Add similar Field components for other form fields */}
@@ -187,6 +189,13 @@ const LoginForm = () => (
                         <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
                             Create Account
                         </button>
+                    </div>
+
+                    <div className="mt-3 text-center font-normal">
+                        <span className="mr-2">By signing up, you agree to our </span>
+                        <a className="text-primary mt-5 hover:text-bluedark" href="#">
+                            Terms of Use &amp; Privacy Policy.
+                        </a>
                     </div>
                 </Form>
             )}

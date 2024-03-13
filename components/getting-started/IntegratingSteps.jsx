@@ -1,8 +1,4 @@
 import { CiLogin } from "react-icons/ci";
-import { MdOutlineCelebration } from "react-icons/md";
-import { AiFillThunderbolt } from "react-icons/ai";
-import { GrTest } from "react-icons/gr";
-import { FaGlobe } from "react-icons/fa";
 import { PiCodesandboxLogo } from "react-icons/pi";
 import { VscChip } from "react-icons/vsc";
 
@@ -13,7 +9,7 @@ export default function IntegrationSteps() {
                 <div className="wrapper">
                     <div className="py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                         <div className="mb-10 text-center md:mb-12">
-                            <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8 px-2">
+                            <h2 className="text-xl font-bold text-black sm:text-3xl md:text-4xl text-center mb-8 px-2">
                                 Ready to get started?
                             </h2>
 
