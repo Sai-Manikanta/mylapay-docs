@@ -383,7 +383,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                {/* <DynamicReactJson
+                                                <DynamicReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -391,7 +391,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                /> */}
+                                                />
                                             </div>
                                         </div>
                                         <div>
@@ -399,7 +399,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                {/* <DynamicReactJson
+                                                <DynamicReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -407,7 +407,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                /> */}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -517,7 +517,7 @@ function ProductsTabs() {
                                             </h3>
 
                                             <div>
-                                                {/* <DynamicReactJson
+                                                <DynamicReactJson
                                                     src={requestJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -525,7 +525,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                /> */}
+                                                />
                                             </div>
                                         </div>
                                         <div>
@@ -533,7 +533,7 @@ function ProductsTabs() {
                                                 Sample Response
                                             </h3>
                                             <div>
-                                                {/* <DynamicReactJson
+                                                <DynamicReactJson
                                                     src={responseJSON}
                                                     theme="monokai"
                                                     enableClipboard={false}
@@ -541,7 +541,7 @@ function ProductsTabs() {
                                                     displayDataTypes={false}
                                                     displayArrayKey={false}
                                                     name={false}
-                                                /> */}
+                                                />
                                             </div>
                                         </div>
                                     </div>
