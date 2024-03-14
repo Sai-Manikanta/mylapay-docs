@@ -10,11 +10,13 @@ function ChooseProducts() {
                     >
                         Choose Our Products
                     </h2>
-                    <p
-                        className="text-center mb-10 text-md lg:text-xl text-para"
-                    >
+
+
+                    <p className="text-center mb-10 text-lg text-para max-w-4xl mx-auto px-2">
                         Embark on a seamless payment journey with Mylapay, the pioneering integrated playform that simplifies your acquiring card payments with our full spectrum of product suites!
-                    </p>
+                               
+                            </p>
+                    
                 </div>
                 <div className="wrapper grid gap-5 md:gap-10 grid-cols-2 md:grid-cols-3">
                     <a href="#" className="grid gap-1 lg:gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
@@ -60,7 +62,7 @@ function ChooseProducts() {
                                 <div className="p-3 py-3 relative w-full">
                                     <div className="">
                                         <img
-                                            src="https://mylapay.com/assets/img/icons/s2.png"
+                                            src="intelleengine.png"
                                             alt="project-8"
                                             className="w-16 object-cover"
                                         />
