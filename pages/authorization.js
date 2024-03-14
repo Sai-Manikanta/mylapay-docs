@@ -1,9 +1,10 @@
 import { Inter } from "next/font/google";
 
 import Header from '../components/layout/Header'
-import Banner from '../components/authorization/Banner'
-import ProductsTabs from '../components/authorization/ProductsTabs'
-import Steps from '../components/authorization/Steps'
+import Benefits from '../components/authorization/Benefits'
+// import Banner from '../components/authorization/Banner'
+// import ProductsTabs from '../components/authorization/ProductsTabs'
+// import Steps from '../components/authorization/Steps'
 
 // import LoginForm from '../components/login/LoginForm'
 // import IntegratingSteps from '../components/getting-started/IntegratingSteps'
@@ -43,6 +44,11 @@ function Authorization() {
                     </div>
                 </div>
             </div>
+
+
+
+
+            <Benefits />
 
             {/* <Banner /> */}
 

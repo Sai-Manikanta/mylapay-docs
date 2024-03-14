@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 function ChooseProducts() {
     return (
-        <section className=" bg-[#F4F4F4] p-4">
+        <section className=" bg-[#F4F4F4] p-4 pb-0">
             <div className=" bg-white py-20 px-4 sm:px-0">
                 <div className="heading text-center max-w-4xl m-auto ">
                     <h2
