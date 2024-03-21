@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import Profitability from '../../public/Profitability.jpg'
+
 function Banner() {
     return (
         <div className="wrapper md:grid grid-cols-2 items-center py-16">
@@ -22,8 +25,8 @@ function Banner() {
 
             </div>
             <div>
-                <img
-                    src="https://mylapay.com/assets/img/banner/Profitability.jpg"
+                <Image
+                    src={Profitability}
                     alt="banner pic"
                     className="w-full"
                 />

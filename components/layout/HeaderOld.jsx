@@ -1,11 +1,14 @@
+import Image from 'next/image'
+import mylapaylogo from '../../public/mylapaylogo.png'
+
 function Header() {
     return (
         <header className="sticky top-0 shadow-sm bg-white z-50">
             <div className="wrapper flex justify-between items-center">
                 <div>
                     <a href="#">
-                        <img
-                            src="https://mylapay.com/assets/img/mylapaylogo.png"
+                        <Image
+                            src={mylapaylogo}
                             alt="logo"
                             className="h-12 my-2"
                         />

@@ -1,48 +1,25 @@
 // import { lazy } from "react"
 import { Tab } from '@headlessui/react'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 // import ReactJson from 'react-json-view'
 // const LazyReactJson = lazy(() => import("react-json-view"))
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 import { GoGraph } from "react-icons/go"
 import { IoMdSwitch } from "react-icons/io"
 import { RiSecurePaymentLine } from "react-icons/ri";
+import visaCardIcon from "../../public/visa-card-icon.png"
+import masterCardIcon from '../../public/master-card-icon.png'
+import rupayCardIcon from '../../public/rupay-card-icon.png'
+
 
 const requestJSON = {
-    "menu": {
-        "id": "file",
-        "value": "File",
-        "popup": {
-            "menuitem": [
-                { "value": "New", "onclick": "CreateNewDoc()" },
-                { "value": "Open", "onclick": "OpenDoc()" },
-                { "value": "Close", "onclick": "CloseDoc()" }
-            ]
-        }
-    }
+    "username": "username",
+    "password": "password"
 }
 
 const responseJSON = {
-    "glossary": {
-        "title": "example glossary",
-        "GlossDiv": {
-            "title": "S",
-            "GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-                    "SortAs": "SGML",
-                    "GlossTerm": "Standard Generalized Markup Language",
-                    "Acronym": "SGML",
-                    "Abbrev": "ISO 8879:1986",
-                    "GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-                        "GlossSeeAlso": ["GML", "XML"]
-                    },
-                    "GlossSee": "markup"
-                }
-            }
-        }
-    }
+    "token": ""
 }
 
 function ProductsTabs() {
@@ -61,6 +38,108 @@ function ProductsTabs() {
                                 Find the solution that best suits your needs. Browse through Mylapay Products and choose the one or multiple products that right for your business.
                             </p>
                         </div>
+
+
+
+                        <div className='my-8'>
+                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                API Endpoints
+                            </h3>
+
+                            <p className="text-md text-black mb-2">
+                                You need to include this URL before each URL endpoint to make API calls.
+                            </p>
+
+                            <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
+                                <div className='py-2 px-4 sm:border-r'>
+                                    Sandbox API URL
+                                </div>
+                                <div className='py-2 px-4 flex-grow text-primary'>
+                                    https://transactions.mylapay.com/v1
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div className='my-8'>
+                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                JWT Headers
+                            </h3>
+
+                            <p className="text-md text-black  mb-3">
+                                Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
+                            </p>
+
+                            <p className="text-md text-black ">
+                                To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
+                            </p>
+                        </div>
+
+
+
+                        <div className='my-8 grid sm:grid-cols-2 gap-4'>
+                            <div>
+                                <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                    Sample Request
+                                </h3>
+
+                                <div>
+                                    <DynamicReactJson
+                                        src={requestJSON}
+                                        theme="monokai"
+                                        enableClipboard={false}
+                                        displayObjectSize={false}
+                                        displayDataTypes={false}
+                                        displayArrayKey={false}
+                                        name={false}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                    Sample Response
+                                </h3>
+                                <div>
+                                    <DynamicReactJson
+                                        src={responseJSON}
+                                        theme="monokai"
+                                        enableClipboard={false}
+                                        displayObjectSize={false}
+                                        displayDataTypes={false}
+                                        displayArrayKey={false}
+                                        name={false}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div className='my-8'>
+                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                Token Format
+                            </h3>
+
+                            <p className="text-md text-black  mb-3">
+                                JWT tokens used for authentication should be signed using the HS256 algorithm
+                            </p>
+                        </div>
+
+
+                        <div className='my-8'>
+                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                Verifying a JWT token
+                            </h3>
+
+                            <p className="text-md text-black  mb-3">
+                                The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for X days. If a JWT token is invalid or has expired, the API server will return Unauthorized response. If a client sends an invalid or expired JWT token, the API server will return Unauthorized response with the following JSON body: <span style={{ color: 'crimson' }}>{JSON.stringify({ "error": "Invalid or expired token" })}</span>
+                            </p>
+                        </div>
+
+
 
 
                         <Tab.Group>
@@ -163,38 +242,38 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Used by
+                                            Used by
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            Payment Acquiring Banks, Merchants, and Payment Aggregators.
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Regions
+                                            Regions
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            This API is available globally.
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Supported Cards
+                                            Supported Cards
                                         </h3>
 
                                         <div className='inline-flex items-center gap-x-5'>
-                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
-                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
-                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                            <Image src={visaCardIcon} width={80} alt="Visa card icon" className='h-20' />
+                                            <Image src={masterCardIcon} width={70} alt="Master card icon" className='h-16' />
+                                            <Image src={rupayCardIcon} height={64} width={140} alt="Rupay card icon" className='h-16 -mt-6' />
                                         </div>
                                     </div>
 
 
-                                    <div className='mt-6'>
+                                    {/* <div className='mt-6'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                             How to start testing our APIs
                                         </h3>
@@ -202,14 +281,14 @@ function ProductsTabs() {
                                         <p className="text-md text-black ">
                                             Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Just fill in you login credentials on the testing page and click Send.
                                         </p>
-                                    </div>
+                                    </div> */}
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            API Endpoints
+                                            API URL
                                         </h3>
 
-                                        <p className="text-md text-black  mb-2">
+                                        {/* <p className="text-md text-black  mb-2">
                                             You need to include this URL before each URL endpoint to make API calls.
                                         </p>
 
@@ -220,9 +299,9 @@ function ProductsTabs() {
                                             <div className='py-2 px-4 flex-grow text-primary'>
                                                 https://transactions.mylapay.com/v1
                                             </div>
-                                        </div>
+                                        </div> */}
 
-                                        
+
 
                                         <p className="text-md text-black mb-2">
                                             Use the URL to access and initiate authorization and reversal request.
@@ -241,20 +320,20 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            JWT Headers
+                                            API specifications
                                         </h3>
 
                                         <p className="text-md text-black  mb-3">
-                                            Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
+                                            The API specification precisely defines the required parameters for both initiating a request and receiving a response in the 3-D Secure Authentication process. It serves as a comprehensive guide, outlining the specific data elements essential for a successful authentication exchange.
                                         </p>
 
-                                        <p className="text-md text-black ">
+                                        {/* <p className="text-md text-black ">
                                             To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
-                                        </p>
+                                        </p> */}
                                     </div>
 
 
-                                    <div className='mt-8 grid sm:grid-cols-2 gap-4'>
+                                    {/* <div className='mt-8 grid sm:grid-cols-2 gap-4'>
                                         <div>
                                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                                 Sample Request
@@ -288,7 +367,7 @@ function ProductsTabs() {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                 </Tab.Panel>
                                 <Tab.Panel>
@@ -310,7 +389,7 @@ function ProductsTabs() {
                                                         clipRule="evenodd"
                                                     />
                                                 </svg> */}
-                                                <GoGraph className="w-5 h-5" /> 
+                                                <GoGraph className="w-5 h-5" />
                                             </span>
                                             <div>
                                                 {/* <h3 className="font-semibold text-xl">Customizable</h3> */}
@@ -352,38 +431,38 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Used by
+                                            Used by
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            Payment Acquiring Banks, Merchants, and Payment Aggregators
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Regions
+                                            Regions
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            This API is available globally
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Supported Cards
+                                            Supported Cards
                                         </h3>
 
                                         <div className='inline-flex items-center gap-x-5'>
-                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
-                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
-                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                            <Image src={visaCardIcon} width={80} alt="Visa card icon" className='h-20' />
+                                            <Image src={masterCardIcon} width={70} alt="Master card icon" className='h-16' />
+                                            <Image src={rupayCardIcon} height={64} width={140} alt="Rupay card icon" className='h-16 -mt-6' />
                                         </div>
                                     </div>
 
 
-                                    <div className='mt-6'>
+                                    {/* <div className='mt-6'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                             How to start testing our APIs
                                         </h3>
@@ -391,14 +470,14 @@ function ProductsTabs() {
                                         <p className="text-md text-black ">
                                             Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Just fill in you login credentials on the testing page and click Send.
                                         </p>
-                                    </div>
+                                    </div> */}
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            API Endpoints
+                                            API URL
                                         </h3>
 
-                                        <p className="text-md text-black mb-2">
+                                        {/* <p className="text-md text-black mb-2">
                                             You need to include this URL before each URL endpoint to make API calls.
                                         </p>
 
@@ -409,7 +488,7 @@ function ProductsTabs() {
                                             <div className='py-2 px-4 flex-grow text-primary'>
                                                 https://transactions.mylapay.com/v1
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <p className="text-md text-black mb-2">
                                             Use the URL to access and initiate authorization and reversal request.
@@ -428,20 +507,20 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            JWT Headers
+                                            API specifications
                                         </h3>
 
                                         <p className="text-md text-black  mb-3">
-                                            Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
+                                            For ISO switch Authorization & Reversal request {"<>"} response for card payment transactions of Visa, MasterCard and Rupay networks.
                                         </p>
 
-                                        <p className="text-md text-black  break-all">
+                                        {/* <p className="text-md text-black  break-all">
                                             To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
-                                        </p>
+                                        </p> */}
                                     </div>
 
 
-                                    <div className='mt-8 grid sm:grid-cols-2 gap-4'>
+                                    {/* <div className='mt-8 grid sm:grid-cols-2 gap-4'>
                                         <div>
                                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                                 Sample Request
@@ -475,7 +554,7 @@ function ProductsTabs() {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </Tab.Panel>
                                 <Tab.Panel>
                                     <div className="grid md:grid-cols-1 mt-4 max-w-xl">
@@ -503,45 +582,45 @@ function ProductsTabs() {
                                                 {/* <h3 className="font-semibold text-xl">Customizable</h3> */}
 
                                                 <p className="text-md text-black ">
-                                                Simplify your Payment journey with efficient post-authorization process management
+                                                    Simplify your Payment journey with efficient post-authorization process management
                                                 </p>
 
 
                                             </div>
                                         </div>
-                                       
+
                                     </div>
 
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Used by
+                                            Used by
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Regions
+                                            Regions
                                         </h3>
 
                                         <p className="text-md text-black">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            This API is available globally.
                                         </p>
                                     </div>
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        Supported Cards
+                                            Supported Cards
                                         </h3>
 
                                         <div className='inline-flex items-center gap-x-5'>
-                                            <img src="visa-card-icon.png" alt="Visa card icon" className='h-20' />
-                                            <img src="master-card-icon.png" alt="Master card icon" className='h-16' />
-                                            <img src="rupay-card-icon.png" alt="Rupay card icon" className='h-16 -mt-6' />
+                                            <Image src={visaCardIcon} width={80} alt="Visa card icon" className='h-20' />
+                                            <Image src={masterCardIcon} width={70} alt="Master card icon" className='h-16' />
+                                            <Image src={rupayCardIcon} height={64} width={140} alt="Rupay card icon" className='h-16 -mt-6' />
                                         </div>
                                     </div>
 
@@ -559,10 +638,10 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            API Endpoints
+                                            API URLs
                                         </h3>
 
-                                        <p className="text-md text-black  mb-2">
+                                        {/* <p className="text-md text-black  mb-2">
                                             You need to include this URL before each URL endpoint to make API calls.
                                         </p>
 
@@ -573,21 +652,73 @@ function ProductsTabs() {
                                             <div className='py-2 px-4 flex-grow text-primary'>
                                                 https://transactions.mylapay.com/v1
                                             </div>
+                                        </div> */}
+
+                                        <div>
+                                            <p className="text-md text-black  mb-2">
+                                                Use the URL to access for Capture the transactions.
+                                            </p>
+
+                                            <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
+                                                <div className='py-2 px-4 sm:border-r'>
+                                                    Capture API URL
+
+                                                </div>
+                                                <div className='py-2 px-4 flex-grow break-all'>
+                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/capture
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <p className="text-md text-black  mb-2">
-                                            Use the URL to access and initiate authentication request.
-                                        </p>
 
+                                        <div className='mt-6'>
+                                            <p className="text-md text-black  mb-2">
+                                                Use the URL to access for refund the transactions
+                                            </p>
 
-                                        <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
-                                            <div className='py-2 px-4 sm:border-r'>
-                                                Example
-                                            </div>
-                                            <div className='py-2 px-4 flex-grow break-all'>
-                                                <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_secure
+                                            <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
+                                                <div className='py-2 px-4 sm:border-r'>
+                                                    Refund API URL
+                                                </div>
+                                                <div className='py-2 px-4 flex-grow break-all'>
+                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/refund
+                                                </div>
                                             </div>
                                         </div>
+
+                                        
+
+                                        <div className='mt-6'>
+                                            <p className="text-md text-black  mb-2">
+                                                Use the URL to access for Void the Transactions
+                                            </p>
+
+                                            <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
+                                                <div className='py-2 px-4 sm:border-r'>
+                                                Void API URL
+                                                </div>
+                                                <div className='py-2 px-4 flex-grow break-all'>
+                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/void
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='mt-6'>
+                                            <p className="text-md text-black  mb-2">
+                                                Use the URL to access for Reversal the transactions.
+                                            </p>
+
+                                            <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
+                                                <div className='py-2 px-4 sm:border-r'>
+                                                Reversal API URL
+                                                </div>
+                                                <div className='py-2 px-4 flex-grow break-all'>
+                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/reversal
+                                                </div>
+                                            </div>
+                                        </div>
+
 
 
                                     </div>
@@ -595,20 +726,18 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                            JWT Headers
+                                        API specifications
                                         </h3>
 
                                         <p className="text-md text-black  mb-3">
-                                            Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the Authentication header for each request.
+                                        For Capture, Refund, Reversal, Void for the API request {"<>"} response for card payment transactions of Visa, MasterCard and Rupay networks.
                                         </p>
 
-                                        <p className="text-md text-black  break-all">
-                                            To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
-                                        </p>
+                                        
                                     </div>
 
 
-                                    <div className='mt-8 grid sm:grid-cols-2 gap-4'>
+                                    {/* <div className='mt-8 grid sm:grid-cols-2 gap-4'>
                                         <div>
                                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                                 Sample Request
@@ -642,7 +771,7 @@ function ProductsTabs() {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </Tab.Panel>
                             </Tab.Panels>
                         </Tab.Group>

@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import Profitability from '../../public/Profitability.jpg'
 
 function Banner() {
     return (
@@ -27,8 +29,8 @@ function Banner() {
 
             </div>
             <div>
-                <img
-                    src="https://mylapay.com/assets/img/banner/Profitability.jpg"
+                <Image
+                    src={Profitability}
                     alt="banner pic"
                     className="w-full"
                 />

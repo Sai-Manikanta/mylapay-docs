@@ -1,4 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import dataSecurity from '../../public/data-security.png'
+import fingerprint from '../../public/fingerprint.png'
+import intelleengine from '../../public/intelleengine.png'
 
 function ChooseProducts() {
     return (
@@ -24,8 +28,8 @@ function ChooseProducts() {
                             <div className=" bg-white rounded-md ">
                                 <div className="p-3 py-3 relative w-full">
                                     <div className="">
-                                        <img
-                                            src="fingerprint.png"
+                                        <Image
+                                            src={fingerprint}
                                             alt="project-8"
                                             className="w-16 object-cover"
                                         />
@@ -42,8 +46,8 @@ function ChooseProducts() {
                             <div className=" bg-white rounded-md">
                                 <div className="p-3 py-3 relative w-full">
                                     <div className="">
-                                        <img
-                                            src="data-security.png"
+                                        <Image
+                                            src={dataSecurity}
                                             alt="project-8"
                                             className="w-16 object-cover"
                                         />
@@ -61,8 +65,8 @@ function ChooseProducts() {
                             <div className=" bg-white rounded-md">
                                 <div className="p-3 py-3 relative w-full">
                                     <div className="">
-                                        <img
-                                            src="intelleengine.png"
+                                        <Image
+                                            src={intelleengine}
                                             alt="project-8"
                                             className="w-16 object-cover"
                                         />

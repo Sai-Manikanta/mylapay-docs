@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import FRM from '../../public/FRM.jpg'
+
 function BannerBottom() {
     // <section className="bg-[#F4F4F4] p-4">
     return (
@@ -5,8 +8,8 @@ function BannerBottom() {
             <div className="bg-white">
                 <div className="wrapper md:grid grid-cols-2 items-center py-16 ">
                     <div>
-                        <img
-                            src="https://mylapay.com/assets/img/banner/FRM.jpg"
+                        <Image
+                            src={FRM}
                             alt="banner pic"
                             className="w-full"
                         />

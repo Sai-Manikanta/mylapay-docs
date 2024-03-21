@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Dialog, Popover } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import mylapaylogo from '../../public/mylapaylogo.png'
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -12,7 +14,7 @@ export default function Header() {
                 <nav className="flex items-center justify-between py-6 px-4 sm:px-0" aria-label="Global">
                     <div className="flex lg:flex-1">
                         <Link href="/" className="-m-1.5 p-1.5">
-                            <img className="h-8 w-auto" src="https://mylapay.com/assets/img/mylapaylogo.png" alt="" />
+                            <Image className="h-8 w-auto" src={mylapaylogo} alt="" />
                         </Link>
                     </div>
                     <div className="flex lg:hidden">

@@ -1,3 +1,10 @@
+import Image from 'next/image'
+import mylapaylogoW from '../../public//mylapaylogoW.png'
+import pciSssCertified from '../../public/pci-dss_certified.png'
+import so1 from '../../public/so1.png'
+import so3 from '../../public/so3.png'
+import so4 from '../../public/so4.png'
+
 function Footer() {
     return (
         <footer className=" bg-[#000] px-8 lg:px-0">
@@ -6,14 +13,14 @@ function Footer() {
                     <div className="grid gap-y-10 gap-x-4 py-14 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-9 lg:py-[100px]">
                         <div className="col-span-2 sm:col-span-1 xl:col-span-2">
                             <a target="_blank" className="group" href="#">
-                                <img
+                                <Image
                                     className="max-w-[150px] sm:max-w-[150px] xl:max-w-[150px] m-auto sm:ml-0 mb-3"
-                                    src="https://mylapay.com/assets/img/mylapaylogoW.png"
+                                    src={mylapaylogoW}
                                     alt="Mylapay"
                                 />
-                                <img
+                                <Image
                                     className="max-w-[100px] sm:max-w-[100px] xl:max-w-[100px] m-auto sm:ml-0"
-                                    src="https://mylapay.com/assets/img/pci-dss_certified.png"
+                                    src={pciSssCertified}
                                     alt="Pci-dss"
                                 />
                             </a>
@@ -289,9 +296,9 @@ function Footer() {
                                                     className="group social"
                                                     href="https://www.facebook.com/mylapay?mibextid=9R9pXO"
                                                 >
-                                                    <img
+                                                    <Image
                                                         className=" icon"
-                                                        src="https://mylapay.com/assets/img/icons/so1.png"
+                                                        src={so1}
                                                         alt="facebook"
                                                     />
                                                 </a>
@@ -302,9 +309,9 @@ function Footer() {
                                                     className="group social"
                                                     href="https://www.linkedin.com/company/mylapay/mycompany/"
                                                 >
-                                                    <img
+                                                    <Image
                                                         className=" icon"
-                                                        src="https://mylapay.com/assets/img/icons/so3.png"
+                                                        src={so3}
                                                         alt="linkedin"
                                                     />
                                                 </a>
@@ -315,9 +322,9 @@ function Footer() {
                                                     className="group social"
                                                     href="https://www.youtube.com/@mylapay6480"
                                                 >
-                                                    <img
+                                                    <Image
                                                         className=" icon"
-                                                        src="https://mylapay.com/assets/img/icons/so4.png"
+                                                        src={so4}
                                                         alt="youtube"
                                                     />
                                                 </a>
