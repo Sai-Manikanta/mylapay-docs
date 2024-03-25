@@ -29,7 +29,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Flexible Integration</span><br />
+                                    <span className="font-bold text-bluelight">Flexible Integration</span><br />
                                     Seamlessly integrate into your existing payment system with our APIs
                                 </h3>
                             </div>
@@ -45,7 +45,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Enhanced Fraud Protection</span><br />
+                                    <span className="font-bold text-bluelight">Enhanced Fraud Protection</span><br />
                                     Reduces the risk of fraudulent transactions by leveraging additional verification
                                 </h3>
                             </div>
@@ -61,7 +61,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Increased Transaction Approvals</span><br />
+                                    <span className="font-bold text-bluelight">Increased Transaction Approvals</span><br />
                                     Legitimate transactions are approved, leading to fewer transactions to decline
                                 </h3>
                             </div>

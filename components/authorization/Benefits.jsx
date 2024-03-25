@@ -29,7 +29,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Increased payment success rate</span><br />
+                                    <span className="font-bold text-bluelight">Increased payment success rate</span><br />
                                     Seamless transaction processing assures high payment success rates.
                                 </h3>
                             </div>
@@ -44,7 +44,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Secure environment</span><br />
+                                    <span className="font-bold text-bluelight">Secure environment</span><br />
                                     PCI-DSS compliant and compatible with Visa, Mastercard and Rupay networks.
                                 </h3>
                             </div>
@@ -59,7 +59,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">High Availability</span><br />
+                                    <span className="font-bold text-bluelight">High Availability</span><br />
                                     Exceptional reliability with an impressive 99.99% uptime.
                                 </h3>
                             </div>
@@ -74,7 +74,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Proactive risk assessment</span><br />
+                                    <span className="font-bold text-bluelight">Proactive risk assessment</span><br />
 
                                     Robust architecture prevents fraudulent activities.
                                 </h3>
@@ -91,7 +91,7 @@ function Benefits() {
                                     />
                                 </div>
                                 <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                    <span class="font-bold text-bluelight">Improved decision-making</span><br />
+                                    <span className="font-bold text-bluelight">Improved decision-making</span><br />
 
                                     Key data points provided additionally for better authorization success.
                                 </h3>

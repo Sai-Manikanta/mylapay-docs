@@ -1,10 +1,9 @@
-"use client";
+// "use client";
 
 import Head from 'next/head'
 import Sidebar from '../components/sandbox/Sidebar'
 
 function sandbox() {
-    console.log("HELLO")
     return (
         <div>
             <Head>

@@ -24,7 +24,7 @@ export default function Header() {
                             onClick={() => setMobileMenuOpen(true)}
                         >
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary lg:hidden">
-                                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-white"><path d="M2 15H11C11.552 15 12 15.447 12 16C12 16.553 11.552 17 11 17H2C1.448 17 1 16.553 1 16C1 15.447 1.448 15 2 15Z" fill="currentColor"></path><path d="M2 8H20C20.552 8 21 8.447 21 9C21 9.553 20.552 10 20 10H2C1.448 10 1 9.553 1 9C1 8.447 1.448 8 2 8Z" fill="currentColor"></path><path d="M21 2C21 1.447 20.552 1 20 1H7C6.448 1 6 1.447 6 2C6 2.553 6.448 3 7 3H20C20.552 3 21 2.553 21 2Z" fill="currentColor"></path>
+                                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white"><path d="M2 15H11C11.552 15 12 15.447 12 16C12 16.553 11.552 17 11 17H2C1.448 17 1 16.553 1 16C1 15.447 1.448 15 2 15Z" fill="currentColor"></path><path d="M2 8H20C20.552 8 21 8.447 21 9C21 9.553 20.552 10 20 10H2C1.448 10 1 9.553 1 9C1 8.447 1.448 8 2 8Z" fill="currentColor"></path><path d="M21 2C21 1.447 20.552 1 20 1H7C6.448 1 6 1.447 6 2C6 2.553 6.448 3 7 3H20C20.552 3 21 2.553 21 2Z" fill="currentColor"></path>
                                 </svg>
                             </div>
                         </button>
@@ -43,16 +43,16 @@ export default function Header() {
                         </Link>
 
                         <div className='flex gap-x-3'>
-                            <Link class="px-0 py-0 h_btn" href="#">
-                                <div class="mr-1 w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                    <span class="relative z-10">
+                            <Link className="px-0 py-0 h_btn" href="#">
+                                <div className="mr-1 w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                    <span className="relative z-10">
                                         Get in touch
                                     </span>
                                 </div>
                             </Link>
 
-                            <Link href="/login" class="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                <span class="relative z-10">Login</span>
+                            <Link href="/login" className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                <span className="relative z-10">Login</span>
                             </Link>
                         </div>
                     </Popover.Group>
@@ -85,16 +85,16 @@ export default function Header() {
                                     >
                                         Developer Guides
                                     </Link>
-                                    <Link class="px-0 py-0 h_btn" href="#">
-                                        <div class="mr-1 w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                            <span class="relative z-10">
+                                    <Link className="px-0 py-0 h_btn" href="#">
+                                        <div className="mr-1 w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3  font-bold text-white rounded-md bg-bluelight hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                            <span className="relative z-10">
                                                 Get in touch
                                             </span>
                                         </div>
                                     </Link>
 
-                                    <Link href="/login" class="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                        <span class="relative z-10">Login</span>
+                                    <Link href="/login" className="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                        <span className="relative z-10">Login</span>
                                     </Link>
                                 </div>
                             </div>

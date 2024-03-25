@@ -147,9 +147,9 @@ function ProductsTabs() {
                                 <Tab className="outline-none">
                                     {({ selected }) => (
                                         /* Use the `selected` state to conditionally style the selected tab. */
-                                        <div class="px-0 py-0">
-                                            <div class={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                                <span class="relative z-10 select-none">
+                                        <div className="px-0 py-0">
+                                            <div className={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                                <span className="relative z-10 select-none">
                                                     Authentication
                                                 </span>
                                             </div>
@@ -159,9 +159,9 @@ function ProductsTabs() {
                                 <Tab className="outline-none">
                                     {({ selected }) => (
                                         /* Use the `selected` state to conditionally style the selected tab. */
-                                        <div class="px-0 py-0">
-                                            <div class={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8 font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                                <span class="relative z-10 select-none">
+                                        <div className="px-0 py-0">
+                                            <div className={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8 font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                                <span className="relative z-10 select-none">
                                                     Authorization
                                                 </span>
                                             </div>
@@ -171,9 +171,9 @@ function ProductsTabs() {
                                 <Tab className="outline-none">
                                     {({ selected }) => (
                                         /* Use the `selected` state to conditionally style the selected tab. */
-                                        <div class="px-0 py-0">
-                                            <div class={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                                <span class="relative z-10 select-none">
+                                        <div className="px-0 py-0">
+                                            <div className={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                                <span className="relative z-10 select-none">
                                                     IntelleEngine
                                                 </span>
                                             </div>

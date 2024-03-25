@@ -27,8 +27,8 @@ export default function IntegrationSteps() {
                                     <CiLogin className="w-12 h-12 text-white sm:w-10 sm:h-10" />
                                 </div>
 
-                                <h2 class="text-2xl font-bold text-center mb-2 text-bluedark">Step 1</h2>
-                                <p class="text-center text-black text-lg">
+                                <h2 className="text-2xl font-bold text-center mb-2 text-bluedark">Step 1</h2>
+                                <p className="text-center text-black text-lg">
                                 Create your Developers Login
                                 </p>
 
@@ -74,8 +74,8 @@ export default function IntegrationSteps() {
                                     </svg> */}
                                     <VscChip className="w-10 h-10 text-white" />
                                 </div>
-                                <h2 class="text-2xl font-bold text-center mb-2 text-bluedark">Step 2</h2>
-                                <p class="text-center text-black text-lg">
+                                <h2 className="text-2xl font-bold text-center mb-2 text-bluedark">Step 2</h2>
+                                <p className="text-center text-black text-lg">
                                     Choose our Products
                                 </p>
                                 <div className="top-0 right-0 flex items-center justify-center h-24 lg:-mr-8 lg:absolute">
@@ -107,8 +107,8 @@ export default function IntegrationSteps() {
                                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-primary sm:w-20 sm:h-20">
                                     <PiCodesandboxLogo className="w-10 h-10 text-white" />
                                 </div>
-                                <h2 class="text-2xl font-bold text-center mb-2 text-bluedark">Step 3</h2>
-                                <p class="text-center text-black text-lg">
+                                <h2 className="text-2xl font-bold text-center mb-2 text-bluedark">Step 3</h2>
+                                <p className="text-center text-black text-lg">
                                     Test APIs on Sandbox environment
                                 </p>
                             </div>

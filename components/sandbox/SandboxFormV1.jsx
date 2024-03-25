@@ -7,15 +7,15 @@ import { useRouter } from 'next/router';
 // import { countryList } from '../../data/countryList'
 
 const validationSchema = Yup.object().shape({
-    apiURLs: Yup.string().required('apiURL is required'),
-    OrganizationID: Yup.string().required('Organization ID is required').length(10, 'Organization ID must be exactly 10 characters'),
-    // lastName: Yup.string().required('Last Name is required'),
-    // country: Yup.string().required('Country is required'),
-    // city: Yup.string().required('City is required'),
-    // pincode: Yup.number().required('Pincode is required'),
-    // email: Yup.string().email('Invalid email').required('Email ID is required'),
-    // mobileNumber: Yup.string().required('Mobile Number is required'),
-    // productOfInterest: Yup.string().required('Product of Interest is required'),
+    apiURLs: Yup.string().required('Company Name is required'),
+    OrganizationID: Yup.string().required('First Name is required'),
+    lastName: Yup.string().required('Last Name is required'),
+    country: Yup.string().required('Country is required'),
+    city: Yup.string().required('City is required'),
+    pincode: Yup.number().required('Pincode is required'),
+    email: Yup.string().email('Invalid email').required('Email ID is required'),
+    mobileNumber: Yup.string().required('Mobile Number is required'),
+    productOfInterest: Yup.string().required('Product of Interest is required'),
 });
 
 const data = {
@@ -48,8 +48,7 @@ const data = {
 const SandboxForm = () => {
     const router = useRouter();
     const { query } = router;
-    const [intialFormData, setIntialFormData] = useState(null);
-    const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
+    const [intialFormData, setIntialFormData] = useState(null)
 
     // console.log(query)
 
@@ -63,15 +62,6 @@ const SandboxForm = () => {
             setIntialFormData(data[query?.api])
         }
     }, [data[query?.api]])
-
-
-    const validateOrganisationId = (value) => {
-        if(value.length === 10){
-            setOrganizationIDValidationStatus("success");
-        } else {
-            setOrganizationIDValidationStatus("failed");
-        }
-    }
 
 
     return (
@@ -96,13 +86,13 @@ const SandboxForm = () => {
                         ContentType: intialFormData?.Header?.contentType,
                         vcMerchantId: intialFormData?.Header?.vcMerchantId,
                     }}
-                    validationSchema={validationSchema}
+                    // validationSchema={validationSchema}
                     onSubmit={(values) => {
                         // Handle form submission here
                         console.log(values);
                     }}
                 >
-                    {({ errors, touched, setFieldError, handleChange }) => (
+                    {({ errors, touched, handleChange }) => (
                         <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-1 mb-6">
                                 <div className="relative">
@@ -129,31 +119,12 @@ const SandboxForm = () => {
                                             type="text"
                                             name="OrganizationID"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            // placeholder=" "
-                                            validateOnChange={true}
-                                            validate={(value) => {
-                                                // Custom validation logic for the fieldName field
-                                                let errorMessage;
-                                                if (!value) {
-                                                    errorMessage = 'Organization ID is required';
-                                                } else if (value.length !== 10) {
-                                                    errorMessage = 'Organization ID must be exactly 10 characters';
-                                                }
-                                                return errorMessage;
-                                            }}
+                                            placeholder=" "
                                             onChange={(event) => {
-                                                const { name, value } = event.target;
-
+                                                // const { name, value } = event.target;
                                                 // console.log(`Field "${name}" value changed to: ${value}`);
 
-                                                if (value.length >= 10) {
-                                                    validateOrganisationId(value)
-                                                }
-
-                                                // else if(value.length > 10){
-                                                //     setFieldError(name, 'Organization ID must be exactly 10 characters');
-                                                // }
-
+                                                // if()
                                                 handleChange(event)
                                             }}
                                         />
@@ -161,14 +132,6 @@ const SandboxForm = () => {
                                             Organization ID
                                         </label>
                                         <ErrorMessage name="OrganizationID" component="div" className="text-sm mt-2 text-red" />
-
-                                        {organizationIDValidationStatus === "success" && (
-                                            <span className='bg-[#22C55E]'>DONE</span>
-                                        )}
-
-                                        {organizationIDValidationStatus === "failed" && (
-                                            <span className='bg-[#F43F5E]'>Failed</span>
-                                        )}
                                     </div>
                                     <div className="relative">
                                         <Field
