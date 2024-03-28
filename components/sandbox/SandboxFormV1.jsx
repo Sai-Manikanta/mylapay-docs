@@ -109,8 +109,6 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-
-
                             <div>
                                 <h2 className='mb-6'>Configuration</h2>
                                 <div className="grid gap-10 md:grid-cols-2 mb-6">
@@ -147,8 +145,6 @@ const SandboxForm = () => {
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div>
                                 <h2 className='mb-6'>Header</h2>
@@ -193,8 +189,6 @@ const SandboxForm = () => {
                                     </div>
                                 </div>
                             </div>
-
-
 
                             {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
                             <div className="relative">

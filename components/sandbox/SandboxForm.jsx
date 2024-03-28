@@ -1,21 +1,14 @@
-// "use client";
-
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
-// import { countryList } from '../../data/countryList'
+import dynamic from 'next/dynamic'
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
+const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
-    apiURLs: Yup.string().required('apiURL is required'),
     OrganizationID: Yup.string().required('Organization ID is required').length(10, 'Organization ID must be exactly 10 characters'),
-    // lastName: Yup.string().required('Last Name is required'),
-    // country: Yup.string().required('Country is required'),
-    // city: Yup.string().required('City is required'),
-    // pincode: Yup.number().required('Pincode is required'),
-    // email: Yup.string().email('Invalid email').required('Email ID is required'),
-    // mobileNumber: Yup.string().required('Mobile Number is required'),
-    // productOfInterest: Yup.string().required('Product of Interest is required'),
+    browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
 });
 
 const data = {
@@ -50,59 +43,304 @@ const SandboxForm = () => {
     const { query } = router;
     const [intialFormData, setIntialFormData] = useState(null);
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
-
-    // console.log(query)
-
-    // const intialFormData = data[query.api];
-
-    // console.log(intialFormData)
+    const [parametersData, setParametersData] = useState([
+        {
+            id: 1,
+            fieldCategory: false,
+            fields: [
+                {
+                    name: 'Partner Id',
+                    type: 'text',
+                    status: 'mandate',
+                    checked: true,
+                    value: '7359368922'
+                },
+                {
+                    name: 'deviceChannel',
+                    type: 'text',
+                    status: 'mandate',
+                    checked: true,
+                    value: 'Device 2302'
+                }
+            ]
+        },
+        {
+            id: 2,
+            fieldCategory: true,
+            fieldCategoryName: 'Browser Info',
+            fields: [
+                {
+                    name: 'browserIP',
+                    type: 'text',
+                    status: 'conditionally required',
+                    checked: false,
+                    value: ''
+                },
+                {
+                    name: 'browserJavaEnabled',
+                    type: 'text',
+                    status: 'mandate',
+                    checked: true,
+                    value: 'Yes'
+                }
+            ]
+        },
+        {
+            id: 3,
+            fieldCategory: true,
+            fieldCategoryName: 'Billing Info',
+            fields: [
+                {
+                    name: 'billAddrCity',
+                    type: 'text',
+                    status: 'conditionally',
+                    checked: false,
+                    value: ''
+                },
+                {
+                    name: 'billAddrCountry',
+                    type: 'text',
+                    status: 'conditionally',
+                    checked: false,
+                    value: ''
+                }
+            ]
+        }
+    ]);
+    const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState({});
+    const [responseData, setResponseData] = useState(null);
 
 
     useEffect(() => {
         if (data[query?.api]) {
             setIntialFormData(data[query?.api])
+
+            // CHANGES
+            setOrganizationIDValidationStatus("pending");
+            setResponseData(null);
+            setSelectedSandboxTestCodes({})
+            setParametersData([
+                {
+                    id: 1,
+                    fieldCategory: false,
+                    fields: [
+                        {
+                            name: 'Partner Id',
+                            type: 'text',
+                            status: 'mandate',
+                            checked: true,
+                            value: '7359368922'
+                        },
+                        {
+                            name: 'deviceChannel',
+                            type: 'text',
+                            status: 'mandate',
+                            checked: true,
+                            value: 'Device 2302'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    fieldCategory: true,
+                    fieldCategoryName: 'Browser Info',
+                    fields: [
+                        {
+                            name: 'browserIP',
+                            type: 'text',
+                            status: 'conditionally required',
+                            checked: false,
+                            value: ''
+                        },
+                        {
+                            name: 'browserJavaEnabled',
+                            type: 'text',
+                            status: 'mandate',
+                            checked: true,
+                            value: 'Yes'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    fieldCategory: true,
+                    fieldCategoryName: 'Billing Info',
+                    fields: [
+                        {
+                            name: 'billAddrCity',
+                            type: 'text',
+                            status: 'conditionally',
+                            checked: false,
+                            value: ''
+                        },
+                        {
+                            name: 'billAddrCountry',
+                            type: 'text',
+                            status: 'conditionally',
+                            checked: false,
+                            value: ''
+                        }
+                    ]
+                }
+            ])
         }
     }, [data[query?.api]])
 
 
+    useEffect(() => {
+        const selectedData = parametersData.reduce(function (total, currentValue) {
+            if (!currentValue.fieldCategory) {
+                currentValue.fields.forEach(item => {
+                    if (item.checked) {
+                        total[item.name] = item.value;
+                    }
+                });
+            } else {
+
+                total = {
+                    ...total,
+                    [currentValue.fieldCategoryName]: currentValue.fields.reduce(function (totalObj, currentValue) {
+                        if (currentValue.checked) {
+                            totalObj[currentValue.name] = currentValue.value
+                        }
+
+                        return totalObj
+                    }, {})
+                }
+            }
+
+            return total;
+
+        }, {})
+
+
+        setSelectedSandboxTestCodes(selectedData);
+    }, [parametersData])
+
+
     const validateOrganisationId = (value) => {
-        if(value.length === 10){
+        if (value.length === 10) {
             setOrganizationIDValidationStatus("success");
+        } else if (value.length < 10) {
+            setOrganizationIDValidationStatus("pending");
         } else {
             setOrganizationIDValidationStatus("failed");
         }
     }
 
+    const handleReset = () => {
+        setParametersData([
+            {
+                id: 1,
+                fieldCategory: false,
+                fields: [
+                    {
+                        name: 'Partner Id',
+                        type: 'text',
+                        status: 'mandate',
+                        checked: true,
+                        value: '7359368922'
+                    },
+                    {
+                        name: 'deviceChannel',
+                        type: 'text',
+                        status: 'mandate',
+                        checked: true,
+                        value: 'Device 2302'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                fieldCategory: true,
+                fieldCategoryName: 'Browser Info',
+                fields: [
+                    {
+                        name: 'browserIP',
+                        type: 'text',
+                        status: 'conditionally required',
+                        checked: false,
+                        value: ''
+                    },
+                    {
+                        name: 'browserJavaEnabled',
+                        type: 'text',
+                        status: 'mandate',
+                        checked: true,
+                        value: 'Yes'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                fieldCategory: true,
+                fieldCategoryName: 'Billing Info',
+                fields: [
+                    {
+                        name: 'billAddrCity',
+                        type: 'text',
+                        status: 'conditionally',
+                        checked: false,
+                        value: ''
+                    },
+                    {
+                        name: 'billAddrCountry',
+                        type: 'text',
+                        status: 'conditionally',
+                        checked: false,
+                        value: ''
+                    }
+                ]
+            }
+        ])
+    }
+
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
-
-            {/* <p>{JSON.stringify(intialFormData)}</p> */}
-
-            {/* <p>{data[query?.api]}</p> */}
-
             {intialFormData && (
                 <Formik
                     key={intialFormData?.apiUrl}
                     initialValues={{
-                        // intialFormData?.apiUrl
                         apiURLs: intialFormData?.apiUrl,
-                        // Configuration fields
-                        // OrganizationID: intialFormData?.configuration?.OrganizationID,
+                        laptop: false,
+                        browserIP: false,
                         OrganizationID: '',
                         SecretKey: intialFormData?.configuration?.SecretKey,
-                        // Headers
                         host: intialFormData?.Header?.host,
                         ContentType: intialFormData?.Header?.contentType,
                         vcMerchantId: intialFormData?.Header?.vcMerchantId,
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
+                    onSubmit={(values, { setFieldError }) => {
                         // Handle form submission here
-                        console.log(values);
+                        console.log({ ...values, ...selectedSandboxTestCodes });
+
+                        // Set response data if request successfull
+                        setResponseData({
+                            statusCode: 200,
+                            description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+                            response: {
+                                status: "success",
+                                data: {
+                                    id: 12345,
+                                    name: "John Doe",
+                                    email: "john.doe@example.com"
+                                }
+                            },
+                            header: {
+                                Status: "200 OK",
+                                Date: "Fri, 25 Mar 2024 12:00:00 GMT",
+                                Server: "Apache",
+                                ['Content-Type']: "application/json",
+                                ['Content-Length']: "56",
+                                Connection: "close"
+                            }
+                        })
+
                     }}
                 >
-                    {({ errors, touched, setFieldError, handleChange }) => (
+                    {({ setFieldValue, handleChange }) => (
                         <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-1 mb-6">
                                 <div className="relative">
@@ -119,8 +357,6 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-
-
                             <div>
                                 <h2 className='mb-6'>Configuration</h2>
                                 <div className="grid gap-10 md:grid-cols-2 mb-6">
@@ -129,10 +365,8 @@ const SandboxForm = () => {
                                             type="text"
                                             name="OrganizationID"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            // placeholder=" "
                                             validateOnChange={true}
                                             validate={(value) => {
-                                                // Custom validation logic for the fieldName field
                                                 let errorMessage;
                                                 if (!value) {
                                                     errorMessage = 'Organization ID is required';
@@ -144,15 +378,7 @@ const SandboxForm = () => {
                                             onChange={(event) => {
                                                 const { name, value } = event.target;
 
-                                                // console.log(`Field "${name}" value changed to: ${value}`);
-
-                                                if (value.length >= 10) {
-                                                    validateOrganisationId(value)
-                                                }
-
-                                                // else if(value.length > 10){
-                                                //     setFieldError(name, 'Organization ID must be exactly 10 characters');
-                                                // }
+                                                validateOrganisationId(value)
 
                                                 handleChange(event)
                                             }}
@@ -160,14 +386,13 @@ const SandboxForm = () => {
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Organization ID
                                         </label>
-                                        <ErrorMessage name="OrganizationID" component="div" className="text-sm mt-2 text-red" />
-
+                                       
                                         {organizationIDValidationStatus === "success" && (
-                                            <span className='bg-[#22C55E]'>DONE</span>
+                                            <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
 
                                         {organizationIDValidationStatus === "failed" && (
-                                            <span className='bg-[#F43F5E]'>Failed</span>
+                                            <FaCircleXmark className='text-[#F43F5E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
                                     </div>
                                     <div className="relative">
@@ -184,8 +409,6 @@ const SandboxForm = () => {
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div>
                                 <h2 className='mb-6'>Header</h2>
@@ -231,166 +454,188 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
+                            <div>
+                                <div className="grid gap-10 md:grid-cols-2 mb-10">
+                                    <div className='bg-bggray p-4 rounded'>
+                                        <h2 className='mb-4'>Request Parameter</h2>
+                                        <div>
+                                            {parametersData.map((parameter, i) => {
+                                                return (
+                                                    <div key={i} className='mb-4'>
+                                                        {parameter?.fieldCategory && (
+                                                            <h3 className='text-bluedark'>
+                                                                {parameter?.fieldCategoryName}
+                                                            </h3>
+                                                        )}
 
+                                                        {parameter?.fields.map((field, index) => {
+                                                            return (
+                                                                <div key={index} className='flex items-center'>
+                                                                    <Field
+                                                                        type="checkbox"
+                                                                        name={field?.name}
+                                                                        className="rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                                                        checked={field?.checked}
+                                                                        id={field?.name}
+                                                                        disabled={organizationIDValidationStatus != 'success'}
+                                                                        onChange={e => {
+                                                                            setParametersData(prevData => {
+                                                                                const updatedData = prevData.map(item => {
+                                                                                    if (item.id === parameter.id) {
+                                                                                        const updatedFields = parameter.fields.map(fi => {
+                                                                                            if (fi.name === field?.name) {
 
-                            {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
-                            <div className="relative">
-                                <Field
-                                    type="textarea"
-                                    name="firstName"
-                                    className="w-full h-20 rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
+                                                                                                setFieldValue(field?.name, e.target.checked);
 
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Request Parameter
-                                </label>
-                                <ErrorMessage name="firstName" component="div" className="text-sm mt-2 text-red" />
+                                                                                                return {
+                                                                                                    ...fi,
+                                                                                                    checked: e.target.checked,
+                                                                                                }
+                                                                                            }
+
+                                                                                            return fi;
+                                                                                        })
+
+                                                                                        return {
+                                                                                            ...item,
+                                                                                            fields: updatedFields
+                                                                                        }
+                                                                                    }
+
+                                                                                    return item;
+                                                                                })
+
+                                                                                return updatedData;
+                                                                            })
+                                                                        }}
+                                                                    />
+                                                                    <label className="px-2 font-normal left-3 text-sm text-para text-nowrap">
+                                                                        {field?.name} {field.status === 'conditionally required' ? '*' : ''}
+                                                                    </label>
+
+                                                                    {field.status === 'conditionally required' && (
+                                                                        <ErrorMessage name={field?.name} component="div" className="text-sm text-red" />
+                                                                    )}
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    <div className='bg-bggray p-4 rounded'>
+                                        <h2 className='mb-4'>Sandbox Test Codes</h2>
+
+                                        {organizationIDValidationStatus === 'success' && (
+                                            <p className='text-sm mb-5'>
+                                                To edit a value, hover your mouse cursor over the target value and click on the displayed edit icon button
+                                            </p>
+                                        )}
+
+                                        {selectedSandboxTestCodes['Browser Info']?.browserIP === "" && (
+                                            <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
+                                        )}
+
+                                        <div>
+                                            <DynamicReactJson
+                                                src={selectedSandboxTestCodes}
+                                                theme="monokai"
+                                                enableClipboard={false}
+                                                displayObjectSize={false}
+                                                displayDataTypes={false}
+                                                displayArrayKey={false}
+                                                name={false}
+                                                onEdit={organizationIDValidationStatus != 'success' ? false : (edit) => {
+                                                    setParametersData(prevData => {
+                                                        const newData = prevData.map(item => {
+                                                            const newItem = { ...item };
+                                                            const fieldIndex = newItem.fields.findIndex(field => field.name === edit.name);
+                                                            if (fieldIndex !== -1) {
+                                                                newItem.fields[fieldIndex] = {
+                                                                    ...newItem.fields[fieldIndex],
+                                                                    value: edit.new_value
+                                                                };
+                                                            }
+                                                            return newItem;
+                                                        });
+
+                                                        return newData;
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="relative">
-                                <Field
-                                    type="text"
-                                    name="lastName"
-                                    className="w-full h-20 rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Sandbox Test Codes
-                                </label>
-                                <ErrorMessage name="lastName" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-                        </div> */}
 
-
-
-                            {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
-    
-                            <div className="relative">
-                                <Field
-                                    as="select"
-                                    id="country"
-                                    name="country"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                >
-                                    <option value="">Choose country</option>
-                                    {countryList.map(country => (
-                                        <option key={country} value={country}>
-                                            {country}
-                                        </option>
-                                    ))}
-    
-                                    
-                                </Field>
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Country
-                                </label>
-                                <ErrorMessage name="country" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-    
-                            <div className="relative">
-                                <Field
-                                    type="text"
-                                    name="city"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    City
-                                </label>
-                                <ErrorMessage name="city" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-                        </div> */}
-
-
-                            {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
-                            <div className="relative">
-                                <Field
-                                    type="text"
-                                    name="pincode"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Pincode
-                                </label>
-                                <ErrorMessage name="pincode" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-                            <div className="relative">
-                                <Field
-                                    type="text"
-                                    name="email"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Email
-                                </label>
-                                <ErrorMessage name="email" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-                        </div> */}
-
-
-
-                            {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
-                            <div className="relative">
-                                <Field
-                                    type="text"
-                                    name="mobileNumber"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    placeholder=" "
-                                />
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Mobile Number
-                                </label>
-                                <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-    
-    
-                            <div className="relative">
-                                <Field
-                                    as="select"
-                                    id="productOfInterest"
-                                    name="productOfInterest"
-                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                >
-                                    <option value="">Select Product of Interest</option>
-                                    <option value="Authentication">Authentication</option>
-                                    <option value="Authorization">Authorization</option>
-                                    <option value="Intellengine">Intellengine</option>
-                                </Field>
-                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                    Product of Interest
-                                </label>
-                                <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
-                            </div>
-                        </div> */}
-
-
-                            {/* Add similar Field components for other form fields */}
                             <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
-                                <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6">
+                                <button type="submit" disabled={organizationIDValidationStatus != 'success' || selectedSandboxTestCodes['Browser Info']?.browserIP === ""} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
                                     Send
                                 </button>
-                                <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
+                                <button onClick={handleReset} disabled={organizationIDValidationStatus != 'success'} type="button" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray disabled:text-black">
                                     Reset
                                 </button>
                             </div>
-
-                            {/* <div className="mt-3 text-center font-normal">
-                            <span className="mr-2">By signing up, you agree to our </span>
-                            <a className="text-primary mt-5 hover:text-bluedark" href="#">
-                                Terms of Use &amp; Privacy Policy.
-                            </a>
-                        </div> */}
                         </Form>
                     )}
                 </Formik>
             )}
 
+            {responseData && (
+                <div className='px-4 py-8 lg:px-8'>
+                    <div className='flex gap-x-4'>
+                        <span className='text-bluedark mb-4 block'>Status Codes</span>
+                        <span className='text-[#22C55E]'>
+                            {responseData.statusCode}
+                        </span>
+                    </div>
+
+                    <div className='mb-4'>
+                        <span className='text-bluedark mb-1 block'>Description</span>
+                        <span className='text-sm'>
+                            {responseData.description}
+                        </span>
+                    </div>
+
+                    <div className="grid gap-10 md:grid-cols-2 mb-6 ">
+                        <div className='bg-bggray p-4 rounded'>
+                            <h2 className='mb-3'>Response</h2>
+
+                            <div>
+                                <DynamicReactJson
+                                    src={responseData.response}
+                                    theme="monokai"
+                                    enableClipboard={false}
+                                    displayObjectSize={false}
+                                    displayDataTypes={false}
+                                    displayArrayKey={false}
+                                    name={false}
+                                />
+                            </div>
+                        </div>
+
+                        <div className='bg-bggray p-4 rounded'>
+                            <h2 className='mb-3'>Header</h2>
+
+                            <div>
+                                <DynamicReactJson
+                                    src={responseData.header}
+                                    theme="monokai"
+                                    enableClipboard={false}
+                                    displayObjectSize={false}
+                                    displayDataTypes={false}
+                                    displayArrayKey={false}
+                                    name={false}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
-
-
 
 export default SandboxForm;
