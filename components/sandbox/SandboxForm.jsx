@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
+import { IoMdInformationCircle } from "react-icons/io";
+import { Popover } from '@headlessui/react'
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
@@ -52,6 +54,9 @@ const SandboxForm = () => {
                     name: 'Partner Id',
                     type: 'text',
                     status: 'mandate',
+                    dataType: 'String',
+                    lengthAndType: 'Fixed ans-6',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: true,
                     value: '7359368922'
                 },
@@ -59,6 +64,9 @@ const SandboxForm = () => {
                     name: 'deviceChannel',
                     type: 'text',
                     status: 'mandate',
+                    dataType: 'String',
+                    lengthAndType: 'Indicates the type of channel interface being used to',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: true,
                     value: 'Device 2302'
                 }
@@ -73,6 +81,9 @@ const SandboxForm = () => {
                     name: 'browserIP',
                     type: 'text',
                     status: 'conditionally required',
+                    dataType: 'Number',
+                    lengthAndType: 'Variable n - 45',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: false,
                     value: ''
                 },
@@ -80,6 +91,9 @@ const SandboxForm = () => {
                     name: 'browserJavaEnabled',
                     type: 'text',
                     status: 'mandate',
+                    dataType: 'Boolean',
+                    lengthAndType: 'Fixed ans-61 Max',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: true,
                     value: 'Yes'
                 }
@@ -94,6 +108,9 @@ const SandboxForm = () => {
                     name: 'billAddrCity',
                     type: 'text',
                     status: 'conditionally',
+                    dataType: 'String',
+                    lengthAndType: 'Variable ans - ',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: false,
                     value: ''
                 },
@@ -101,6 +118,9 @@ const SandboxForm = () => {
                     name: 'billAddrCountry',
                     type: 'text',
                     status: 'conditionally',
+                    dataType: 'String',
+                    lengthAndType: 'Fixed ans-6',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                     checked: false,
                     value: ''
                 }
@@ -128,6 +148,9 @@ const SandboxForm = () => {
                             name: 'Partner Id',
                             type: 'text',
                             status: 'mandate',
+                            dataType: 'String',
+                            lengthAndType: 'Fixed ans-6',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: true,
                             value: '7359368922'
                         },
@@ -135,6 +158,9 @@ const SandboxForm = () => {
                             name: 'deviceChannel',
                             type: 'text',
                             status: 'mandate',
+                            dataType: 'String',
+                            lengthAndType: 'Indicates the type of channel interface being used to',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: true,
                             value: 'Device 2302'
                         }
@@ -149,6 +175,9 @@ const SandboxForm = () => {
                             name: 'browserIP',
                             type: 'text',
                             status: 'conditionally required',
+                            dataType: 'Number',
+                            lengthAndType: 'Fixed ans-6',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: false,
                             value: ''
                         },
@@ -156,6 +185,9 @@ const SandboxForm = () => {
                             name: 'browserJavaEnabled',
                             type: 'text',
                             status: 'mandate',
+                            dataType: 'Boolean',
+                            lengthAndType: 'Fixed ans-61 Max',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: true,
                             value: 'Yes'
                         }
@@ -170,6 +202,9 @@ const SandboxForm = () => {
                             name: 'billAddrCity',
                             type: 'text',
                             status: 'conditionally',
+                            dataType: 'String',
+                            lengthAndType: 'Variable ans - ',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: false,
                             value: ''
                         },
@@ -177,6 +212,9 @@ const SandboxForm = () => {
                             name: 'billAddrCountry',
                             type: 'text',
                             status: 'conditionally',
+                            dataType: 'String',
+                            lengthAndType: 'Fixed ans-6',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                             checked: false,
                             value: ''
                         }
@@ -238,6 +276,9 @@ const SandboxForm = () => {
                         name: 'Partner Id',
                         type: 'text',
                         status: 'mandate',
+                        dataType: 'String',
+                        lengthAndType: 'Fixed ans-6',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: true,
                         value: '7359368922'
                     },
@@ -245,6 +286,9 @@ const SandboxForm = () => {
                         name: 'deviceChannel',
                         type: 'text',
                         status: 'mandate',
+                        dataType: 'String',
+                        lengthAndType: 'Indicates the type of channel interface being used to',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: true,
                         value: 'Device 2302'
                     }
@@ -256,9 +300,14 @@ const SandboxForm = () => {
                 fieldCategoryName: 'Browser Info',
                 fields: [
                     {
+
+                        // IP address of the Browser as returned by the HTTP headers to the 3DS Requestor. Required, If deviceChannel field 02 - BRW 
                         name: 'browserIP',
                         type: 'text',
                         status: 'conditionally required',
+                        dataType: 'Number',
+                        lengthAndType: 'Variable n - 45',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: false,
                         value: ''
                     },
@@ -266,6 +315,9 @@ const SandboxForm = () => {
                         name: 'browserJavaEnabled',
                         type: 'text',
                         status: 'mandate',
+                        dataType: 'Boolean',
+                        lengthAndType: 'Fixed ans-61 Max',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: true,
                         value: 'Yes'
                     }
@@ -280,6 +332,9 @@ const SandboxForm = () => {
                         name: 'billAddrCity',
                         type: 'text',
                         status: 'conditionally',
+                        dataType: 'String',
+                        lengthAndType: 'Variable ans',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: false,
                         value: ''
                     },
@@ -287,6 +342,9 @@ const SandboxForm = () => {
                         name: 'billAddrCountry',
                         type: 'text',
                         status: 'conditionally',
+                        dataType: 'String',
+                        lengthAndType: 'Fixed ans-6',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
                         checked: false,
                         value: ''
                     }
@@ -386,7 +444,7 @@ const SandboxForm = () => {
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Organization ID
                                         </label>
-                                       
+
                                         {organizationIDValidationStatus === "success" && (
                                             <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
@@ -460,6 +518,7 @@ const SandboxForm = () => {
                                         <h2 className='mb-4'>Request Parameter</h2>
                                         <div>
                                             {parametersData.map((parameter, i) => {
+
                                                 return (
                                                     <div key={i} className='mb-4'>
                                                         {parameter?.fieldCategory && (
@@ -467,6 +526,11 @@ const SandboxForm = () => {
                                                                 {parameter?.fieldCategoryName}
                                                             </h3>
                                                         )}
+
+
+
+
+
 
                                                         {parameter?.fields.map((field, index) => {
                                                             return (
@@ -509,9 +573,55 @@ const SandboxForm = () => {
                                                                             })
                                                                         }}
                                                                     />
-                                                                    <label className="px-2 font-normal left-3 text-sm text-para text-nowrap">
-                                                                        {field?.name} {field.status === 'conditionally required' ? '*' : ''}
-                                                                    </label>
+
+                                                                    <div className='flex items-center'>
+                                                                        <label className="px-2 font-normal left-3 text-sm text-para text-nowrap">
+                                                                            {field?.name} {field.status === 'conditionally required' ? '*' : ''}
+                                                                        </label>
+
+
+                                                                        <Popover className="relative">
+                                                                            <Popover.Button disabled={organizationIDValidationStatus != 'success'} className='disabled:text-para outline-none'>
+                                                                                <IoMdInformationCircle />
+                                                                            </Popover.Button>
+
+                                                                            {/* name: 'billAddrCountry',
+                                                                                type: 'text',
+                                                                                status: 'conditionally',
+                                                                                dataType: 'String',
+                                                                                lengthAndType: 'Fixed ans-6',
+                                                                                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat', 
+                                                                            */}
+
+                                                                            <Popover.Panel className="absolute z-10 bg-white shadow rounded block sm:w-96 p-6">
+                                                                                <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                    <span className='font-semibold mr-2'>Field Name:</span>
+                                                                                    {field?.name}
+                                                                                </h2>
+                                                                                <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                    <span className='font-semibold mr-2'>Data Type:</span>
+                                                                                    <span className='bg-primary inline-block px-4 py-1 text-sm rounded'>
+                                                                                        {field?.dataType}
+                                                                                    </span>
+                                                                                </h2>
+                                                                                <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                    <span className='font-semibold mr-2'>Type:</span>
+                                                                                    <span className='capitalize'>{field?.status}</span>
+                                                                                </h2>
+                                                                                <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                    <span className='font-semibold mr-2'>Length and Type:</span>
+                                                                                    {field?.lengthAndType}
+                                                                                </h2>
+                                                                                <span className='font-semibold mb-2'>Definition</span>
+                                                                                <p>{field.description}</p>
+                                                                            </Popover.Panel>
+                                                                        </Popover>
+
+                                                                        {/* <button type='button' disabled={organizationIDValidationStatus != 'success'} className='disabled:text-para'>
+                                                                            <IoMdInformationCircle />
+                                                                        </button> */}
+                                                                    </div>
+
 
                                                                     {field.status === 'conditionally required' && (
                                                                         <ErrorMessage name={field?.name} component="div" className="text-sm text-red" />
