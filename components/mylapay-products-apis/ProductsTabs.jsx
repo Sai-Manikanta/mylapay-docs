@@ -31,7 +31,7 @@ function ProductsTabs() {
 
                         <div className="mb-10 text-center md:mb-14">
                             <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8 px-2">
-                                Mylapay Product APIs
+                                API Endpoints and Specification
                             </h2>
 
                             <p className="text-center mb-10 text-lg text-para max-w-4xl mx-auto px-2">
@@ -686,7 +686,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <div className='mt-6'>
                                             <p className="text-md text-black  mb-2">
@@ -695,7 +695,7 @@ function ProductsTabs() {
 
                                             <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
                                                 <div className='py-2 px-4 sm:border-r'>
-                                                Void API URL
+                                                    Void API URL
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
                                                     <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/void
@@ -711,7 +711,7 @@ function ProductsTabs() {
 
                                             <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
                                                 <div className='py-2 px-4 sm:border-r'>
-                                                Reversal API URL
+                                                    Reversal API URL
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
                                                     <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/reversal
@@ -726,14 +726,14 @@ function ProductsTabs() {
 
                                     <div className='mt-8'>
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                        API specifications
+                                            API specifications
                                         </h3>
 
                                         <p className="text-md text-black  mb-3">
-                                        For Capture, Refund, Reversal, Void for the API request {"<>"} response for card payment transactions of Visa, MasterCard and Rupay networks.
+                                            For Capture, Refund, Reversal, Void for the API request {"<>"} response for card payment transactions of Visa, MasterCard and Rupay networks.
                                         </p>
 
-                                        
+
                                     </div>
 
 

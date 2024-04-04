@@ -648,7 +648,7 @@ const SandboxForm = () => {
                                             <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
                                         )}
 
-                                        <div>
+                                        <div className='relative'>
                                             <DynamicReactJson
                                                 src={selectedSandboxTestCodes}
                                                 theme="monokai"
@@ -675,6 +675,24 @@ const SandboxForm = () => {
                                                     });
                                                 }}
                                             />
+
+                                            <button
+                                                className='py-1 px-4 rounded-sm text-sm bg-white text-bluedark absolute top-5 right-5'
+                                                type="button"
+                                                onClick={() => {
+                                                    const jsonData = JSON.stringify(selectedSandboxTestCodes);
+
+                                                    navigator.clipboard.writeText(jsonData)
+                                                        .then(() => {
+                                                            // console.log('JSON data copied to clipboard');
+                                                        })
+                                                        .catch((error) => {
+                                                            console.error('Failed to copy JSON data: ', error);
+                                                        });
+                                                }}
+                                            >
+                                                COPY
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -702,18 +720,18 @@ const SandboxForm = () => {
                         </span>
                     </div>
 
-                    <div className='mb-4'>
+                    {/* <div className='mb-4'>
                         <span className='text-bluedark mb-1 block'>Description</span>
                         <span className='text-sm'>
                             {responseData.description}
                         </span>
-                    </div>
+                    </div> */}
 
                     <div className="grid gap-10 md:grid-cols-2 mb-6 ">
                         <div className='bg-bggray p-4 rounded'>
                             <h2 className='mb-3'>Response</h2>
 
-                            <div>
+                            <div className='relative'>
                                 <DynamicReactJson
                                     src={responseData.response}
                                     theme="monokai"
@@ -723,10 +741,37 @@ const SandboxForm = () => {
                                     displayArrayKey={false}
                                     name={false}
                                 />
+
+                                <button
+                                    className='py-1 px-4 rounded-sm text-sm bg-white text-bluedark absolute top-5 right-5'
+                                    type="button"
+                                    onClick={() => {
+                                        const jsonData = JSON.stringify(responseData.response);
+
+                                        navigator.clipboard.writeText(jsonData)
+                                            .then(() => {
+                                                // console.log('JSON data copied to clipboard');
+                                            })
+                                            .catch((error) => {
+                                                console.error('Failed to copy JSON data: ', error);
+                                            });
+                                    }}
+                                >
+                                    COPY
+                                </button>
                             </div>
+
+
                         </div>
 
                         <div className='bg-bggray p-4 rounded'>
+                            <h2 className='mb-3'>Description</h2>
+                            <span className='text-sm'>
+                                {responseData.description}
+                            </span>
+                        </div>
+
+                        {/* <div className='bg-bggray p-4 rounded'>
                             <h2 className='mb-3'>Header</h2>
 
                             <div>
@@ -740,7 +785,7 @@ const SandboxForm = () => {
                                     name={false}
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             )}

@@ -23,10 +23,10 @@ function ChooseProducts() {
                     
                 </div>
                 <div className="wrapper grid gap-5 md:gap-10 grid-cols-2 md:grid-cols-3">
-                    <a href="#" className="grid gap-1 lg:gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
+                    <Link href="/authentication" className="grid gap-1 lg:gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
                         <div className="max-w-[300px] m-auto ">
                             <div className=" bg-white rounded-md ">
-                                <div className="p-3 py-3 relative w-full">
+                                <div className="p-3 py-0 relative w-full">
                                     <div className="">
                                         <Image
                                             src={fingerprint}
@@ -40,11 +40,11 @@ function ChooseProducts() {
                         <p className="text-sm font-bold text-black leading-[24px]">
                             Authentication
                         </p>
-                    </a>
-                    <a href="#" className="grid gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
+                    </Link>
+                    <Link href="/authorization" className="grid gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
                         <div className="max-w-[300px] m-auto">
                             <div className=" bg-white rounded-md">
-                                <div className="p-3 py-3 relative w-full">
+                                <div className="p-3 py-0 relative w-full">
                                     <div className="">
                                         <Image
                                             src={dataSecurity}
@@ -58,12 +58,12 @@ function ChooseProducts() {
                         <p className="text-sm font-bold text-black leading-[24px]">
                             Authorization
                         </p>
-                    </a>
+                    </Link>
                     {/* public\fingerprint.png */}
-                    <a href="#" className="grid gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
+                    <Link href="#" className="grid gap-3 text-center py-5 shadow-md bg-white rounded-lg hover:shadow-xl transition hover:scale-110 border border-[#f1f1f1]">
                         <div className="max-w-[300px] m-auto">
                             <div className=" bg-white rounded-md">
-                                <div className="p-3 py-3 relative w-full">
+                                <div className="p-3 py-0 relative w-full">
                                     <div className="">
                                         <Image
                                             src={intelleengine}
@@ -77,7 +77,7 @@ function ChooseProducts() {
                         <p className="text-sm font-bold text-black leading-[24px]">
                             Intellengine
                         </p>
-                    </a>
+                    </Link>
                 </div>
 
                 <Link href="/product-apis">

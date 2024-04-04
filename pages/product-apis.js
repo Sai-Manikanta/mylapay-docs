@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Header from '../components/layout/Header'
 import Banner from '../components/mylapay-products-apis/Banner'
 import ProductsTabs from '../components/mylapay-products-apis/ProductsTabs'
-import Steps from '../components/mylapay-products-apis/Steps'
+// import Steps from '../components/mylapay-products-apis/Steps'
 
 // import LoginForm from '../components/login/LoginForm'
 // import IntegratingSteps from '../components/getting-started/IntegratingSteps'
@@ -22,7 +22,7 @@ function MylapayProductApis() {
 
             <ProductsTabs />
 
-            <Steps />
+            {/* <Steps /> */}
 
 
 

@@ -20,9 +20,9 @@ function Banner() {
                             <span className="relative z-10 text-[13px] py-4">Products</span>
                         </button>
                     </a>
-                    <Link href="/login">
+                    <Link href="/signup">
                     <button className="mt-7 mx-3 font-semibold px-5 pr-6 w-52 text-white text-center text-sm rounded-md bg-bluelight hover:before:bg-bluedark relative h-[50px] overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase btn_2">
-                        <span className="relative z-10 text-[13px] py-4 ">Login</span>
+                        <span className="relative z-10 text-[13px] py-4 ">signup</span>
                     </button>
                     </Link>
                 </div>
