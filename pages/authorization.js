@@ -42,9 +42,6 @@ function Authorization() {
                 </div>
             </div>
 
-
-
-
             <Benefits />
 
             <Support />

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { IoMdInformationCircle } from "react-icons/io";
 import { Popover } from '@headlessui/react'
+import 'react-toastify/dist/ReactToastify.css';
+
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
@@ -684,6 +687,8 @@ const SandboxForm = () => {
 
                                                     navigator.clipboard.writeText(jsonData)
                                                         .then(() => {
+                                                            toast("Copied");
+                                                            // alert('COPIED');
                                                             // console.log('JSON data copied to clipboard');
                                                         })
                                                         .catch((error) => {
@@ -750,6 +755,8 @@ const SandboxForm = () => {
 
                                         navigator.clipboard.writeText(jsonData)
                                             .then(() => {
+                                                toast("Copied")
+                                                // alert('COPIED')
                                                 // console.log('JSON data copied to clipboard');
                                             })
                                             .catch((error) => {
@@ -789,6 +796,7 @@ const SandboxForm = () => {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </div>
     );
 }
