@@ -40,6 +40,15 @@ module.exports = {
     extend: {
       animation: {
         'spin-slow': 'spin 5s linear infinite',
+        'typewriter': "typewriter 2s steps(11) forwards"
+
+      },
+      keyframes: {
+        typewriter: {
+          to: {
+            left: "100%"
+          }
+        }
       },
       typography: ({ theme }) => ({
         DEFAULT: {

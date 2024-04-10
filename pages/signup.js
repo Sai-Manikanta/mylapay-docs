@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 
 import Header from '../components/layout/Header'
 import Banner from '../components/login/Banner'
+import AccessSteps from '../components/login/AccessSteps'
 // import LoginForm from '../components/login/LoginForm'
 // import IntegratingSteps from '../components/getting-started/IntegratingSteps'
 // import AccessSteps from '../components/getting-started/AccessSteps'
@@ -15,6 +16,7 @@ function Home() {
   return (
     <div className={`${inter.className}`}>
       <Header />
+      <AccessSteps />
       <Banner />
         
       {/* <IntegratingSteps />
