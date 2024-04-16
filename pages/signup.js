@@ -17,7 +17,7 @@ function Home() {
     <div className={`${inter.className}`}>
       <Header />
       <AccessSteps />
-      <Banner />
+      {/* <Banner /> */}
         
       {/* <IntegratingSteps />
       <AccessSteps />

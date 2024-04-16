@@ -1,11 +1,12 @@
 import { TypeAnimation } from 'react-type-animation';
+import LoginForm from './LoginForm'
 // import Link from 'next/link'
 
 export default function AccessSteps() {
     return (
-        <div className="bg-[#F4F4F4] p-4 pb-0">
+        <div className="bg-[#F4F4F4] p-4">
             <div className="bg-white">
-                <div className="wrapper">
+                <div className="wrapper pb-4">
                     <div className="py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                         <div className="mb-10 text-center md:mb-0">
 
@@ -95,6 +96,7 @@ export default function AccessSteps() {
                             </p> */}
                         </div>
                     </div>
+                    <LoginForm />
                 </div>
             </div>
         </div>

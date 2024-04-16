@@ -60,7 +60,7 @@ function ProductsTabs() {
                             </div>
                         </div>
 
-                        {/* <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                        {/* <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                 JWT Headers
@@ -73,7 +73,7 @@ function ProductsTabs() {
                         </div> */}
 
 
-                        <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                        <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                     JWT Headers
@@ -140,7 +140,7 @@ function ProductsTabs() {
                         </div>
 
 
-                        <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                        <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                     Token Format
@@ -163,7 +163,7 @@ function ProductsTabs() {
                         </div> */}
 
 
-                        <div className="mx-auto my-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                        <div className="mx-auto my-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                     Verifying a JWT token
@@ -290,7 +290,7 @@ function ProductsTabs() {
                                     </div>
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                                 Used by
@@ -302,7 +302,7 @@ function ProductsTabs() {
                                         </div>
                                     </div>
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                                 Regions
@@ -379,7 +379,7 @@ function ProductsTabs() {
 
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             API specifications
@@ -531,7 +531,7 @@ function ProductsTabs() {
 
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             Used by
@@ -546,7 +546,7 @@ function ProductsTabs() {
 
                                     
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                                 Regions
@@ -615,7 +615,7 @@ function ProductsTabs() {
 
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             API specifications
@@ -703,7 +703,7 @@ function ProductsTabs() {
 
 
                                     
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             Used by
@@ -718,7 +718,7 @@ function ProductsTabs() {
 
                                   
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                                 Regions
@@ -743,7 +743,7 @@ function ProductsTabs() {
                                     </div>
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             How to start testing our APIs
@@ -839,14 +839,11 @@ function ProductsTabs() {
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                     </div>
 
 
 
-                                    <div className="mx-auto mt-8 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                    <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                         <div>
                                             <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                             API specifications

@@ -26,9 +26,9 @@ function ProductsTabs() {
                             <Tab className="outline-none">
                                 {({ selected }) => (
                                     /* Use the `selected` state to conditionally style the selected tab. */
-                                    <div className="px-0 py-0 hover:scale-105 transition-transform duration-300 ease-in-out">
-                                        <div className={`mr-4 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                            <span className="relative z-10 select-none">
+                                    <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
+                                        <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                            <span className="text-xs sm:text-sm relative z-10 select-none">
                                                 Authentication
                                             </span>
                                         </div>
@@ -38,9 +38,9 @@ function ProductsTabs() {
                             <Tab className="outline-none">
                                 {({ selected }) => (
                                     /* Use the `selected` state to conditionally style the selected tab. */
-                                    <div className="px-0 py-0 hover:scale-105 transition-transform duration-300 ease-in-out">
-                                        <div className={`mr-4 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8 font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                            <span className="relative z-10 select-none">
+                                    <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
+                                        <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8 font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                            <span className="text-xs sm:text-sm relative z-10 select-none">
                                                 Authorization
                                             </span>
                                         </div>
@@ -50,9 +50,9 @@ function ProductsTabs() {
                             <Tab className="outline-none">
                                 {({ selected }) => (
                                     /* Use the `selected` state to conditionally style the selected tab. */
-                                    <div className="px-0 py-0 hover:scale-105 transition-transform duration-300 ease-in-out">
-                                        <div className={`mr-1 w-fit text-[12px] py-3 px-2 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
-                                            <span className="relative z-10 select-none">
+                                    <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
+                                        <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
+                                            <span className="text-xs sm:text-sm relative z-10 select-none">
                                                 IntelleEngine
                                             </span>
                                         </div>
@@ -60,16 +60,16 @@ function ProductsTabs() {
                                 )}
                             </Tab>
                         </Tab.List>
-                        <Tab.Panels className="py-4">
+                        <Tab.Panels className="p-4 bg-white sm:bg-[#f1f1f1] border-t-2 border-primary">
                             <Tab.Panel>
 
-                                <div className="mx-auto mt-6 p-4 bg-[#f8fafc] border-l-4 border-primary">
+                                <div className="mx-auto mt-6 p-4 bg-white sm:bg-[#f8fafc] border-l-4 border-primary">
                                     <div>
                                         <h2 className="text-xl font-bold text-bluedark sm:text-xl md:text-xl mb-4">
                                             What is Mylapay Secure?
                                         </h2>
 
-                                        <p className=" text-para mx-auto">
+                                        <p className=" text-para px-4 sm:px-0 mx-auto">
                                             Mylapay 3-D Secure Authentication 2.3.1.1 powered by EMVCo empowers both cardholders and merchants with an additional layer of protection while mitigating fraudulent activity. It seamlessly redirects users to provide additional secured information to complete the transaction.
                                         </p>
                                     </div>
@@ -84,7 +84,54 @@ function ProductsTabs() {
                                     </div>
 
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-                                        <div
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Flexible Integration</h2>
+                                                    <p className='text-sm'>Seamlessly integrate into your existing payment system with our APIs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Enhanced Fraud Protection</h2>
+                                                    <p className='text-sm'>Reduces the risk of fraudulent transactions by leveraging additional verification</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Increased Transaction Approvals</h2>
+                                                    <p className='text-sm'>Legitimate transactions are approved, leading to fewer transactions to decline</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    
+
+                                        {/* <div
                                             className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
                                         >
                                             <div className="items-left justify-left overflow-hidden">
@@ -98,12 +145,12 @@ function ProductsTabs() {
                                                 <span className="font-bold text-bluelight">Flexible Integration</span><br />
                                                 Seamlessly integrate into your existing payment system with our APIs
                                             </h3>
-                                        </div>
+                                        </div> */}
 
-                                        <div
+                                        {/* <div
                                             className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
                                         >
-                                            <div className="items-left justify-left overflow-hidden">
+                                            <div className="items-left justify-left overflow-hidden relative">
                                                 <Image
                                                     src={switch1}
                                                     alt=""
@@ -114,9 +161,9 @@ function ProductsTabs() {
                                                 <span className="font-bold text-bluelight">Enhanced Fraud Protection</span><br />
                                                 Reduces the risk of fraudulent transactions by leveraging additional verification
                                             </h3>
-                                        </div>
+                                        </div> */}
 
-                                        <div
+                                        {/* <div
                                             className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
                                         >
                                             <div className="items-left justify-left overflow-hidden">
@@ -130,7 +177,7 @@ function ProductsTabs() {
                                                 <span className="font-bold text-bluelight">Increased Transaction Approvals</span><br />
                                                 Legitimate transactions are approved, leading to fewer transactions to decline
                                             </h3>
-                                        </div>
+                                        </div> */}
 
                                     </div>
                                 </div>
