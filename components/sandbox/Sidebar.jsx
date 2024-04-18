@@ -3,11 +3,17 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { Disclosure } from '@headlessui/react'
 import { IoMenuSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 import { IoMdHome } from "react-icons/io";
 import { SiMicrosoftaccess } from "react-icons/si";
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { SiCoronaengine } from "react-icons/si";
 import Sandbox from './SandboxForm';
+import NewAside from './NewAside'
+
+// import SidebarNew from './SidebarNew'
 import mylapaylogo from '../../public/mylapaylogo.png';
 
 const data = {
@@ -28,7 +34,39 @@ const data = {
         apiSpecification: [
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         ]
-    }
+    },
+    capture: {
+        overview: [
+            'Capture Overview',
+        ],
+        apiSpecification: [
+            "Capture API Specifications"
+        ]
+    },
+    refund: {
+        overview: [
+            'Refund Overview',
+        ],
+        apiSpecification: [
+            "Refund API Specifications"
+        ]
+    },
+    reversal: {
+        overview: [
+            'Reverel Overview',
+        ],
+        apiSpecification: [
+            "Reversal API Specifications"
+        ]
+    },
+    void: {
+        overview: [
+            'Void Overview',
+        ],
+        apiSpecification: [
+            "Void API Specifications"
+        ]
+    },
 };
 
 
@@ -42,13 +80,8 @@ function Sidebar() {
             <Head>
                 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
             </Head>
-            <div className='flex min-h-screen'>
+            <div className='flex min-h-screen relative'>
                 <div className={`${showSidebar ? 'block' : 'hidden'} sm:block h-screen fixed sm:sticky top-0 bg-primary text-white`}>
-                    {/* SIDEBAR */}
-                    {/* <button onClick={() => setShowSidebar(false)}>Close</button> */}
-
-
-
                     <div className="min-h-screen flex flex-row bg-gray-100">
                         <div className="flex flex-col w-56 bg-primary overflow-hidden">
                             <div className="flex items-center sm:justify-center p-4 gap-x-5 shadow bg-white">
@@ -101,7 +134,6 @@ function Sidebar() {
                                         `}
                                     >
                                         <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                            {/* <i className="bx bx-music" /> */}
                                             <SiMicrosoftaccess />
                                         </span>
                                         <span className="text-sm font-medium">
@@ -109,16 +141,110 @@ function Sidebar() {
                                         </span>
                                     </Link>
                                 </li>
+
+
+
+
+                                <Disclosure as="li" defaultOpen={true}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'refund' || query?.api === 'reversal' || query?.api === 'void' || query?.api === 'capture') ? 'text-bluedark' : 'text-white'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <SiCoronaengine />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                    Intellengine
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                                {/* {Disclosure.isOpen ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />} */}
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                            <Link
+                                                    href="/sandbox?api=capture"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'capture' ? 'text-bluedark' : 'text-white'}
+                                        `}
+                                                >
+                                                    {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                <SiMicrosoftaccess />
+                                            </span> */}
+                                                    <span className="text-sm font-medium">
+                                                        Capture
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/sandbox?api=refund"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'refund' ? 'text-bluedark' : 'text-white'}
+                                        `}
+                                                >
+                                                    {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                <SiMicrosoftaccess />
+                                            </span> */}
+                                                    <span className="text-sm font-medium">
+                                                        Refund
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/sandbox?api=reversal"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'reversal' ? 'text-bluedark' : 'text-white'}
+                                        `}
+                                                >
+                                                    {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                <SiMicrosoftaccess />
+                                            </span> */}
+                                                    <span className="text-sm font-medium">
+                                                        Reversal
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/sandbox?api=void"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'void' ? 'text-bluedark' : 'text-white'}
+                                        `}
+                                                >
+                                                    {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                <SiMicrosoftaccess />
+                                            </span> */}
+                                                    <span className="text-sm font-medium">
+                                                        Void
+                                                    </span>
+                                                </Link>
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+
                             </ul>
                         </div>
                     </div>
-
-
-
                     <button className='fixed top-5 right-5 sm:hidden' onClick={() => setShowSidebar(false)}>
                         CLOSE
                     </button>
                 </div>
+
+
+                {/* <NewAside /> */}
+
+
                 <div className='flex-grow'>
                     <div className='p-4  sm:hidden flex items-center gap-x-5'>
                         {showSidebar ? (

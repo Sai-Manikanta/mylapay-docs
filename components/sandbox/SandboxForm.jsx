@@ -41,6 +41,66 @@ const data = {
             vcMerchantId: '2963752899'
         }
     },
+    refund: {
+        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/capture',
+        configuration: {
+            OrganizationID: '2571448',
+            SecretKey: '8626561781'
+        },
+        Header: {
+            host: 'transactions.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '2963752899'
+        }
+    },
+    capture: {
+        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/capture',
+        configuration: {
+            OrganizationID: '2571448',
+            SecretKey: '8626561781'
+        },
+        Header: {
+            host: 'transactions.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '2963752899'
+        }
+    },
+    reversal: {
+        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/refund',
+        configuration: {
+            OrganizationID: '2571448',
+            SecretKey: '8626561781'
+        },
+        Header: {
+            host: 'transactions.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '2963752899'
+        }
+    },
+    void: {
+        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/void',
+        configuration: {
+            OrganizationID: '2571448',
+            SecretKey: '8626561781'
+        },
+        Header: {
+            host: 'transactions.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '2963752899'
+        }
+    },
+    reversal: {
+        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/reversal',
+        configuration: {
+            OrganizationID: '2571448',
+            SecretKey: '8626561781'
+        },
+        Header: {
+            host: 'transactions.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '2963752899'
+        }
+    },
 };
 
 const SandboxForm = () => {
@@ -130,6 +190,7 @@ const SandboxForm = () => {
             ]
         }
     ]);
+
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState({});
     const [responseData, setResponseData] = useState(null);
 
@@ -515,6 +576,10 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
+
+
+
+
                             <div>
                                 <div className="grid gap-10 md:grid-cols-2 mb-10">
                                     <div className='bg-bggray p-4 rounded'>
@@ -716,14 +781,70 @@ const SandboxForm = () => {
                 </Formik>
             )}
 
+            {/* responseData */}
+
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>
-                    <div className='flex gap-x-4'>
+                    {/* <div className='flex gap-x-4'>
                         <span className='text-bluedark mb-4 block'>Status Codes</span>
                         <span className='text-[#22C55E]'>
                             {responseData.statusCode}
                         </span>
+                    </div> */}
+
+
+                    {/* <div className='bg-bggray p-4 rounded mb-8'>
+                                <h2 className='mb-3'>Status Codes</h2>
+                                <div className='space-y-2'>
+                                    <div className='bg-white p-2 border-l-4 border-[#22C55E] text-sm'>
+                                        <p>200 - Success</p>
+                                    </div>
+                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
+                                        <p>400 - Success</p>
+                                    </div>
+                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
+                                        <p>500 - Success</p>
+                                    </div>
+                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
+                                        <p>401 - Success</p>
+                                    </div>
+                                </div>
+                            </div> */}
+
+
+                    <div className='bg-bggray p-4 rounded mb-8'>
+                        <h2 className='mb-3'>Status Codes</h2>
+                        <div className='flex space-x-4 text-sm'>
+                            <div className='flex rounded-sm overflow-hidden shadow'>
+                                <span className="py-2 px-4 bg-[#22C55E] text-white">200</span><p className='bg-white py-2 px-4'>Success</p>
+                            </div>
+
+                            <div className='flex rounded-sm overflow-hidden shadow'>
+                                <span className="py-2 px-4 bg-[#EF4444] text-white">400</span><p className='bg-white py-2 px-4'>Invalid</p>
+                            </div>
+
+                            <div className='flex rounded-sm overflow-hidden shadow'>
+                                <span className="py-2 px-4 bg-[#EF4444] text-white">500</span><p className='bg-white py-2 px-4'>Unexpected System Error</p>
+                            </div>
+
+                            <div className='flex rounded-sm overflow-hidden shadow'>
+                                <span className="py-2 px-4 bg-[#EF4444] text-white">401</span><p className='bg-white py-2 px-4'>Unauthorized request</p>
+                            </div>
+                        </div>
                     </div>
+
+
+                    {/* <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        <div>
+                            <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
+                                Used by
+                            </h2>
+
+                            <p className=" text-para mx-auto">
+                                Payment Acquiring Banks, Merchants, and Payment Aggregators.
+                            </p>
+                        </div>
+                    </div> */}
 
                     {/* <div className='mb-4'>
                         <span className='text-bluedark mb-1 block'>Description</span>
@@ -773,9 +894,9 @@ const SandboxForm = () => {
 
                         <div className='bg-bggray p-4 rounded'>
                             <h2 className='mb-3'>Description</h2>
-                            <span className='text-sm'>
+                            <p className='text-sm bg-white p-4'>
                                 {responseData.description}
-                            </span>
+                            </p>
                         </div>
 
                         {/* <div className='bg-bggray p-4 rounded'>
