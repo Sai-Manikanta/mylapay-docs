@@ -62,7 +62,7 @@ export default function Steps() {
                                         {/* <p className="text-xl font-semibold sm:text-base">
                                     Login
                                     </p> */}
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left group-hover:underline group-hover:decoration-primary group-hover:underline group-hover:decoration-primary">Create an account</p>
+                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Create an account</p>
                                         {/* <p className="text-sm text-gray-700">
                                     Create an account
                                     </p> */}
@@ -112,7 +112,7 @@ export default function Steps() {
                                         {/* <p className="text-xl font-semibold sm:text-base">
                                     Review
                                     </p> */}
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left group-hover:underline group-hover:decoration-primary">Check our Documentation</p>
+                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Check our Documentation</p>
                                         {/* <p className="text-sm text-gray-700">
                                     Check our Documentation
                                     </p> */}
@@ -161,7 +161,7 @@ export default function Steps() {
                                         {/* <p className="text-xl font-semibold sm:text-base">
                                     Choose
                                     </p> */}
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left group-hover:underline group-hover:decoration-primary">Browse through Mylapay Solutions</p>
+                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Browse through Mylapay Solutions</p>
                                         {/* <p className="text-sm text-gray-700">
                                     Browse through Mylapay Solutions
                                     </p> */}
@@ -208,7 +208,7 @@ export default function Steps() {
                                         {/* <p className="text-xl font-semibold sm:text-base">
                                     Test
                                     </p> */}
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left group-hover:underline group-hover:decoration-primary">Test the APIs in Sandbox</p>
+                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Test the APIs in Sandbox</p>
                                         {/* <p className="text-sm text-gray-700">
                                     Test the APIs in Sandbox
                                     </p> */}
@@ -253,7 +253,7 @@ export default function Steps() {
                                             Go Live
                                         </h3>
 
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left group-hover:underline group-hover:decoration-primary">Contact support for onboarding</p>
+                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Contact support for onboarding</p>
                                         {/* <p className="text-xl font-semibold sm:text-base">Go Live</p> */}
                                         {/* <p className="text-sm text-gray-700">
                                     Contact support for onboarding

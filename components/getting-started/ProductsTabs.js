@@ -2,6 +2,63 @@ import React from 'react'
 import { Tab } from '@headlessui/react'
 import Image from 'next/image'
 import switch1 from '../../public/switch1.png'
+import visaCardIcon from "../../public/visa-card-icon.png"
+import masterCardIcon from '../../public/master-card-icon.png'
+import rupayCardIcon from '../../public/rupay-card-icon.png'
+
+function TabsCommonContent() {
+    return (
+        <>
+            <div className="mx-auto pt-10 px-4 sm:px-0">
+                <div>
+                    <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-2xl mb-6">
+                        Used by
+                    </h2>
+
+                    <div className="mx-auto p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        <div>
+                            <p className=" text-para mx-auto">
+                                Payment Acquiring Banks, Merchants, and Payment Aggregators.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mx-auto pt-10 px-4 sm:px-0">
+                <div>
+                    <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-2xl mb-6">
+                        Regions
+                    </h2>
+
+                    <div className="mx-auto p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        <div>
+                            <p className=" text-para mx-auto">
+                                This API is available globally.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mx-auto pt-10 px-4 sm:px-0">
+                <div>
+                    <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-2xl mb-6">
+                        Supported Cards
+                    </h2>
+
+                    <div className="mx-auto p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        <div className='inline-flex items-center gap-x-5'>
+                            <Image src={visaCardIcon} width={80} alt="Visa card icon" className='h-20 transform hover:scale-125 transition duration-300' />
+                            <Image src={masterCardIcon} width={70} alt="Master card icon" className='h-16 transform hover:scale-125 transition duration-300' />
+                            <Image src={rupayCardIcon} height={64} width={140} alt="Rupay card icon" className='h-16 -mt-6 transform hover:scale-125 transition duration-300' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
 
 function ProductsTabs() {
     return (
@@ -83,10 +140,10 @@ function ProductsTabs() {
                                         </h2>
                                     </div>
 
-                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
@@ -100,7 +157,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
@@ -114,7 +171,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow'>
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
@@ -128,8 +185,22 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Reduced Chargebacks</h2>
+                                                    <p className='text-sm'>Liability of chargebacks shifts from merchant to issuer</p>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    
+
+
 
                                         {/* <div
                                             className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
@@ -193,6 +264,17 @@ function ProductsTabs() {
                                 </div>
 
 
+                                <TabsCommonContent />
+
+
+
+
+
+
+
+
+
+
 
 
                             </Tab.Panel>
@@ -237,8 +319,24 @@ function ProductsTabs() {
                                         </h2>
                                     </div>
 
-                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-                                        <div
+                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Increased payment success rate</h2>
+                                                    <p className='text-sm'>Seamlessly integrate into your existing payment system with our APIs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* <div
                                             className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
                                         >
                                             <div className="items-left justify-left overflow-hidden">
@@ -252,70 +350,75 @@ function ProductsTabs() {
                                                 <span className="font-bold text-bluelight">Increased payment success rate</span><br />
                                                 Seamless transaction processing assures high payment success rates.
                                             </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Secure environment</span><br />
-                                                PCI-DSS compliant and compatible with Visa, Mastercard and Rupay networks.
-                                            </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">High Availability</span><br />
-                                                Exceptional reliability with an impressive 99.99% uptime.
-                                            </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Proactive risk assessment</span><br />
+                                        </div> */}
 
-                                                Robust architecture prevents fraudulent activities.
-                                            </h3>
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Secure environment</h2>
+                                                    <p className='text-sm'>PCI-DSS compliant and compatible with Visa, Mastercard and Rupay networks.</p>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
+
+
+
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
                                                     alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>High Availability</h2>
+                                                    <p className='text-sm'>Exceptional reliability with an impressive 99.99% uptime.</p>
+                                                </div>
                                             </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Improved decision-making</span><br />
-
-                                                Key data points provided additionally for better authorization success.
-                                            </h3>
                                         </div>
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Proactive risk assessment</h2>
+                                                    <p className='text-sm'>
+                                                        Robust architecture prevents fraudulent activities.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        {/* <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Improved decision-making</h2>
+                                                    <p className='text-sm'>
+                                                        Key data points provided additionally for better authorization success.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div> */}
 
                                     </div>
                                 </div>
@@ -330,6 +433,8 @@ function ProductsTabs() {
                                     </div>
                                 </div>
 
+                                <TabsCommonContent />
+
                             </Tab.Panel>
                             <Tab.Panel>
 
@@ -373,101 +478,113 @@ function ProductsTabs() {
                                         </h2>
                                     </div>
 
-                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Seamless payment processing with high success rates</span><br />
-                                                Simplified & easy API Integration
-                                            </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Cloud Solution & Highly Secured environment</span><br />
-                                                Card networks published forex rates to maximize DCC revenue.
-                                            </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Risk protection embedded across the process </span><br />
-                                                Realtime txn costing & routing optimizer APIs.
-                                            </h3>
-                                        </div>
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">100% transparent system with intuitive dashboard </span><br />
 
-                                                Realtime – Batchwise – Same day Settlement ready system
-                                            </h3>
+
+
+                                    <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Seamless payment processing with high success rates</h2>
+                                                    <p className='text-sm'>
+                                                    Card networks published forex rates to maximize DCC revenue.
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
                                                     alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Cloud Solution & Highly Secured environment</h2>
+                                                    <p className='text-sm'>
+                                                    Realtime txn costing & routing optimizer APIs.
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Zero risk on Cross border payments </span><br />
-
-                                                Zero revenue leakage system
-                                            </h3>
                                         </div>
 
-                                        <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
                                                     alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Risk protection embedded across the process</h2>
+                                                    <p className='text-sm'>
+                                                    100% transparent system with intuitive dashboard 
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Transaction Cost plus, pricing </span><br />
+                                        </div>
 
-                                                End-to-end processing in a single platform
-                                            </h3>
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Simplified & easy API Integration</h2>
+                                                    <p className='text-sm'>
+                                                    Zero risk on Cross border payments 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Transaction Cost plus, pricing</h2>
+                                                    <p className='text-sm'>
+                                                    Realtime – Batchwise – Same day Settlement ready system
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
+                                                <Image
+                                                    src={switch1}
+                                                    alt=""
+                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                />
+                                                <div className='flex-grow'>
+                                                    <h2 className='font-bold text-bluelight'>Zero revenue leakage system </h2>
+                                                    <p className='text-sm'>
+                                                    End-to-end processing in a single platform
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -480,6 +597,8 @@ function ProductsTabs() {
                                             <img src="https://junto.investments/wp-content/uploads/adyen-value-chain-1536x264.png" alt="flow-diagram" style={{ width: '100%' }} className='mt-4' />
                                         </div>
                                     </div>
+
+                                    <TabsCommonContent />
                                 </div>
 
                             </Tab.Panel>

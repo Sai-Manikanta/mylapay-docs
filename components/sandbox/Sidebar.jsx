@@ -11,7 +11,8 @@ import { SiMicrosoftaccess } from "react-icons/si";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { SiCoronaengine } from "react-icons/si";
 import Sandbox from './SandboxForm';
-import NewAside from './NewAside'
+import ProfileDropDown from './ProfileDropDown'
+// import NewAside from './NewAside'
 
 // import SidebarNew from './SidebarNew'
 import mylapaylogo from '../../public/mylapaylogo.png';
@@ -169,7 +170,7 @@ function Sidebar() {
                                                 {/* {Disclosure.isOpen ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />} */}
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="text-gray-500 pl-10">
-                                            <Link
+                                                <Link
                                                     href="/sandbox?api=capture"
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
@@ -241,11 +242,10 @@ function Sidebar() {
                     </button>
                 </div>
 
-
                 {/* <NewAside /> */}
 
-
                 <div className='flex-grow'>
+                    {/* Header mobile */}
                     <div className='p-4  sm:hidden flex items-center gap-x-5'>
                         {showSidebar ? (
                             <button onClick={() => setShowSidebar(false)}>
@@ -261,6 +261,19 @@ function Sidebar() {
                             <Image className="h-8 w-auto" src={mylapaylogo} alt="" />
                         </Link>
                     </div>
+
+                    {/* Header desktop */}
+                    <div className='p-4 pr-14 hidden sm:flex justify-end items-center gap-x-5 sticky top-0 right-0 bg-white left-0 z-50'>
+
+                        <Link href="/" className="-m-1.5 p-1.5" style={{ visibility: 'hidden'}}>
+                            <Image className="h-8 w-auto" src={mylapaylogo} alt="" />
+                        </Link>
+
+                        <ProfileDropDown />
+
+
+                    </div>
+
                     <div className='p-8 bg-bggray min-h-screen'>
                         {/* <div className='bg-bluedark text-white h-screen'>RIGHT CONTENT</div> */}
                         {/* <div className='bg-black text-white h-screen'>RIGHT CONTENT</div> */}

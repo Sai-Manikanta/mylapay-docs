@@ -9,7 +9,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <div className='bg-white sticky top-0 shadow-sm z-50'>
+        <div className='bg-white sticky top-0 shadow-sm z-30'>
             <header className="wrapper">
                 <nav className="flex items-center justify-between py-6 px-4 sm:px-0" aria-label="Global">
                     <div className="flex lg:flex-1">

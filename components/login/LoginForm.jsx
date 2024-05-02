@@ -4,42 +4,36 @@ import * as Yup from 'yup';
 import { countryList } from '../../data/countryList'
 
 const validationSchema = Yup.object().shape({
-    companyName: Yup.string().required('Company Name is required'),
-    firstName: Yup.string().required('First Name is required'),
-    lastName: Yup.string().required('Last Name is required'),
-    country: Yup.string().required('Country is required'),
-    city: Yup.string().required('City is required'),
-    pincode: Yup.number().required('Pincode is required'),
-    email: Yup.string().email('Invalid email').required('Email ID is required'),
-    mobileNumber: Yup.string().required('Mobile Number is required'),
-    productOfInterest: Yup.string().required('Product of Interest is required'),
+    organizationID: Yup.string().required('Organization ID is required'),
+    Username: Yup.string().required('Username is required'),
+    Password: Yup.string().required('Password is required'),
+    SecretKey: Yup.string().required('Secret Key is required'),
+    // firstName: Yup.string().required('First Name is required'),
+    // lastName: Yup.string().required('Last Name is required'),
+    // country: Yup.string().required('Country is required'),
+    // city: Yup.string().required('City is required'),
+    // pincode: Yup.number().required('Pincode is required'),
+    // email: Yup.string().email('Invalid email').required('Email ID is required'),
+    // mobileNumber: Yup.string().required('Mobile Number is required'),
+    // productOfInterest: Yup.string().required('Product of Interest is required'),
 });
 
 const LoginForm = () => (
-    <div className="relative z-10 bg-[#fff] rounded-xl border-gray/20 m-4 sm:m-0">
-
-        <div className='px-4'>
-            <p className="text-center mb-4 text-lg text-para max-w-4xl mx-auto">
-                After completing registration, you will be able to test transactions.
-            </p>
-
-            <p className="text-center mb-4 text-lg text-para max-w-4xl mx-auto">
-            Your information will not be disclosed to third parties.
-            </p>
-        </div>
-
-
+    <div className="relative z-10 bg-white rounded-xl border border-gray/20 m-4 sm:m-0">
         <Formik
             initialValues={{
-                companyName: '',
-                firstName: '',
-                lastName: '',
-                country: '',
-                city: '',
-                pincode: '',
-                email: '',
-                mobileNumber: '',
-                productOfInterest: '',
+                organizationID: '',
+                Username: '',
+                Password: '',
+                SecretKey: ''
+                // firstName: '',
+                // lastName: '',
+                // country: '',
+                // city: '',
+                // pincode: '',
+                // email: '',
+                // mobileNumber: '',
+                // productOfInterest: '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -48,23 +42,69 @@ const LoginForm = () => (
             }}
         >
             {({ errors, touched }) => (
-                <Form className="rounded-3xl bg-[#fff] px-4 py-8 lg:px-8">
-
-                    <div className="grid gap-10 md:grid-cols-3 mb-10">
-
+                <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
+                    <div className="grid gap-10 md:grid-cols-1 mb-10">
                         <div className="relative">
                             <Field
                                 type="text"
-                                name="companyName"
-                                className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                name="organizationID"
+                                className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
                                 placeholder=" "
                             />
                             <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                Company Name
+                                Organization ID
                             </label>
-                            <ErrorMessage name="companyName" component="div" className="text-sm mt-2 text-red" />
+                            <ErrorMessage name="organizationID" component="div" className="text-sm mt-2 text-red" />
                         </div>
+                    </div>
 
+                    <div className="grid gap-10 md:grid-cols-1 mb-10">
+                        <div className="relative">
+                            <Field
+                                type="text"
+                                name="Username"
+                                className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                placeholder=" "
+                            />
+                            <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                            Username
+                            </label>
+                            <ErrorMessage name="Username" component="div" className="text-sm mt-2 text-red" />
+                        </div>
+                    </div>
+
+                    <div className="grid gap-10 md:grid-cols-1 mb-10">
+                        <div className="relative">
+                            <Field
+                                type="password"
+                                name="Password"
+                                className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                placeholder=" "
+                            />
+                            <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                            Password
+                            </label>
+                            <ErrorMessage name="Password" component="div" className="text-sm mt-2 text-red" />
+                        </div>
+                    </div>
+
+
+                    <div className="grid gap-10 md:grid-cols-1 mb-10">
+                        <div className="relative">
+                            <Field
+                                type="text"
+                                name="SecretKey"
+                                className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                placeholder=" "
+                            />
+                            <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                            Secret Key
+                            </label>
+                            <ErrorMessage name="SecretKey" component="div" className="text-sm mt-2 text-red" />
+                        </div>
+                    </div>
+
+                    {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
                         <div className="relative">
                             <Field
                                 type="text"
@@ -72,12 +112,11 @@ const LoginForm = () => (
                                 className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
                                 placeholder=" "
                             />
-                            <label className="bg-white absolute -top-3 px-2 font-normal left-3 text-sm text-para">
+                            <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                 First Name
                             </label>
                             <ErrorMessage name="firstName" component="div" className="text-sm mt-2 text-red" />
                         </div>
-
                         <div className="relative">
                             <Field
                                 type="text"
@@ -90,6 +129,9 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="lastName" component="div" className="text-sm mt-2 text-red" />
                         </div>
+                    </div> */}
+
+                    {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
 
                         <div className="relative">
                             <Field
@@ -105,8 +147,6 @@ const LoginForm = () => (
                                     </option>
                                 ))}
 
-                                {/* <option value="Authorization">Authorization</option>
-                                <option value="Intellengine">Intellengine</option> */}
                             </Field>
                             <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                 Country
@@ -126,7 +166,10 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="city" component="div" className="text-sm mt-2 text-red" />
                         </div>
+                    </div> */}
 
+
+                    {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
                         <div className="relative">
                             <Field
                                 type="text"
@@ -139,7 +182,6 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="pincode" component="div" className="text-sm mt-2 text-red" />
                         </div>
-
                         <div className="relative">
                             <Field
                                 type="text"
@@ -152,7 +194,9 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="email" component="div" className="text-sm mt-2 text-red" />
                         </div>
+                    </div> */}
 
+                    {/* <div className="grid gap-10 md:grid-cols-2 mb-10">
                         <div className="relative">
                             <Field
                                 type="text"
@@ -165,6 +209,7 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                         </div>
+
 
                         <div className="relative">
                             <Field
@@ -183,24 +228,22 @@ const LoginForm = () => (
                             </label>
                             <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                         </div>
-
-                    </div>
-
+                    </div> */}
 
 
                     {/* Add similar Field components for other form fields */}
                     <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
-                        <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
-                            Create Account
+                        <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
+                            Login
                         </button>
                     </div>
 
-                    <div className="mt-3 text-center font-normal">
+                    {/* <div className="mt-3 text-center font-normal">
                         <span className="mr-2">By signing up, you agree to our </span>
                         <a className="text-primary mt-5 hover:text-bluedark" href="#">
                             Terms of Use &amp; Privacy Policy.
                         </a>
-                    </div>
+                    </div> */}
                 </Form>
             )}
         </Formik>
