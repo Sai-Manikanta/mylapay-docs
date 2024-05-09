@@ -6,6 +6,33 @@ import visaCardIcon from "../../public/visa-card-icon.png"
 import masterCardIcon from '../../public/master-card-icon.png'
 import rupayCardIcon from '../../public/rupay-card-icon.png'
 
+import flexibleIntegration from '../../public/images/benefit-icons/Flexible-Integration.png'
+import enhancedFraudProtection from '../../public/images/benefit-icons/Enhanced-Fraud-Protection.png'
+import increasedTransactionApprovals from '../../public/images/benefit-icons/Increased-Transaction-Approvals.png'
+import reducedChargebacks from '../../public/images/benefit-icons/Reduced-Chargebacks.png'
+
+import increasedPaymentSuccessRate from '../../public/images/benefit-icons/Increased-payment-success-rate.png'
+import secureEnvironment from '../../public/images/benefit-icons/Secure-environment.png'
+import highAvailability from '../../public/images/benefit-icons/High-Availability.png'
+import proactiveRiskAssessment from '../../public/images/benefit-icons/Proactive-risk-assessment.png'
+
+import seamlessPaymentProcessingWithHighSuccessRates from '../../public/images/benefit-icons/Seamless-payment-processing-with-high-success-rates.png'
+import cloudSolutionHighlySecuredEnvironment from '../../public/images/benefit-icons/Cloud-Solution-Highly-Secured-environment.png'
+import riskProtectionEmbeddedAcrossTheProcess from '../../public/images/benefit-icons/Risk-protection-embedded-across-the-process.png'
+import simplifiedEasyAPIIntegration from '../../public/images/benefit-icons/Simplified-easy-API-Integration.png'
+import transactionCostPlusPricing from '../../public/images/benefit-icons/Transaction-Cost-plus-pricing.png'
+import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-revenue-leakage-system.png'
+
+// Workflow
+import authenticationWorkflowDesktop from '../../public/images/Workflows/Authentication-Workflow-Desktop.png'
+import authenticationWorkflowMobile from '../../public/images/Workflows/Authentication-Workflow-Mobile.png'
+
+import authorizationWorkflowDesktop from '../../public/images/Workflows/Authorization-Workflow-Desktop.png'
+import authorizationWorkflowMobile from '../../public/images/Workflows/Authorization-Workflow-Mobile.png'
+
+import intellegineWorkflowDesktop from '../../public/images/workflows/Intellegine-Workflow-Desktop.png'
+import intellegineWorkflowMobile from '../../public/images/workflows/Intellegine-Workflow-Mobile.png'
+
 function TabsCommonContent() {
     return (
         <>
@@ -146,9 +173,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={flexibleIntegration}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Flexible Integration</h2>
@@ -160,9 +187,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={enhancedFraudProtection}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Enhanced Fraud Protection</h2>
@@ -174,9 +201,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={increasedTransactionApprovals}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Increased Transaction Approvals</h2>
@@ -188,9 +215,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={reducedChargebacks}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Reduced Chargebacks</h2>
@@ -198,8 +225,6 @@ function ProductsTabs() {
                                                 </div>
                                             </div>
                                         </div>
-
-
 
 
                                         {/* <div
@@ -259,7 +284,8 @@ function ProductsTabs() {
                                         <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-2xl mb-8">
                                             How it works
                                         </h2>
-                                        <img src="https://junto.investments/wp-content/uploads/adyen-value-chain-1536x264.png" alt="flow-diagram" style={{ width: '100%' }} className='mt-4' />
+                                        <Image src={authenticationWorkflowDesktop} alt="flow-diagram" style={{ width: '100%' }} className='bg-white p-4 hidden sm:block' />
+                                        <Image src={authenticationWorkflowMobile} alt="flow-diagram" style={{ width: '600px' }} className='bg-white p-4 sm:hidden' />
                                     </div>
                                 </div>
 
@@ -321,13 +347,12 @@ function ProductsTabs() {
 
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={increasedPaymentSuccessRate}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Increased payment success rate</h2>
@@ -356,9 +381,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={secureEnvironment}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Secure environment</h2>
@@ -368,16 +393,12 @@ function ProductsTabs() {
                                         </div>
 
 
-
-
-
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={highAvailability}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>High Availability</h2>
@@ -390,9 +411,9 @@ function ProductsTabs() {
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={proactiveRiskAssessment}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Proactive risk assessment</h2>
@@ -409,7 +430,7 @@ function ProductsTabs() {
                                                 <Image
                                                     src={switch1}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Improved decision-making</h2>
@@ -429,7 +450,8 @@ function ProductsTabs() {
                                         <h2 className="text-xl font-bold text-bluedark sm:text-2xl md:text-2xl mb-8">
                                             How it works
                                         </h2>
-                                        <img src="https://junto.investments/wp-content/uploads/adyen-value-chain-1536x264.png" alt="flow-diagram" style={{ width: '100%' }} className='mt-4' />
+                                        <Image src={authorizationWorkflowDesktop} alt="flow-diagram" style={{ width: '100%' }} className='bg-white p-4 hidden sm:block' />
+                                        <Image src={authorizationWorkflowMobile} alt="flow-diagram" style={{ width: '600px' }} className='bg-white p-4 sm:hidden' />
                                     </div>
                                 </div>
 
@@ -484,109 +506,110 @@ function ProductsTabs() {
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
 
+
+                                        {/* import seamlessPaymentProcessingWithHighSuccessRates from '../../public/images/benefit-icons/Seamless-payment-processing-with-high-success-rates.png'
+                                    import cloudSolutionHighlySecuredEnvironment from '../../public/images/benefit-icons/Cloud-Solution-Highly-Secured-environment.png'
+                                    import riskProtectionEmbeddedAcrossTheProcess from '../../public/images/benefit-icons/Risk-protection-embedded-across-the-process.png'
+                                    import simplifiedEasyAPIIntegration from '../../public/images/benefit-icons/Simplified-easy-API-Integration.png'
+                                    import transactionCostPlusPricing from '../../public/images/benefit-icons/Transaction-Cost-plus-pricing.png'
+                                    import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-revenue-leakage-system.png' */}
+
+
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={seamlessPaymentProcessingWithHighSuccessRates}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Seamless payment processing with high success rates</h2>
                                                     <p className='text-sm'>
-                                                    Card networks published forex rates to maximize DCC revenue.
+                                                        Card networks published forex rates to maximize DCC revenue.
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={cloudSolutionHighlySecuredEnvironment}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Cloud Solution & Highly Secured environment</h2>
                                                     <p className='text-sm'>
-                                                    Realtime txn costing & routing optimizer APIs.
+                                                        Realtime txn costing & routing optimizer APIs.
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={riskProtectionEmbeddedAcrossTheProcess}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Risk protection embedded across the process</h2>
                                                     <p className='text-sm'>
-                                                    100% transparent system with intuitive dashboard 
+                                                        100% transparent system with intuitive dashboard
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
-
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={simplifiedEasyAPIIntegration}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Simplified & easy API Integration</h2>
                                                     <p className='text-sm'>
-                                                    Zero risk on Cross border payments 
+                                                        Zero risk on Cross border payments
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
-
-
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={transactionCostPlusPricing}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Transaction Cost plus, pricing</h2>
                                                     <p className='text-sm'>
-                                                    Realtime – Batchwise – Same day Settlement ready system
+                                                        Realtime – Batchwise – Same day Settlement ready system
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
-                                                    src={switch1}
+                                                    src={zeroRevenueleakageSystem}
                                                     alt=""
-                                                    className="flex-shrink-0 max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
+                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
                                                 />
                                                 <div className='flex-grow'>
                                                     <h2 className='font-bold text-bluelight'>Zero revenue leakage system </h2>
                                                     <p className='text-sm'>
-                                                    End-to-end processing in a single platform
+                                                        End-to-end processing in a single platform
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div className="mx-auto pt-10 px-4 sm:px-0">
@@ -594,7 +617,8 @@ function ProductsTabs() {
                                             <h2 className="text-xl font-bold text-bluedark sm:text-2xl md:text-2xl mb-8">
                                                 How it works
                                             </h2>
-                                            <img src="https://junto.investments/wp-content/uploads/adyen-value-chain-1536x264.png" alt="flow-diagram" style={{ width: '100%' }} className='mt-4' />
+                                            <Image src={intellegineWorkflowDesktop} alt="flow-diagram" style={{ width: '100%' }} className='bg-white p-4 hidden sm:block' />
+                                            <Image src={intellegineWorkflowMobile} alt="flow-diagram" style={{ width: '600px' }} className='bg-white p-4 sm:hidden' />
                                         </div>
                                     </div>
 
