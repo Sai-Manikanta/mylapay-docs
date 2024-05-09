@@ -27,8 +27,8 @@ import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-rev
 import authenticationWorkflowDesktop from '../../public/images/workflows/Authentication-Workflow-Desktop.png'
 import authenticationWorkflowMobile from '../../public/images/workflows/Authentication-Workflow-Mobile.png'
 
-import authorizationWorkflowDesktop from '../../public/images/Workflows/Authorization-Workflow-Desktop.png'
-import authorizationWorkflowMobile from '../../public/images/Workflows/Authorization-Workflow-Mobile.png'
+import authorizationWorkflowDesktop from '../../public/images/workflows/Authorization-Workflow-Desktop.png'
+import authorizationWorkflowMobile from '../../public/images/workflows/Authorization-Workflow-Mobile.png'
 
 import intellegineWorkflowDesktop from '../../public/images/workflows/Intellegine-Workflow-Desktop.png'
 import intellegineWorkflowMobile from '../../public/images/workflows/Intellegine-Workflow-Mobile.png'
