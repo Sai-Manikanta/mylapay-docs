@@ -24,8 +24,8 @@ import transactionCostPlusPricing from '../../public/images/benefit-icons/Transa
 import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-revenue-leakage-system.png'
 
 // Workflow
-import authenticationWorkflowDesktop from '../../public/images/Workflows/Authentication-Workflow-Desktop.png'
-import authenticationWorkflowMobile from '../../public/images/Workflows/Authentication-Workflow-Mobile.png'
+import authenticationWorkflowDesktop from '../../public/images/workflows/Authentication-Workflow-Desktop.png'
+import authenticationWorkflowMobile from '../../public/images/workflows/Authentication-Workflow-Mobile.png'
 
 import authorizationWorkflowDesktop from '../../public/images/Workflows/Authorization-Workflow-Desktop.png'
 import authorizationWorkflowMobile from '../../public/images/Workflows/Authorization-Workflow-Mobile.png'
