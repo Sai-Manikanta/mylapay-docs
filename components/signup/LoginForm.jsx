@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { countryList } from '../../data/countryList'
 import RegisterSuccessModel from './RegisterSuccessModel'
+import axios from 'axios';
 
 const validationSchema = Yup.object().shape({
     companyName: Yup.string().required('Company Name is required'),
@@ -50,7 +51,16 @@ const LoginForm = () => {
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
                         // Handle form submission here
-                        console.log(values);
+                        // console.log(values);
+
+                        axios.post("https://my-backend-5dra.onrender.com/api/v1/auth/signup", values)
+                            .then(res => {
+                                setIsOpen(true);
+                            })
+                            .catch(err => {
+                                alert(err.message)
+                            })
+
                     }}
                 >
                     {({ errors, touched }) => (
@@ -196,7 +206,7 @@ const LoginForm = () => {
     
                             {/* Add similar Field components for other form fields */}
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
-                                <button type="button" onClick={() => setIsOpen(true)} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
+                                <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
                                     Create Account
                                 </button>
                             </div>

@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
+import JSONInput from "react-json-editor-ajrm/index";
+import locale from "react-json-editor-ajrm/locale/en";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { IoMdInformationCircle } from "react-icons/io";
 import { IoCloseCircleSharp } from "react-icons/io5";
@@ -5829,7 +5831,7 @@ const SandboxForm = () => {
                                     <div className='bg-bggray p-4 rounded'>
                                         <h2 className='mb-4'>Request Parameter</h2>
                                         <div>
-                                            {parametersData.map((parameter, i) => {
+                                            {parametersData?.map((parameter, i) => {
 
                                                 return (
                                                     <div key={i} className='mb-4'>
@@ -5950,8 +5952,8 @@ const SandboxForm = () => {
                                         </div>
                                     </div>
 
-                                    <div className='bg-bggray p-4 rounded'>
-                                        <h2 className='mb-4'>Sandbox Test Codes 333</h2>
+                                    <div className='bg-bggray p-4 rounded relative'>
+                                        <h2 className='mb-4'>Sandbox Test Codes</h2>
 
                                         {organizationIDValidationStatus === 'success' && (
                                             <p className='text-sm mb-5'>
@@ -5963,8 +5965,8 @@ const SandboxForm = () => {
                                             <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
                                         )}
 
-                                        <div className='relative'>
-                                            <DynamicReactJson
+                                        <div>
+                                            {/* <DynamicReactJson
                                                 src={selectedSandboxTestCodes}
                                                 theme="monokai"
                                                 enableClipboard={false}
@@ -5989,10 +5991,28 @@ const SandboxForm = () => {
                                                         return newData;
                                                     });
                                                 }}
+                                            /> */}
+
+
+                                            <JSONInput
+                                                placeholder={selectedSandboxTestCodes}
+                                                onBlur={(newData) => {
+                                                    console.log(newData.jsObject);
+                                                    // setParametersData(newData.jsObject);
+                                                    // setData(newData.jsObject)
+                                                }}
+                                                onKeyPressUpdate={false}
+                                                theme="light_mitsuketa_tribute"
+                                                locale={locale}
+                                                height="100%"
+                                                width="100%"
                                             />
 
-                                            <button
-                                                className='py-1 px-4 rounded-sm text-sm bg-white text-bluedark absolute top-5 right-5'
+                                           
+                                        </div>
+
+                                        <button
+                                                className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-3 right-5'
                                                 type="button"
                                                 onClick={() => {
                                                     const jsonData = JSON.stringify(selectedSandboxTestCodes);
@@ -6000,8 +6020,6 @@ const SandboxForm = () => {
                                                     navigator.clipboard.writeText(jsonData)
                                                         .then(() => {
                                                             toast("Copied");
-                                                            // alert('COPIED');
-                                                            // console.log('JSON data copied to clipboard');
                                                         })
                                                         .catch((error) => {
                                                             console.error('Failed to copy JSON data: ', error);
@@ -6010,7 +6028,6 @@ const SandboxForm = () => {
                                             >
                                                 COPY
                                             </button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -6145,22 +6162,6 @@ const SandboxForm = () => {
                                 {responseData.description}
                             </p>
                         </div>
-
-                        {/* <div className='bg-bggray p-4 rounded'>
-                            <h2 className='mb-3'>Header</h2>
-
-                            <div>
-                                <DynamicReactJson
-                                    src={responseData.header}
-                                    theme="monokai"
-                                    enableClipboard={false}
-                                    displayObjectSize={false}
-                                    displayDataTypes={false}
-                                    displayArrayKey={false}
-                                    name={false}
-                                />
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             )}

@@ -1,12 +1,21 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Dialog, Popover } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import mylapaylogo from '../../public/mylapaylogo.png'
+import { useLoginStatus } from '../../hooks/useLoginStatus'
 
 export default function Header() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const router = useRouter();
+    const { isLoggedIn, logout } = useLoginStatus();
+
+    const handleLogout = () => {
+        logout();
+        router.push('/login');
+    };
 
     return (
         <div className='bg-white sticky top-0 shadow-sm z-30'>
@@ -51,9 +60,17 @@ export default function Header() {
                                 </div>
                             </Link>
 
-                            <Link href="/signup" className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                <span className="relative z-10">sign up</span>
-                            </Link>
+                            {isLoggedIn ? (
+                                <button onClick={handleLogout} className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                    <span className="relative z-10">Logout</span>
+                                </button>
+                            ) : (
+                                <Link href="/login" className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                    <span className="relative z-10">Login</span>
+                                </Link>
+                            )}
+
+
                         </div>
                     </Popover.Group>
                 </nav>
@@ -93,9 +110,17 @@ export default function Header() {
                                         </div>
                                     </Link>
 
-                                    <Link href="/login" className="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
-                                        <span className="relative z-10">Login</span>
-                                    </Link>
+
+                                    {isLoggedIn ? (
+                                        <button onClick={handleLogout} className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                            <span className="relative z-10">Logout</span>
+                                        </button>
+                                    ) : (
+                                        <Link href="/login" className="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                            <span className="relative z-10">Login</span>
+                                        </Link>
+                                    )}
+
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Inter } from "next/font/google";
-
 import Header from '../components/layout/Header'
 import Banner from '../components/login/Banner'
 import AccessSteps from '../components/login/AccessSteps'
@@ -12,13 +13,22 @@ import Footer from '../components/layout/Footer'
 
 const inter = Inter({ subsets: ["latin"] });
 
-function Home() {
+function LoginPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      router.push('/sandbox?api=authentication');
+    }
+  }, [router]);
+
   return (
     <div className={`${inter.className}`}>
       <Header />
       {/* <AccessSteps /> */}
       <Banner />
-        
+
       {/* <IntegratingSteps />
       <AccessSteps />
       <ChooseProducts />
@@ -28,4 +38,4 @@ function Home() {
   )
 }
 
-export default Home
+export default LoginPage

@@ -2,6 +2,7 @@
 
 import Head from 'next/head'
 import Sidebar from '../components/sandbox/Sidebar'
+import withAuth from '../hoc/withAuth'
 
 function sandbox() {
     return (
@@ -18,4 +19,4 @@ function sandbox() {
     )
 }
 
-export default sandbox
+export default withAuth(sandbox)
