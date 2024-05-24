@@ -14,6 +14,30 @@
   }
 }
 
+/* JSON Editor Styles */
+.editor-container {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Fira Mono', monospace;
+  font-size: 15px;
+}
+
+.line-numbers {
+  padding: 10px;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  text-align: right;
+  user-select: none;
+  color: #888;
+}
+
+.code-editor {
+  width: 100%;
+  padding: 10px;
+}
+
+
 /* .ps-submenu-content .ps-menuitem-root {
   background-color: rgb(195, 43, 226);
 } 

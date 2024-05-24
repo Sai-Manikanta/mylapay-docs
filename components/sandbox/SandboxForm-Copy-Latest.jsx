@@ -12,7 +12,6 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { Popover } from '@headlessui/react'
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
-import axios from 'axios';
 import _ from 'lodash';
 import 'prismjs/components/prism-json';
 import 'prismjs/themes/prism.css'; // You can choose a different theme
@@ -22,7 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
-    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters'),
+    OrganizationID: Yup.string().required('Organization ID is required').length(10, 'Organization ID must be exactly 10 characters'),
     // browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
 });
 
@@ -177,32 +176,6 @@ const mergeAndPrune = (oldObj, newObj) => {
 };
 
 const highlightWithPrism = (code) => Prism.highlight(code, Prism.languages.json, 'json');
-
-const validateOrganizationID = async (value) => {
-    let errorMessage;
-    if (!value) {
-        errorMessage = 'Organization ID is required';
-    } else if (value.length !== 20) {
-        errorMessage = 'Organization ID must be exactly 20 characters';
-    }
-    // else {
-    //     try {
-    //         const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
-    //             organizationId: value
-    //         });
-
-    //         console.log(response);
-
-    //         if (response.status !== 200) {
-    //             errorMessage = 'Organization ID verification failed';
-    //         }
-    //     } catch (error) {
-    //         errorMessage = 'Organization ID verification failed';
-    //     }
-    // }
-
-    return errorMessage;
-};
 
 const SandboxForm = () => {
     const router = useRouter();
@@ -3678,51 +3651,14 @@ const SandboxForm = () => {
     }, [parametersData])
 
 
-    const validateOrganisationId = async (value) => {
-        // axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access')
-
-        // if (value.length === 10) {
-        //     setOrganizationIDValidationStatus("success");
-        // } else if (value.length < 10) {
-        //     setOrganizationIDValidationStatus("pending");
-        // } else {
-        //     setOrganizationIDValidationStatus("failed");
-        // }
-
-        if (value.length < 20) {
+    const validateOrganisationId = (value) => {
+        if (value.length === 10) {
+            setOrganizationIDValidationStatus("success");
+        } else if (value.length < 10) {
             setOrganizationIDValidationStatus("pending");
-            return null;
-        } else if (value.length > 20) {
-            setOrganizationIDValidationStatus("failed");
-            return null;
-        }
-
-        // Set status to pending when request is being sent
-        setOrganizationIDValidationStatus("pending");
-
-        try {
-            const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
-                organizationId: value
-            }, {
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}` // Add the authorization header with the token
-                }
-            });
-
-            // setOrganizationIDValidationStatus("success");
-
-            if (response.status === 200) {
-                setOrganizationIDValidationStatus("success");
-            } else {
-                setOrganizationIDValidationStatus("failed");
-            }
-        } catch (error) {
-            // console.error('Error validating organization ID:', error);
+        } else {
             setOrganizationIDValidationStatus("failed");
         }
-
-        // You might also want to handle length check separately before making the request
-        
     }
 
     const handleReset = () => {
@@ -5447,8 +5383,6 @@ const SandboxForm = () => {
                         vcMerchantId: intialFormData?.Header?.vcMerchantId,
                     }}
                     validationSchema={validationSchema}
-                    validateOnChange={true}
-                    validateOnBlur={true}
                     onSubmit={(values, { setFieldError }) => {
                         // Handle form submission here
                         console.log({ ...values, selectedSandboxTestCodes });
@@ -5477,7 +5411,7 @@ const SandboxForm = () => {
 
                     }}
                 >
-                    {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
+                    {({ setFieldValue, handleChange }) => (
                         <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-1 mb-6">
                                 <div className="relative">
@@ -5503,41 +5437,22 @@ const SandboxForm = () => {
                                             name="OrganizationID"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
                                             validateOnChange={true}
-                                            validate={validateOrganizationID}
-                                            // validate={(value) => {
-                                            //     let errorMessage;
-                                            //     if (!value) {
-                                            //         errorMessage = 'Organization ID is required';
-                                            //     } else if (value.length !== 10) {
-                                            //         errorMessage = 'Organization ID must be exactly 10 characters';
-                                            //     }
-                                            //     return errorMessage;
-                                            // }}
-                                            onFocus={(event) => {
-                                                setFieldTouched('OrganizationID', true);
-                                                handleChange(event);
+                                            validate={(value) => {
+                                                let errorMessage;
+                                                if (!value) {
+                                                    errorMessage = 'Organization ID is required';
+                                                } else if (value.length !== 10) {
+                                                    errorMessage = 'Organization ID must be exactly 10 characters';
+                                                }
+                                                return errorMessage;
                                             }}
                                             onChange={(event) => {
-                                                handleChange(event);
-                                                setFieldValue('OrganizationID', event.target.value, true);
+                                                const { name, value } = event.target;
 
-                                                // if (event?.target?.value?.length === 20) {
-                                                    validateOrganisationId(event.target.value)
-                                                // }
+                                                validateOrganisationId(value)
+
+                                                handleChange(event)
                                             }}
-                                            onBlur={(event) => {
-                                                handleBlur(event);
-                                            }}
-                                        // onChange={(event) => {
-                                        //     const { name, value } = event.target;
-
-                                        //     console.log(value.length);
-
-
-                                        //     // validateOrganisationId(value)
-
-                                        //     handleChange(event)
-                                        // }}
                                         />
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Organization ID
@@ -5547,17 +5462,8 @@ const SandboxForm = () => {
                                             <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
 
-
-
                                         {organizationIDValidationStatus === "failed" && (
                                             <FaCircleXmark className='text-[#F43F5E] text-xl absolute top-[9px] right-[10px]' />
-                                        )}
-
-
-                                        {(errors.OrganizationID && touched.OrganizationID) && (
-                                            <div className="text-sm mt-2 text-[#F43F5E]">
-                                                {errors.OrganizationID}
-                                            </div>
                                         )}
                                     </div>
                                     <div className="relative">
@@ -5877,10 +5783,10 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-                            {/* <div>
+                            <div>
                                 <h1>selectedSandboxTestCodes</h1>
-                                <p>{JSON?.stringify(JSON?.parse(selectedSandboxTestCodes))}</p>
-                            </div> */}
+                                {/* <p>{JSON?.stringify(JSON?.parse(selectedSandboxTestCodes))}</p> */}
+                            </div>
 
                             {/* <div>
                                 <h1>responseData</h1>

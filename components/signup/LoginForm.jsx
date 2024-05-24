@@ -53,7 +53,7 @@ const LoginForm = () => {
                         // Handle form submission here
                         // console.log(values);
 
-                        axios.post("https://my-backend-5dra.onrender.com/api/v1/auth/signup", values)
+                        axios.post("http://localhost:9000/api/v1/auth/signup", values)
                             .then(res => {
                                 setIsOpen(true);
                             })

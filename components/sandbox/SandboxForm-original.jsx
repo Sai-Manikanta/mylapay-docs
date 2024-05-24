@@ -4,26 +4,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
-// import JSONInput from "react-json-editor-ajrm/index";
-// import locale from "react-json-editor-ajrm/locale/en";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { IoMdInformationCircle } from "react-icons/io";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Popover } from '@headlessui/react'
-import Editor from 'react-simple-code-editor';
-import Prism from 'prismjs';
-import axios from 'axios';
-import _ from 'lodash';
-import 'prismjs/components/prism-json';
-import 'prismjs/themes/prism.css'; // You can choose a different theme
-// import './JsonEditor.css'; // Custom styles for line numbers
 import 'react-toastify/dist/ReactToastify.css';
 
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
-    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters'),
-    // browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
+    OrganizationID: Yup.string().required('Organization ID is required').length(10, 'Organization ID must be exactly 10 characters'),
+    browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
 });
 
 const data = {
@@ -113,104 +104,11 @@ const data = {
     },
 };
 
-// Two compare two objects and its keys, values to find which key value changed
-function findUpdatedValues(prevData, newData) {
-    const changes = [];
-
-    function compareValues(prevObj, newObj, path) {
-        const prevKeys = Object.keys(prevObj);
-        const newKeys = Object.keys(newObj);
-        const allKeys = new Set([...prevKeys, ...newKeys]);
-
-        allKeys.forEach(key => {
-            const fullPath = path ? `${path}.${key}` : key;
-            const prevValue = prevObj[key];
-            const newValue = newObj[key];
-
-            if (typeof prevValue === 'object' && prevValue !== null &&
-                typeof newValue === 'object' && newValue !== null) {
-                compareValues(prevValue, newValue, fullPath);
-            } else if (prevValue !== newValue) {
-                changes.push({ key: fullPath, oldValue: prevValue, newValue: newValue });
-            }
-        });
-    }
-
-    compareValues(prevData, newData, '');
-
-    return changes;
-}
-
-// const customizer = (objValue, srcValue) => {
-//     if (_.isObject(objValue)) {
-//         return _.mergeWith({}, objValue, srcValue, customizer);
-//     }
-//     return srcValue === '' ? objValue : srcValue;
-// };
-
-const customizer = (objValue, srcValue, key, object, source) => {
-    if (_.isObject(objValue)) {
-        return _.mergeWith({}, objValue, srcValue, customizer);
-    }
-    if (srcValue === '') {
-        return objValue;
-    }
-    if (!(key in source)) {
-        return undefined;
-    }
-    return srcValue;
-};
-
-const mergeAndPrune = (oldObj, newObj) => {
-    const merged = _.mergeWith({}, oldObj, newObj, customizer);
-    const prune = (obj, reference) => {
-        _.forOwn(obj, (value, key) => {
-            if (_.isObject(value)) {
-                prune(value, reference[key]);
-            } else if (!(key in reference)) {
-                delete obj[key];
-            }
-        });
-    };
-    prune(merged, newObj);
-    return merged;
-};
-
-const highlightWithPrism = (code) => Prism.highlight(code, Prism.languages.json, 'json');
-
-const validateOrganizationID = async (value) => {
-    let errorMessage;
-    if (!value) {
-        errorMessage = 'Organization ID is required';
-    } else if (value.length !== 20) {
-        errorMessage = 'Organization ID must be exactly 20 characters';
-    }
-    // else {
-    //     try {
-    //         const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
-    //             organizationId: value
-    //         });
-
-    //         console.log(response);
-
-    //         if (response.status !== 200) {
-    //             errorMessage = 'Organization ID verification failed';
-    //         }
-    //     } catch (error) {
-    //         errorMessage = 'Organization ID verification failed';
-    //     }
-    // }
-
-    return errorMessage;
-};
-
 const SandboxForm = () => {
     const router = useRouter();
     const { query } = router;
     const [intialFormData, setIntialFormData] = useState(null);
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
-    const [error, setError] = useState(null);
-    const [lineNumbers, setLineNumbers] = useState([]);
     const [parametersData, setParametersData] = useState([
         {
             id: 1,
@@ -402,6 +300,186 @@ const SandboxForm = () => {
                     dataType: "String",
                     lengthAndType: "Variable \nans- 2048",
                     description: "This field is required, If DeviceChannel 02 - BRW. Exact content of the HTTP user-agent header",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo",
+                    type: "text",
+                    dataType: "Object",
+                    lengthAndType: "Variable",
+                    description: "Additional information about the Cardholder’s \naccount provided by the 3DS Requestor.\nValues: Sub Elements: \n1.Cardholder Account Age Indicator\n2.Cardholder Account Change\n3.Cardholder Account Change Indicator\n4.Cardholder Account Date\n5.Cardholder Account Requestor ID\n6.Cardholder Account Password Change\n7.Cardholder Account Password Change Indicator\n8.Cardholder Account Purchase Count\n9.Number of Provisioning Attempts Per Day\n10.Number of Transactions Per Day\n11.Number of Transactions Per Year\n12.Payment Account Age\n13.Payment Account Age Indicator\n14.Shipping Address Usage\n15.Shipping Address Usage Indicator\n16.Shipping Name Indicator\n17.Suspicious Account Activity",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccAgeInd",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Values accepted:\n01 = No account (guest check-out)\n02 = Created during this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccChange",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-8",
+                    description: "Format accepted: Date format = YYYYMMDD",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccChangeInd",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Values accepted:\n01 = Changed during this transaction\n02 = Less than 30 days\n03 = 30−60 days\n04 = More than 60 days",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccDate",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-8",
+                    description: "Format accepted: Date format = YYYYMMDD",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccReqID",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Variable an-64",
+                    description: "The 3DS Requestor assigned account identifier of the \ntransacting Cardholder. \nThis identifier is coded as the SHA-256 + Base64url of the account identifier for the 3DS Requestor and is provided as a String",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccPwChange",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-8",
+                    description: "Format accepted: Date format = YYYYMMDD",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.chAccPwChangeInd",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Indicates the length of time since the cardholder’s account with the 3DS Requestor had a password change or account reset.\nValues accepted:\n01 = No change\n02 = Changed during this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.nbPurchaseAccount",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Variable n-4",
+                    description: "Number of purchases with this cardholder account during the previous six months. If the Cardholder Account Purchase Count reaches the value 999, it remains set at 999. Values accepted: 0–999",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.provisionAttemptsDay",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Variable n-3",
+                    description: "Number of Add Card attempts in the last 24 hours",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.txnActivityDay",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Variable n-3",
+                    description: "Number of transactions (successful and abandoned) for this \ncardholder account with the 3DS Requestor across all \npayment accounts in the previous 24 hours.",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.txnActivityYear",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-3",
+                    description: "Number of transactions (successful and abandoned) for this cardholder account with the 3DS Requestor across all payment accounts in the previous year. If the maximum value is reached, the Number of Transactions Per Year remains set at 999. Values accepted: 0–99",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.paymentAccAge",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-8",
+                    description: "Date converted into UTC that the payment account was enrolled in the cardholder’s account with the 3DS Requestor. Format accepted: Date format = YYYYMMDD",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.paymentAccInd",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Indicates the length of time that the payment account was \nenrolled in the cardholder’s account \nwith the 3DS Requestor.\nValues accepted:\n01 = No account (guest check-out)\n02 = During this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.shipAddressUsage",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-8",
+                    description: "Date converted into UTC when the shipping address used for the is transaction was first used with the 3DS Requestor. Format accepted: Date format = YYYYMMDD",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.shipAddressUsageInd",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Indicates when the shipping address used for this transaction was first used with the 3DS Requestor.\nValues accepted:\n01 = This transaction\n02 = Less than 30 days\n03 = 30−60 days\n04 = More than 60 days",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.shipNameIndicator",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Indicates if the Cardholder Name on the account is identical to the shipping Name used for this transaction. Values accepted: 01 = Account Name identical to shipping Name 02 = Account Name different than shipping Name",
+                    status: "mandate",
+                    checked: true,
+                    value: ""
+                },
+                {
+                    name: "acctInfo.suspiciousAccActivity",
+                    type: "text",
+                    dataType: "String",
+                    lengthAndType: "Fixed n-2",
+                    description: "Indicates whether the 3DS Requestor has experienced \nsuspicious activity (including previous \nfraud) on the cardholder account.\nValues accepted:\n01 = No suspicious activity has been observed\n02 = Suspicious activity has been observed",
                     status: "mandate",
                     checked: true,
                     value: ""
@@ -1915,15 +1993,8 @@ const SandboxForm = () => {
         }
     ]);
 
-    const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
+    const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState({});
     const [responseData, setResponseData] = useState(null);
-
-    useEffect(() => {
-        if (selectedSandboxTestCodes) {
-            const lines = selectedSandboxTestCodes?.split('\n')?.map((_, i) => i + 1);
-            setLineNumbers(lines);
-        }
-    }, [selectedSandboxTestCodes]);
 
 
     useEffect(() => {
@@ -1933,7 +2004,7 @@ const SandboxForm = () => {
             // CHANGES
             setOrganizationIDValidationStatus("pending");
             setResponseData(null);
-            setSelectedSandboxTestCodes(JSON.stringify({}, null, 2))
+            setSelectedSandboxTestCodes({})
             setParametersData([
                 {
                     id: 1,
@@ -2009,6 +2080,7 @@ const SandboxForm = () => {
                             checked: true,
                             value: ""
                         },
+
                         {
                             name: "threeDSRequestorID",
                             type: "text",
@@ -2139,7 +2211,6 @@ const SandboxForm = () => {
                             checked: true,
                             value: ""
                         },
-
                         {
                             name: "mcc",
                             type: "text",
@@ -2166,6 +2237,26 @@ const SandboxForm = () => {
                             dataType: "String",
                             lengthAndType: "Variable a-40",
                             description: "Merchant name assigned by the Acquirer or Payment System. The same value must be used in the authorisation request. This field is based Message Category 01-PA = Required and 02-NPA = Optional but strongly recommended to include for if the Merchant is also the 3DS Requestor.",
+                            status: "mandate",
+                            checked: true,
+                            value: ""
+                        },
+                        {
+                            name: "merchantRiskIndicator",
+                            type: "text",
+                            dataType: "Object",
+                            lengthAndType: "Variable",
+                            description: "Merchant’s assessment of the level of fraud risk for the specific authentication for both the Cardholder and the authentication being conducted. Values Accepted: Sub Elements: 1. Delivery Email Address 2.Delivery Timeframe 3.Gift Card Amount 4.Gift Card Count 5.Gift Card Currency 6.Pre-Order Date 7.Pre-Order Purchase Indicator 8.Reorder Items Indicator 9.Shipping Indicator 10.Transaction Characteristics Note: Data will be formatted into a JSON object prior to being placed into the Merchant Risk Indicator field of the message",
+                            status: "mandate",
+                            checked: true,
+                            value: ""
+                        },
+                        {
+                            name: "deliveryEmailAddress",
+                            type: "text",
+                            dataType: "String",
+                            lengthAndType: "Variable ans-254",
+                            description: "For Electronic delivery, the email address to which the merchandise was delivered",
                             status: "mandate",
                             checked: true,
                             value: ""
@@ -2938,7 +3029,7 @@ const SandboxForm = () => {
                             status: "optional",
                             checked: false,
                             value: ""
-                        },
+                        }
                     ]
                 },
                 {
@@ -3446,8 +3537,7 @@ const SandboxForm = () => {
                             status: "conditionally required",
                             checked: false,
                             value: ""
-                        },
-                        {
+                        }, {
                             name: "sellerBusinessName",
                             type: "text",
                             dataType: "String",
@@ -3668,61 +3758,18 @@ const SandboxForm = () => {
         }, {})
 
 
-        console.log(JSON?.parse(selectedSandboxTestCodes))
-        console.log(selectedData);
-        // const mergedData = () => _.mergeWith({}, JSON?.parse(selectedSandboxTestCodes), selectedData, customizer);
-        const mergedData = mergeAndPrune(JSON?.parse(selectedSandboxTestCodes), selectedData)
-        // console.log(mergedData)
-
-        setSelectedSandboxTestCodes(JSON.stringify(mergedData, null, 2));
+        setSelectedSandboxTestCodes(selectedData);
     }, [parametersData])
 
 
-    const validateOrganisationId = async (value) => {
-        // axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access')
-
-        // if (value.length === 10) {
-        //     setOrganizationIDValidationStatus("success");
-        // } else if (value.length < 10) {
-        //     setOrganizationIDValidationStatus("pending");
-        // } else {
-        //     setOrganizationIDValidationStatus("failed");
-        // }
-
-        if (value.length < 20) {
+    const validateOrganisationId = (value) => {
+        if (value.length === 10) {
+            setOrganizationIDValidationStatus("success");
+        } else if (value.length < 10) {
             setOrganizationIDValidationStatus("pending");
-            return null;
-        } else if (value.length > 20) {
-            setOrganizationIDValidationStatus("failed");
-            return null;
-        }
-
-        // Set status to pending when request is being sent
-        setOrganizationIDValidationStatus("pending");
-
-        try {
-            const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
-                organizationId: value
-            }, {
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}` // Add the authorization header with the token
-                }
-            });
-
-            // setOrganizationIDValidationStatus("success");
-
-            if (response.status === 200) {
-                setOrganizationIDValidationStatus("success");
-            } else {
-                setOrganizationIDValidationStatus("failed");
-            }
-        } catch (error) {
-            // console.error('Error validating organization ID:', error);
+        } else {
             setOrganizationIDValidationStatus("failed");
         }
-
-        // You might also want to handle length check separately before making the request
-        
     }
 
     const handleReset = () => {
@@ -3787,16 +3834,6 @@ const SandboxForm = () => {
                         dataType: "String",
                         lengthAndType: "Fixed n-2",
                         description: "Indicates the type of Authentication request. Required\nIf DeviceChannel 01-APP ; 02-BRW\nValues Accepted:\n01 = Payment transaction\n02 = Recurring transaction\n03 = Instalment transaction\n04 = Add card\n05 = Maintain card\n06 = Cardholder verification as part of EMV token\nID&V\n07 = Billing Agreement\n08 = Split shipment\n09 = Delayed shipment\n10 = Split payment",
-                        status: "mandate",
-                        checked: true,
-                        value: ""
-                    },
-                    {
-                        name: "threeDSRequestorAuthenticationInfo",
-                        type: "text",
-                        dataType: "Array of objects",
-                        lengthAndType: "Size 1–3 elements",
-                        description: "Information about how the 3DS Requestor\nauthenticated the Cardholder before or during the\ntransaction.\nValues Accepted: Sub Elements:\n1. threeDSReqAuthData\n2. threeDSReqAuthMethod\n3. threeDSReqAuthTimestamp\nNote: Data will be formatted into a JSON Array of\nobjects prior to being placed into the 3DS Requestor\nAuthentication Information field of the message.",
                         status: "mandate",
                         checked: true,
                         value: ""
@@ -3922,6 +3959,186 @@ const SandboxForm = () => {
                         value: ""
                     },
                     {
+                        name: "acctInfo",
+                        type: "text",
+                        dataType: "Object",
+                        lengthAndType: "Variable",
+                        description: "Additional information about the Cardholder’s \naccount provided by the 3DS Requestor.\nValues: Sub Elements: \n1.Cardholder Account Age Indicator\n2.Cardholder Account Change\n3.Cardholder Account Change Indicator\n4.Cardholder Account Date\n5.Cardholder Account Requestor ID\n6.Cardholder Account Password Change\n7.Cardholder Account Password Change Indicator\n8.Cardholder Account Purchase Count\n9.Number of Provisioning Attempts Per Day\n10.Number of Transactions Per Day\n11.Number of Transactions Per Year\n12.Payment Account Age\n13.Payment Account Age Indicator\n14.Shipping Address Usage\n15.Shipping Address Usage Indicator\n16.Shipping Name Indicator\n17.Suspicious Account Activity",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccAgeInd",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Values accepted:\n01 = No account (guest check-out)\n02 = Created during this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccChange",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-8",
+                        description: "Format accepted: Date format = YYYYMMDD",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccChangeInd",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Values accepted:\n01 = Changed during this transaction\n02 = Less than 30 days\n03 = 30−60 days\n04 = More than 60 days",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccDate",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-8",
+                        description: "Format accepted: Date format = YYYYMMDD",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccReqID",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Variable an-64",
+                        description: "The 3DS Requestor assigned account identifier of the \ntransacting Cardholder. \nThis identifier is coded as the SHA-256 + Base64url of the account identifier for the 3DS Requestor and is provided as a String",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccPwChange",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-8",
+                        description: "Format accepted: Date format = YYYYMMDD",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.chAccPwChangeInd",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Indicates the length of time since the cardholder’s account with the 3DS Requestor had a password change or account reset.\nValues accepted:\n01 = No change\n02 = Changed during this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.nbPurchaseAccount",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Variable n-4",
+                        description: "Number of purchases with this cardholder account during the previous six months. If the Cardholder Account Purchase Count reaches the value 999, it remains set at 999. Values accepted: 0–999",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.provisionAttemptsDay",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Variable n-3",
+                        description: "Number of Add Card attempts in the last 24 hours",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.txnActivityDay",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Variable n-3",
+                        description: "Number of transactions (successful and abandoned) for this \ncardholder account with the 3DS Requestor across all \npayment accounts in the previous 24 hours.",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.txnActivityYear",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-3",
+                        description: "Number of transactions (successful and abandoned) for this cardholder account with the 3DS Requestor across all payment accounts in the previous year. If the maximum value is reached, the Number of Transactions Per Year remains set at 999. Values accepted: 0–99",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.paymentAccAge",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-8",
+                        description: "Date converted into UTC that the payment account was enrolled in the cardholder’s account with the 3DS Requestor. Format accepted: Date format = YYYYMMDD",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.paymentAccInd",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Indicates the length of time that the payment account was \nenrolled in the cardholder’s account \nwith the 3DS Requestor.\nValues accepted:\n01 = No account (guest check-out)\n02 = During this transaction\n03 = Less than 30 days\n04 = 30−60 days\n05 = More than 60 days",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.shipAddressUsage",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-8",
+                        description: "Date converted into UTC when the shipping address used for the is transaction was first used with the 3DS Requestor. Format accepted: Date format = YYYYMMDD",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.shipAddressUsageInd",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Indicates when the shipping address used for this transaction was first used with the 3DS Requestor.\nValues accepted:\n01 = This transaction\n02 = Less than 30 days\n03 = 30−60 days\n04 = More than 60 days",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.shipNameIndicator",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Indicates if the Cardholder Name on the account is identical to the shipping Name used for this transaction. Values accepted: 01 = Account Name identical to shipping Name 02 = Account Name different than shipping Name",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "acctInfo.suspiciousAccActivity",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Fixed n-2",
+                        description: "Indicates whether the 3DS Requestor has experienced \nsuspicious activity (including previous \nfraud) on the cardholder account.\nValues accepted:\n01 = No suspicious activity has been observed\n02 = Suspicious activity has been observed",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
                         name: "acctNumber",
                         type: "text",
                         dataType: "String",
@@ -3931,7 +4148,16 @@ const SandboxForm = () => {
                         checked: true,
                         value: ""
                     },
-
+                    {
+                        name: "deviceRenderOptions",
+                        type: "text",
+                        dataType: "Object",
+                        lengthAndType: "Variable",
+                        description: "Required If DeviceChannel is 01 - APP Identifies the SDK Interface and SDK UI Type that the device supports for displaying specific challenge user interfaces within the 3DS SDK. Values Accepted: SubElements: 1. SDK Authentication Type 2.SDK Interface 3.SDK UI Type",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
                     {
                         name: "mcc",
                         type: "text",
@@ -3958,6 +4184,26 @@ const SandboxForm = () => {
                         dataType: "String",
                         lengthAndType: "Variable a-40",
                         description: "Merchant name assigned by the Acquirer or Payment System. The same value must be used in the authorisation request. This field is based Message Category 01-PA = Required and 02-NPA = Optional but strongly recommended to include for if the Merchant is also the 3DS Requestor.",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "merchantRiskIndicator",
+                        type: "text",
+                        dataType: "Object",
+                        lengthAndType: "Variable",
+                        description: "Merchant’s assessment of the level of fraud risk for the specific authentication for both the Cardholder and the authentication being conducted. Values Accepted: Sub Elements: 1. Delivery Email Address 2.Delivery Timeframe 3.Gift Card Amount 4.Gift Card Count 5.Gift Card Currency 6.Pre-Order Date 7.Pre-Order Purchase Indicator 8.Reorder Items Indicator 9.Shipping Indicator 10.Transaction Characteristics Note: Data will be formatted into a JSON object prior to being placed into the Merchant Risk Indicator field of the message",
+                        status: "mandate",
+                        checked: true,
+                        value: ""
+                    },
+                    {
+                        name: "deliveryEmailAddress",
+                        type: "text",
+                        dataType: "String",
+                        lengthAndType: "Variable ans-254",
+                        description: "For Electronic delivery, the email address to which the merchandise was delivered",
                         status: "mandate",
                         checked: true,
                         value: ""
@@ -4168,16 +4414,6 @@ const SandboxForm = () => {
                         dataType: "String",
                         lengthAndType: "Fixed ans-36",
                         description: "Contains the 3DS Server Transaction ID used during \nthe previous execution of the 3DS Method.\nRequired if 3DS Requestor reuses previous 3DS \nMethod execution and the Device channel 02-BRW",
-                        status: "mandate",
-                        checked: true,
-                        value: ""
-                    },
-                    {
-                        name: "sellerInfo.sellerName",
-                        type: "text",
-                        dataType: "String",
-                        lengthAndType: "Variable a- 100",
-                        description: "Name of the Seller",
                         status: "mandate",
                         checked: true,
                         value: ""
@@ -5238,8 +5474,7 @@ const SandboxForm = () => {
                         status: "conditionally required",
                         checked: false,
                         value: ""
-                    },
-                    {
+                    }, {
                         name: "sellerBusinessName",
                         type: "text",
                         dataType: "String",
@@ -5447,11 +5682,9 @@ const SandboxForm = () => {
                         vcMerchantId: intialFormData?.Header?.vcMerchantId,
                     }}
                     validationSchema={validationSchema}
-                    validateOnChange={true}
-                    validateOnBlur={true}
                     onSubmit={(values, { setFieldError }) => {
                         // Handle form submission here
-                        console.log({ ...values, selectedSandboxTestCodes });
+                        console.log({ ...values, ...selectedSandboxTestCodes });
 
                         // Set response data if request successfull
                         setResponseData({
@@ -5477,7 +5710,7 @@ const SandboxForm = () => {
 
                     }}
                 >
-                    {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
+                    {({ setFieldValue, handleChange }) => (
                         <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-1 mb-6">
                                 <div className="relative">
@@ -5503,41 +5736,22 @@ const SandboxForm = () => {
                                             name="OrganizationID"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
                                             validateOnChange={true}
-                                            validate={validateOrganizationID}
-                                            // validate={(value) => {
-                                            //     let errorMessage;
-                                            //     if (!value) {
-                                            //         errorMessage = 'Organization ID is required';
-                                            //     } else if (value.length !== 10) {
-                                            //         errorMessage = 'Organization ID must be exactly 10 characters';
-                                            //     }
-                                            //     return errorMessage;
-                                            // }}
-                                            onFocus={(event) => {
-                                                setFieldTouched('OrganizationID', true);
-                                                handleChange(event);
+                                            validate={(value) => {
+                                                let errorMessage;
+                                                if (!value) {
+                                                    errorMessage = 'Organization ID is required';
+                                                } else if (value.length !== 10) {
+                                                    errorMessage = 'Organization ID must be exactly 10 characters';
+                                                }
+                                                return errorMessage;
                                             }}
                                             onChange={(event) => {
-                                                handleChange(event);
-                                                setFieldValue('OrganizationID', event.target.value, true);
+                                                const { name, value } = event.target;
 
-                                                // if (event?.target?.value?.length === 20) {
-                                                    validateOrganisationId(event.target.value)
-                                                // }
+                                                validateOrganisationId(value)
+
+                                                handleChange(event)
                                             }}
-                                            onBlur={(event) => {
-                                                handleBlur(event);
-                                            }}
-                                        // onChange={(event) => {
-                                        //     const { name, value } = event.target;
-
-                                        //     console.log(value.length);
-
-
-                                        //     // validateOrganisationId(value)
-
-                                        //     handleChange(event)
-                                        // }}
                                         />
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Organization ID
@@ -5547,17 +5761,8 @@ const SandboxForm = () => {
                                             <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
 
-
-
                                         {organizationIDValidationStatus === "failed" && (
                                             <FaCircleXmark className='text-[#F43F5E] text-xl absolute top-[9px] right-[10px]' />
-                                        )}
-
-
-                                        {(errors.OrganizationID && touched.OrganizationID) && (
-                                            <div className="text-sm mt-2 text-[#F43F5E]">
-                                                {errors.OrganizationID}
-                                            </div>
                                         )}
                                     </div>
                                     <div className="relative">
@@ -5624,7 +5829,7 @@ const SandboxForm = () => {
                                     <div className='bg-bggray p-4 rounded'>
                                         <h2 className='mb-4'>Request Parameter</h2>
                                         <div>
-                                            {parametersData?.map((parameter, i) => {
+                                            {parametersData.map((parameter, i) => {
 
                                                 return (
                                                     <div key={i} className='mb-4'>
@@ -5745,21 +5950,21 @@ const SandboxForm = () => {
                                         </div>
                                     </div>
 
-                                    <div className='bg-bggray p-4 rounded relative'>
-                                        <h2 className='mb-4'>Sandbox Test Codes</h2>
+                                    <div className='bg-bggray p-4 rounded'>
+                                        <h2 className='mb-4'>Sandbox Test Codes 333</h2>
 
-                                        {/* {organizationIDValidationStatus === 'success' && (
+                                        {organizationIDValidationStatus === 'success' && (
                                             <p className='text-sm mb-5'>
                                                 To edit a value, hover your mouse cursor over the target value and click on the displayed edit icon button
                                             </p>
-                                        )} */}
+                                        )}
 
-                                        {/* {selectedSandboxTestCodes['Browser Info']?.browserIP === "" && (
+                                        {selectedSandboxTestCodes['Browser Info']?.browserIP === "" && (
                                             <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
-                                        )} */}
+                                        )}
 
-                                        <div>
-                                            {/* <DynamicReactJson
+                                        <div className='relative'>
+                                            <DynamicReactJson
                                                 src={selectedSandboxTestCodes}
                                                 theme="monokai"
                                                 enableClipboard={false}
@@ -5784,111 +5989,34 @@ const SandboxForm = () => {
                                                         return newData;
                                                     });
                                                 }}
-                                            /> */}
+                                            />
 
+                                            <button
+                                                className='py-1 px-4 rounded-sm text-sm bg-white text-bluedark absolute top-5 right-5'
+                                                type="button"
+                                                onClick={() => {
+                                                    const jsonData = JSON.stringify(selectedSandboxTestCodes);
 
-                                            {/* <JSONInput
-                                                placeholder={selectedSandboxTestCodes}
-                                                onBlur={(newData) => {
-                                                    if (!newData.error) {
-                                                        setSelectedSandboxTestCodes(newData.jsObject);
-                                                    }
-                                                    // setSelectedSandboxTestCodes(newData.jsObject);
-                                                    // console.log(newData.jsObject);
-                                                    // setParametersData(newData.jsObject);
-                                                    // setData(newData.jsObject)
-                                                }}
-                                                // confirmGood={false}
-                                                onKeyPressUpdate={false}
-                                                theme="light_mitsuketa_tribute"
-                                                locale={locale}
-                                                height="100%"
-                                                width="100%"
-                                            /> */}
-
-
-                                            <div className="editor-container">
-                                                <div className="line-numbers">
-                                                    {lineNumbers.map((lineNumber) => (
-                                                        <div key={lineNumber} style={{ color: '#3366ff' }}>{lineNumber}</div>
-                                                    ))}
-                                                </div>
-                                                <Editor
-                                                    value={selectedSandboxTestCodes}
-                                                    onValueChange={(code) => {
-
-                                                        // console.log(code);
-
-                                                        // FIND UPDATED KEY AND VALUE
-                                                        // FInd updated key in parameters data and update it's value
-
-                                                        setSelectedSandboxTestCodes(prevData => {
-
-                                                            // const updates = findUpdatedValues(prevData, code);
-                                                            // console.log(updates);
-
-                                                            // console.log("prevData")
-                                                            // console.log(prevData)
-
-                                                            // console.log("======================")
-
-                                                            // console.log("Updated Data")
-                                                            // console.log(code)
-
-                                                            return code;
+                                                    navigator.clipboard.writeText(jsonData)
+                                                        .then(() => {
+                                                            toast("Copied");
+                                                            // alert('COPIED');
+                                                            // console.log('JSON data copied to clipboard');
+                                                        })
+                                                        .catch((error) => {
+                                                            console.error('Failed to copy JSON data: ', error);
                                                         });
-
-
-
-                                                        try {
-                                                            // const parsed = JSON.parse(code);
-                                                            //   setParsedJson(parsed);
-                                                            setError(null); // Clear the error if JSON is valid
-                                                        } catch (err) {
-                                                            setError('Invalid JSON'); // Set error message if JSON is invalid
-                                                        }
-                                                    }}
-                                                    highlight={highlightWithPrism}
-                                                    padding={10}
-                                                    className="code-editor"
-                                                />
-                                            </div>
-                                            {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
-
-
+                                                }}
+                                            >
+                                                COPY
+                                            </button>
                                         </div>
-
-                                        <button
-                                            className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-3 right-5'
-                                            type="button"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText(selectedSandboxTestCodes)
-                                                    .then(() => {
-                                                        toast("Copied");
-                                                    })
-                                                    .catch((error) => {
-                                                        console.error('Failed to copy JSON data: ', error);
-                                                    });
-                                            }}
-                                        >
-                                            COPY
-                                        </button>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* <div>
-                                <h1>selectedSandboxTestCodes</h1>
-                                <p>{JSON?.stringify(JSON?.parse(selectedSandboxTestCodes))}</p>
-                            </div> */}
-
-                            {/* <div>
-                                <h1>responseData</h1>
-                                <p>{JSON.stringify(responseData)}</p>
-                            </div> */}
-
                             <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
-                                <button type="submit" disabled={organizationIDValidationStatus != 'success' || error} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
+                                <button type="submit" disabled={organizationIDValidationStatus != 'success' || selectedSandboxTestCodes['Browser Info']?.browserIP === ""} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
                                     Send
                                 </button>
                                 <button onClick={handleReset} disabled={organizationIDValidationStatus != 'success'} type="button" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray disabled:text-black">
@@ -6017,6 +6145,22 @@ const SandboxForm = () => {
                                 {responseData.description}
                             </p>
                         </div>
+
+                        {/* <div className='bg-bggray p-4 rounded'>
+                            <h2 className='mb-3'>Header</h2>
+
+                            <div>
+                                <DynamicReactJson
+                                    src={responseData.header}
+                                    theme="monokai"
+                                    enableClipboard={false}
+                                    displayObjectSize={false}
+                                    displayDataTypes={false}
+                                    displayArrayKey={false}
+                                    name={false}
+                                />
+                            </div>
+                        </div> */}
                     </div>
                 </div>
             )}
