@@ -8,10 +8,11 @@ import so4 from '../../public/so4.png'
 function Footer() {
     return (
         <footer className=" bg-[#000] px-8 lg:px-0">
-            <div className="wrapper">
+            <div className="wrapper border-white">
                 <div>
-                    <div className="grid gap-y-10 gap-x-4 py-14 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-9 lg:py-[100px]">
-                        <div className="col-span-2 sm:col-span-1 xl:col-span-2">
+                    {/* sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-8 */}
+                    <div className="grid gap-y-10 py-14 grid-cols-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-6 lg:py-[100px]">
+                        <div className="col-span-1 sm:col-span-1 md:col-span-1 xl:col-span-1">
                             <a target="_blank" className="group" href="#">
                                 <Image
                                     className="max-w-[150px] sm:max-w-[150px] xl:max-w-[150px] m-auto sm:ml-0 mb-3"
@@ -125,7 +126,7 @@ function Footer() {
                             </ul>
                         </div>
                         <div
-                            className="col-span-1 sm:col-span-2 md:col-span-2 xl:col-span-2"
+                            className="col-span-1 sm:col-span-2 md:col-span-1 xl:col-span-1"
                         >
                             <ul className="flex flex-col gap-3 text-sm">
                                 <li className="mb-3 text-xs font-semibold uppercase text-white">
@@ -206,7 +207,7 @@ function Footer() {
                             </ul>
                         </div>
                         <div
-                            className="col-span-2 md:col-span-2 xl:col-span-2"
+                            className="col-span-2 md:col-span-2 xl:col-span-1"
                         >
                             <div className="text-sm text-grayfooter">
                                 <h3 className="text-xs font-semibold uppercase mb-5 text-white">

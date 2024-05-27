@@ -33,19 +33,15 @@ function Support() {
                                 </div>
                                 <div className="item-right">
                                     <a href="#">
-                                        <button className="mb-5 mr-1 sm:mr-5 xl:mr-5 xl:my-2 font-semibold px-5 w-52 text-white text-sm rounded-md bg-bluelight hover:before:bg-white hover:text-black relative h-[50px]  overflow-hidden px-3  shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:before:left-0 hover:before:w-full uppercase">
-                                            <span className="relative z-10">
-                                                API Endpoints & Specifications 
-                                            </span>
+                                        <button className="mb-5 mr-1 sm:mr-5 xl:mr-5 xl:my-2 font-semibold px-5 w-52 text-white text-sm rounded-md bg-bluelight hover:before:bg-white hover:text-black relative h-[50px]  overflow-hidden px-3  shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500  hover:before:left-0 hover:before:w-full uppercase">
+                                            <span className="relative z-10"> Contact Support </span>
                                         </button>
                                     </a>
-                                    <a href="#" className="sm:relative top-2">
+                                    <a href="#">
                                         <button
-                                            className="my-2 font-semibold px-5 w-52 mr-1 lg:mx-0 text-white text-sm rounded-md bg-bluelight hover:before:bg-white hover:text-black relative h-[50px] overflow-hidden px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:before:left-0 hover:before:w-full uppercase aos-init aos-animate"
+                                            className="my-2 font-semibold px-5 w-52 mr-1 lg:mx-0 text-white text-sm rounded-md bg-bluelight hover:before:bg-white hover:text-black relative h-[50px] overflow-hidden px-3 shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500  hover:before:left-0 hover:before:w-full uppercase aos-init aos-animate"
                                         >
-                                            <span className="relative z-10"> 
-                                            Test on Sandbox
-                                             </span>
+                                            <span className="relative z-10"> Developer Forum </span>
                                         </button>
                                     </a>
                                 </div>

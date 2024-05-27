@@ -41,7 +41,7 @@ export default function Header() {
 
 
                     <Popover.Group className="hidden lg:flex lg:items-center">
-                        <Link href="/product-apis" className="text-sm font-semibold leading-6 text-gray-900">
+                        <Link href="/api-endpoints-and-specifications" className="text-sm font-semibold leading-6 text-gray-900">
                             Product APIs
                         </Link>
                         <Link href="#" className="ml-8 text-sm font-semibold leading-6 text-gray-900">

@@ -1,5 +1,3 @@
-// "use client";
-
 import Head from 'next/head'
 import Sidebar from '../components/sandbox/Sidebar'
 import withAuth from '../hoc/withAuth'

@@ -4,12 +4,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Disclosure } from '@headlessui/react'
-import { IoMenuSharp } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
-import { IoMdHome } from "react-icons/io";
-import { SiMicrosoftaccess } from "react-icons/si";
+import { IoMenuSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
+import { IoMdClose, IoMdHome } from "react-icons/io";
+import { SiMicrosoftaccess, SiCoronaengine } from "react-icons/si";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { SiCoronaengine } from "react-icons/si";
+import { MdOutlineToken } from "react-icons/md";
+import { LiaFighterJetSolid } from "react-icons/lia";
+import { GrBusinessService } from "react-icons/gr";
+import { PiWebhooksLogo } from "react-icons/pi";
 import Sandbox from './SandboxForm';
 import ProfileDropDown from './ProfileDropDown'
 // import NewAside from './NewAside'
@@ -19,6 +21,24 @@ import mylapaylogo from '../../public/mylapaylogo.png';
 
 const data = {
     authentication: {
+        overview: [
+            'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
+            "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
+        ],
+        apiSpecification: [
+            "The API specification precisely defines the required parameters for both initiating a request and receiving a response in the 3-D Secure Authentication process. It serves as a comprehensive guide, outlining the specific data elements essential for a successful authentication exchange"
+        ]
+    },
+    ['3DSS-v2.2']: {
+        overview: [
+            'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
+            "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
+        ],
+        apiSpecification: [
+            "The API specification precisely defines the required parameters for both initiating a request and receiving a response in the 3-D Secure Authentication process. It serves as a comprehensive guide, outlining the specific data elements essential for a successful authentication exchange"
+        ]
+    },
+    ['3DSS-v2.3']: {
         overview: [
             'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
             "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
@@ -84,8 +104,8 @@ function Sidebar() {
             <div className='flex min-h-screen relative'>
                 <div className={`${showSidebar ? 'block' : 'hidden'} sm:block h-screen fixed sm:sticky top-0 bg-primary text-white`}>
                     <div className="min-h-screen flex flex-row bg-gray-100">
-                        <div className="flex flex-col w-56 bg-primary overflow-hidden">
-                            <div className="flex items-center sm:justify-center p-4 gap-x-5 shadow bg-white">
+                        <div className="flex flex-col w-56 bg-white overflow-hidden">
+                            <div className="flex items-center sm:justify-center p-4 gap-x-5 bg-white">
                                 <div className='block sm:hidden'>
                                     {showSidebar ? (
                                         <button onClick={() => setShowSidebar(false)}>Close</button>
@@ -99,60 +119,173 @@ function Sidebar() {
                                 </Link>
                             </div>
                             <ul className="flex flex-col py-4">
-                                <li>
-                                    <Link
-                                        href="/"
-                                        className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                                    >
-                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                            <IoMdHome />
-                                        </span>
-                                        <span className="text-sm font-medium">Home</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/sandbox?api=authentication"
-                                        className={`
-                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'authentication' ? 'text-bluedark' : 'text-white'}
-                                        `}
-                                    >
-                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                            <i className="bx bx-shopping-bag" />
-                                        </span>
-                                        <span className="text-sm font-medium">
-                                            Authentication
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/sandbox?api=authorization"
-                                        className={`
-                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'authorization' ? 'text-bluedark' : 'text-white'}
-                                        `}
-                                    >
-                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                            <SiMicrosoftaccess />
-                                        </span>
-                                        <span className="text-sm font-medium">
-                                            Authorisation
-                                        </span>
-                                    </Link>
-                                </li>
-
-
-
-
-                                <Disclosure as="li" defaultOpen={true}>
+                                <Disclosure as="li" defaultOpen={false}>
                                     {({ open }) => (
                                         <>
                                             <Disclosure.Button
                                                 className={`
                                             flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                            ${(query?.api === 'refund' || query?.api === 'reversal' || query?.api === 'void' || query?.api === 'capture') ? 'text-bluedark' : 'text-white'}
+                                            ${(query?.api === '3DSS-v2.2' || query?.api === '3DSS-v2.3') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <i className="bx bx-shopping-bag" />
+                                                </span>
+                                                <span className="text-sm font-medium text-left">
+                                                    3DSS - Merchant<br /> Plug-ins
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=3DSS-v2.2"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === '3DSS-v2.2' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                        3DSS v2.2
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/sandbox?api=3DSS-v2.3"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === '3DSS-v2.3' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        3DSS v2.3
+                                                    </span>
+                                                </Link>
+
+
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Payments' || query?.api === 'Reversal' || query?.api === 'Capture' || query?.api === 'Refund' || query?.api === 'Void' || query?.api === 'Status') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <SiMicrosoftaccess />
+                                                </span>
+                                                <span className="text-sm font-medium text-left">
+                                                    Authorization
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Payments"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Payments' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                        Payments
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/sandbox?api=Reversal"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Reversal' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        Reversal
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=Capture"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Capture' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        Capture
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=Refund"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Refund' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        Refund
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=Void"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Void' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        Void
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=Status"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Status' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+
+                                                    <span className="text-sm font-medium">
+                                                        Status
+                                                    </span>
+                                                </Link>
+
+                                                
+
+
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'refund' || query?.api === 'reversal' || query?.api === 'void' || query?.api === 'capture') ? 'text-primary' : 'text-bluedark'}
                                        `}
                                             >
                                                 <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -174,7 +307,7 @@ function Sidebar() {
                                                     href="/sandbox?api=capture"
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'capture' ? 'text-bluedark' : 'text-white'}
+                                             ${query?.api === 'capture' ? 'text-primary' : 'text-bluedark'}
                                         `}
                                                 >
                                                     {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -188,7 +321,7 @@ function Sidebar() {
                                                     href="/sandbox?api=refund"
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'refund' ? 'text-bluedark' : 'text-white'}
+                                             ${query?.api === 'refund' ? 'text-primary' : 'text-bluedark'}
                                         `}
                                                 >
                                                     {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -202,7 +335,7 @@ function Sidebar() {
                                                     href="/sandbox?api=reversal"
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'reversal' ? 'text-bluedark' : 'text-white'}
+                                             ${query?.api === 'reversal' ? 'text-primary' : 'text-bluedark'}
                                         `}
                                                 >
                                                     {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -216,7 +349,7 @@ function Sidebar() {
                                                     href="/sandbox?api=void"
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'void' ? 'text-bluedark' : 'text-white'}
+                                             ${query?.api === 'void' ? 'text-primary' : 'text-bluedark'}
                                         `}
                                                 >
                                                     {/* <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -233,7 +366,286 @@ function Sidebar() {
 
                                 </Disclosure>
 
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Network-Tokens') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <MdOutlineToken />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                Network Tokens
+                                                </span>
 
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Network-Tokens"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Network-Tokens' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Network Tokens
+                                                    </span>
+                                                </Link>
+                                                
+                                                
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Risk-Check' || query?.api === 'Report-Fraud') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <IoShieldCheckmarkOutline />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                Risk
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Risk-Check"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Risk-Check' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Risk Check
+                                                    </span>
+                                                </Link>
+                                                
+                                                <Link
+                                                    href="/sandbox?api=Report-Fraud"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Report-Fraud' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Report Fraud
+                                                    </span>
+                                                </Link>
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Dispute-Check' || query?.api === 'Dispute-Action') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <LiaFighterJetSolid />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                Dispute
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Dispute-Check"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Dispute-Check' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Dispute Check
+                                                    </span>
+                                                </Link>
+                                                
+                                                <Link
+                                                    href="/sandbox?api=Dispute-Action"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Dispute-Action' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Dispute Action
+                                                    </span>
+                                                </Link>
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Fx-Checker' || query?.api === 'BIN-Checkerd' || query?.api === 'MCC-Checker' || query?.api === 'Cost-Checker') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <GrBusinessService />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                Value Added Services
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Fx-Checker"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Fx-Checker' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Fx Checker
+                                                    </span>
+                                                </Link>
+                                                
+                                                <Link
+                                                    href="/sandbox?api=BIN-Checker"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'BIN-Checker' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    BIN Checker
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=MCC-Checker"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'MCC-Checker' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    MCC Checker
+                                                    </span>
+                                                </Link>
+
+                                                <Link
+                                                    href="/sandbox?api=Cost-Checker"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Cost-Checker' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Cost Checker
+                                                    </span>
+                                                </Link>
+
+
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
+
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Disputes' || query?.api === 'Risky-transaction') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <PiWebhooksLogo />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                Webhook
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <Link
+                                                    href="/sandbox?api=Disputes"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Disputes' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Disputes
+                                                    </span>
+                                                </Link>
+                                                
+                                                <Link
+                                                    href="/sandbox?api=Risky-transaction"
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Risky-transaction' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    Risky transaction
+                                                    </span>
+                                                </Link>
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+
+
+                                </Disclosure>
                             </ul>
                         </div>
                     </div>
@@ -265,9 +677,21 @@ function Sidebar() {
                     {/* Header desktop */}
                     <div className='p-4 pr-14 hidden sm:flex justify-end items-center gap-x-5 sticky top-0 right-0 bg-white left-0 z-50'>
 
-                        <Link href="/" className="-m-1.5 p-1.5" style={{ visibility: 'hidden'}}>
+                        <Link href="/" className="-m-1.5 p-1.5" style={{ visibility: 'hidden' }}>
                             <Image className="h-8 w-auto" src={mylapaylogo} alt="" />
                         </Link>
+
+
+                        <Link
+                            href="/"
+                            className="flex flex-row items-center h-12 transform transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                        >
+                            <span className="inline-flex items-center justify-center h-12 mr-1 text-lg text-gray-400">
+                                <IoMdHome />
+                            </span>
+                            <span className="text-sm font-medium">Home</span>
+                        </Link>
+
 
                         <ProfileDropDown />
 

@@ -4,9 +4,11 @@
 
 @layer components {
   .wrapper {
-    @apply container mx-auto sm:px-8 md:px-6 xl:px-20 ;
+    @apply max-w-6xl mx-auto container;
   }
 }
+
+/* container  sm:px-8 md:px-6 xl:px-0  */
 
 @layer utilities {
   .text-balance {

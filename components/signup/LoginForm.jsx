@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { countryList } from '../../data/countryList'
-import RegisterSuccessModel from './RegisterSuccessModel'
+import { countryList } from '../../data/countryList';
+import RegisterSuccessModel from './RegisterSuccessModel';
 import axios from 'axios';
 
 const validationSchema = Yup.object().shape({
@@ -14,28 +14,24 @@ const validationSchema = Yup.object().shape({
     pincode: Yup.number().required('Pincode is required'),
     email: Yup.string().email('Invalid email').required('Email ID is required'),
     mobileNumber: Yup.string().required('Mobile Number is required'),
-    productOfInterest: Yup.string().required('Product of Interest is required'),
+    productOfInterest: Yup.array().of(Yup.string()).required('Product of Interest is required').min(1, 'Select at least one product'),
 });
 
 const LoginForm = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    return  (
+    return (
         <div>
             <RegisterSuccessModel isOpen={isOpen} setIsOpen={setIsOpen} />
             <div className="relative z-10 bg-[#fff] rounded-xl border-gray/20 m-4 sm:m-0">
-    
-                <div className='px-4'>
+                <div className="px-4">
                     <p className="text-center mb-4 text-lg text-para max-w-4xl mx-auto">
                         After completing registration, you will be able to test transactions.
                     </p>
-    
                     <p className="text-center mb-4 text-lg text-para max-w-4xl mx-auto">
                         Your information will not be disclosed to third parties.
                     </p>
                 </div>
-    
-    
                 <Formik
                     initialValues={{
                         companyName: '',
@@ -46,28 +42,24 @@ const LoginForm = () => {
                         pincode: '',
                         email: '',
                         mobileNumber: '',
-                        productOfInterest: '',
+                        productOfInterest: [],
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
-                        // Handle form submission here
-                        // console.log(values);
+                        return console.log(values);
 
                         axios.post("http://localhost:9000/api/v1/auth/signup", values)
                             .then(res => {
                                 setIsOpen(true);
                             })
                             .catch(err => {
-                                alert(err.message)
-                            })
-
+                                alert(err.message);
+                            });
                     }}
                 >
-                    {({ errors, touched }) => (
+                    {({ errors, touched, values, setFieldValue }) => (
                         <Form className="rounded-3xl bg-[#fff] px-4 py-8 lg:px-8">
-    
                             <div className="grid gap-10 md:grid-cols-3 mb-10">
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -80,7 +72,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="companyName" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -93,7 +84,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="firstName" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -106,7 +96,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="lastName" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         as="select"
@@ -120,16 +109,12 @@ const LoginForm = () => {
                                                 {country}
                                             </option>
                                         ))}
-    
-                                        {/* <option value="Authorization">Authorization</option>
-                                    <option value="Intellengine">Intellengine</option> */}
                                     </Field>
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         Country
                                     </label>
                                     <ErrorMessage name="country" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -142,7 +127,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="city" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -155,7 +139,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="pincode" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -168,7 +151,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="email" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -181,36 +163,68 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-    
                                 <div className="relative">
-                                    <Field
-                                        as="select"
-                                        id="productOfInterest"
-                                        name="productOfInterest"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                    >
-                                        <option value="">Select Product of Interest</option>
-                                        <option value="Authentication">Authentication</option>
-                                        <option value="Authorization">Authorization</option>
-                                        <option value="Intellengine">Intellengine</option>
-                                    </Field>
-                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                        Product of Interest
-                                    </label>
-                                    <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
+                                    <div className="mt-4">
+                                        <label className="block font-normal text-sm text-para">Product of Interest</label>
+                                        <div className='grid grid-cols-2 gap-y-1 mt-4' role="group" aria-labelledby="checkbox-group">
+                                            <label className="block">
+                                                <Field
+                                                    type="checkbox"
+                                                    name="productOfInterest"
+                                                    value="Authentication"
+                                                    checked={values.productOfInterest.includes('Authentication')}
+                                                    onChange={() => {
+                                                        if (values.productOfInterest.includes('Authentication')) {
+                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Authentication'));
+                                                        } else {
+                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Authentication']);
+                                                        }
+                                                    }}
+                                                />
+                                                Authentication
+                                            </label>
+                                            <label className="block">
+                                                <Field
+                                                    type="checkbox"
+                                                    name="productOfInterest"
+                                                    value="Authorization"
+                                                    checked={values.productOfInterest.includes('Authorization')}
+                                                    onChange={() => {
+                                                        if (values.productOfInterest.includes('Authorization')) {
+                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Authorization'));
+                                                        } else {
+                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Authorization']);
+                                                        }
+                                                    }}
+                                                />
+                                                Authorization
+                                            </label>
+                                            <label className="block">
+                                                <Field
+                                                    type="checkbox"
+                                                    name="productOfInterest"
+                                                    value="Intellengine"
+                                                    checked={values.productOfInterest.includes('Intellengine')}
+                                                    onChange={() => {
+                                                        if (values.productOfInterest.includes('Intellengine')) {
+                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Intellengine'));
+                                                        } else {
+                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Intellengine']);
+                                                        }
+                                                    }}
+                                                />
+                                                Intellengine
+                                            </label>
+                                        </div>
+                                        <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
+                                    </div>
                                 </div>
-    
                             </div>
-    
-    
-    
-                            {/* Add similar Field components for other form fields */}
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
                                 <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
                                     Create Account
                                 </button>
                             </div>
-    
                             <div className="mt-3 text-center font-normal">
                                 <span className="mr-2">By signing up, you agree to our </span>
                                 <a className="text-primary mt-5 hover:text-bluedark" href="#">
@@ -223,6 +237,6 @@ const LoginForm = () => {
             </div>
         </div>
     );
-}
+};
 
 export default LoginForm;

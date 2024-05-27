@@ -32,11 +32,15 @@ function ProductsTabs() {
                         <div className="mb-8">
                             <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8 px-2">
                                 {/* How to test our APIs */}
-                                API Endpoints and Specifications
+                                How to test our APIs
                             </h2>
 
                             <p className="text-lg text-para max-w-4xl mx-auto px-2">
-                                Once you have the organization ID and secret key, you can use them to authenticate requestes to our sandbox test environment. You can send requests and receive response directly. Complete filling in your login credentials on the testing page and click Send.
+                                Once you sign up for Mylapay’s Developer Account, you will be receiving an email with credentials that you can use to authenticate requests in our Sandbox test environment. You can send requests and receive responses directly by clicking on SEND.
+                            </p>
+
+                            <p className="text-lg text-para max-w-4xl mx-auto px-2 mt-5">
+                                For further information, please refer to Developer Guides (link to Developer Guides Page) for details on each of the product APIs and parameters.”
                             </p>
                         </div>
 
@@ -48,17 +52,79 @@ function ProductsTabs() {
                             </h3>
 
                             <p className="text-md text-black mb-2">
-                                You need to include this URL before each URL endpoint to make API calls.
+                                Mylapay APIs are RESTful. A REST message consists of four components:
                             </p>
 
                             <div className='inline-flex flex-col sm:flex-row border text-sm rounded mb-2'>
                                 <div className='py-2 px-4 sm:border-r bg-bluedark text-white'>
-                                    Sandbox API URL
+                                    Endpoints
                                 </div>
                                 <div className='py-2 px-4 flex-grow text-primary'>
                                     https://transactions.mylapay.com/v1
                                 </div>
                             </div>
+
+                            <div>
+                                <section className="mb-4">
+                                    <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">HTTP Method</h2>
+                                    <p className="text-md text-black mb-2">This defines a set of request methods corresponding to the action performed by the resource. There are four basic HTTP methods:</p>
+                                    <ul className="list-disc list-inside ml-4 text-gray-700 mt-3">
+                                        <li className="text-md text-black mb-1"><strong>POST:</strong> Submitting data to the resource.</li>
+                                        <li className="text-md text-black mb-1"><strong>GET:</strong> Retrieve data.</li>
+                                        <li className="text-md text-black mb-1"><strong>PATCH:</strong> Modify data.</li>
+                                        <li className="text-md text-black mb-1"><strong>DELETE:</strong> Delete data.</li>
+                                    </ul>
+                                </section>
+
+                                <section className="mb-4">
+                                    <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
+                                    <p className="text-md text-black mb-2">The header comprises various fields and their corresponding values, delivering essential information about the message to the recipient. It also includes authentication details to verify the legitimacy of the message.</p>
+                                    <table className="min-w-full bg-white">
+                                        <thead>
+                                            <tr>
+                                                <th className="px-4 py-2 border">Field</th>
+                                                <th className="px-4 py-2 border">Type</th>
+                                                <th className="px-4 py-2 border">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className="border px-4 py-2">Host</td>
+                                                <td className="border px-4 py-2">Required</td>
+                                                <td className="border px-4 py-2">API endpoint for the resource. Valid values: sandbox.mylapay.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="border px-4 py-2">Content-Type</td>
+                                                <td className="border px-4 py-2">Required</td>
+                                                <td className="border px-4 py-2">application/json</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="border px-4 py-2">v-c-merchant-id</td>
+                                                <td className="border px-4 py-2">Required</td>
+                                                <td className="border px-4 py-2">Onboarding Merchant’s unique ID</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+
+                                <section>
+                                    <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Body</h2>
+                                    <p className="text-gray-700">The request in JSON format.</p>
+                                    <div className='mt-2'>
+                                        <DynamicReactJson
+                                            src={requestJSON}
+                                            theme="monokai"
+                                            enableClipboard={false}
+                                            displayObjectSize={false}
+                                            displayDataTypes={false}
+                                            displayArrayKey={false}
+                                            name={false}
+                                        />
+                                    </div>
+                                </section>
+                            </div>
+
+
                         </div>
 
                         {/* <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
@@ -74,7 +140,7 @@ function ProductsTabs() {
                         </div> */}
 
 
-                        <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        {/* <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                     JWT Headers
@@ -88,7 +154,25 @@ function ProductsTabs() {
                                     To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                                 </p>
                             </div>
-                        </div>
+                        </div> */}
+
+                        <hr className='text-[#e2e8f0]' />
+
+                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-5 text-left m-auto group-hover:text-white">
+                            API Authentication
+                        </h3>
+
+                        <p className="text-md text-black mb-2">
+                            Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the respective product header for each request.
+                        </p>
+
+                        <p className="text-md text-black mb-2 font-semibold">
+                            Obtaining a JWT token:
+                        </p>
+
+                        <p className="text-md text-black mb-2">
+                            To obtain a JWT token, users must make a POST request to the endpoint <span className='text-primary'>https://sandbox.mylapay.com/v1/get_jwt_token</span> with a valid username and password. The API server will verify the credentials and return a JWT token in the response body.
+                        </p>
 
                         {/* <div className='my-8'>
                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
@@ -164,7 +248,7 @@ function ProductsTabs() {
                         </div> */}
 
 
-                        <div className="mx-auto my-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                        {/* <div className="mx-auto my-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                             <div>
                                 <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
                                     Verifying a JWT token
@@ -173,15 +257,80 @@ function ProductsTabs() {
                                 <p className=" text-para mx-auto">
                                     The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for X days. If a JWT token is invalid or has expired, the API server will return Unauthorized response. If a client sends an invalid or expired JWT token, the API server will return Unauthorized response with the following JSON body: <span style={{ color: 'crimson' }}>{JSON.stringify({ "error": "Invalid or expired token" })}</span>
                                 </p>
-
-                                {/* <p className=" text-para mx-auto mt-3">
-                                To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
-                                </p> */}
-
-
-
                             </div>
+                        </div> */}
+
+                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-4 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-8 text-left m-auto group-hover:text-white">
+                            Verifying a JWT token
+                        </h3>
+
+                        <p className="text-md text-black mb-3">
+                            The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for 30 days.
+                        </p>
+
+                        <p className="text-md text-black mb-3">
+                            If a JWT token is invalid or has expired, the API server will return an Unauthorized response.
+                        </p>
+
+                        <p className="text-md text-black mb-3">
+                            If a client sends an invalid or expired JWT token, the API server will return an Unauthorized response with the following JSON body:
+                        </p>
+
+                        <div>
+                            <DynamicReactJson
+                                src={{
+                                    "error": "Invalid or expired token"
+                                }}
+                                theme="monokai"
+                                enableClipboard={false}
+                                displayObjectSize={false}
+                                displayDataTypes={false}
+                                displayArrayKey={false}
+                                name={false}
+                            />
                         </div>
+
+
+                        <section className="mb-4">
+                            <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Parameters:</h2>
+                            <p className="text-md text-black mb-2">There are four types of parameters:</p>
+                            <ul className="list-disc list-inside ml-4 text-gray-700 mt-3">
+                                <li className="text-md text-black mb-1">Path parameters are part of the endpoints, and it is mandatory.</li>
+                                <li className="text-md text-black mb-1">Query parameters appear after the question mark in the endpoint</li>
+                                <li className="text-md text-black mb-1">Request parameters are mentioned in the request code and used to send data.</li>
+                                <li className="text-md text-black mb-1">Response parameters are received as a response to the request sent.</li>
+                            </ul>
+                        </section>
+
+                        <section className="mb-4">
+                            <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
+                            <table className="bg-white">
+                                <thead>
+                                    <tr>
+                                        <th className="px-4 py-2 border">Code</th>
+                                        <th className="px-4 py-2 border">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="border px-4 py-2">200</td>
+                                        <td className="border px-4 py-2">Success</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border px-4 py-2">400</td>
+                                        <td className="border px-4 py-2">Invalid</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border px-4 py-2">500</td>
+                                        <td className="border px-4 py-2">Unexpected System Error</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border px-4 py-2">401</td>
+                                        <td className="border px-4 py-2">Unauthorized request</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
 
                         {/* <div className='my-8'>
                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">

@@ -4,8 +4,11 @@ import { PiCodesandboxLogo } from "react-icons/pi";
 import { VscChip } from "react-icons/vsc";
 import { GoCodeReview } from "react-icons/go";
 import { CiGlobe } from "react-icons/ci";
+import { useLoginStatus } from '../../hooks/useLoginStatus'
 
 export default function Steps() {
+    const { isLoggedIn } = useLoginStatus();
+    
     return (
         <section className="bg-[#F4F4F4] p-4 pb-0">
             <div className="bg-white">
@@ -71,7 +74,7 @@ export default function Steps() {
                             </div>
                         </Link>
 
-                        <Link href="#">
+                        <Link href="/developers-guide">
                             <div className="flex group">
                                 <div className="flex flex-col items-center mr-6">
                                     <div className="w-[2px] h-10 bg-bggray sm:h-full" />
@@ -122,61 +125,14 @@ export default function Steps() {
                             </div>
                         </Link>
 
-                        <Link href="/product-apis">
+                       
+                        <Link href={ isLoggedIn ? "/sandbox?api=authentication" : "/login"}>
                             <div className="flex  group">
                                 <div className="flex flex-col items-center mr-6">
                                     <div className="w-[2px] h-10 bg-bggray sm:h-full" />
                                     <div>
                                         <div className="flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group-hover:bg-bluedark group-hover:text-white">
                                             3
-                                        </div>
-                                    </div>
-                                    <div className="w-[2px] h-full bg-bggray" />
-                                </div>
-                                <div className="flex flex-col pb-6 sm:items-center sm:flex-row sm:pb-0   group-hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
-                                    <div className="sm:mr-5">
-                                        <div className="flex items-center justify-center w-16 h-16 my-3 rounded-full bg-primary group-hover:bg-bluedark sm:w-20 sm:h-20">
-                                            {/* <svg
-                                            className="w-12 h-12 text-deep-purple-accent-400 sm:w-16 sm:h-16"
-                                            stroke="currentColor"
-                                            viewBox="0 0 52 52"
-                                        >
-                                            <polygon
-                                                strokeWidth="3"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                fill="none"
-                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                            />
-                                        </svg> */}
-                                            <VscChip className="w-12 h-12 text-white sm:w-10 sm:h-10" />
-                                        </div>
-                                    </div>
-                                    <div>
-
-                                        <h3 className="text-md xl:text-lg font-semibold text-bluedark group-hover:text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto  group-hover:underline ">
-                                            Choose
-                                        </h3>
-
-                                        {/* <p className="text-xl font-semibold sm:text-base">
-                                    Choose
-                                    </p> */}
-                                        <p className="text-[12px] leading-[16px] sm:text-sm text-left">Browse through Mylapay Solutions</p>
-                                        {/* <p className="text-sm text-gray-700">
-                                    Browse through Mylapay Solutions
-                                    </p> */}
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-
-                        <Link href="/sandbox?api=authentication">
-                            <div className="flex  group">
-                                <div className="flex flex-col items-center mr-6">
-                                    <div className="w-[2px] h-10 bg-bggray sm:h-full" />
-                                    <div>
-                                        <div className="flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group-hover:bg-bluedark group-hover:text-white">
-                                            4
                                         </div>
                                     </div>
                                     <div className="w-[2px] h-full bg-bggray" />
@@ -217,13 +173,13 @@ export default function Steps() {
                             </div>
                         </Link>
 
-                        <Link href="#">
+                        <Link href="/customer-care">
                             <div className="flex  group">
                                 <div className="flex flex-col items-center mr-6">
                                     <div className="w-[2px] h-10 bg-bggray sm:h-full" />
                                     <div>
                                         <div className="flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group-hover:bg-bluedark group-hover:text-white">
-                                            5
+                                            4
                                         </div>
                                     </div>
                                     <div className="w-[2px] h-full opacity-0" />
