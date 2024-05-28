@@ -48,7 +48,7 @@ const LoginForm = () => {
                     onSubmit={(values) => {
                         return console.log(values);
 
-                        axios.post("http://uselectricals-backend.onrender.com/api/v1/auth/signup", values)
+                        axios.post("https://my-backend-1.onrender.com/api/v1/auth/signup", values)
                             .then(res => {
                                 setIsOpen(true);
                             })
