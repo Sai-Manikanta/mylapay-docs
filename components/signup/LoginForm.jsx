@@ -46,7 +46,7 @@ const LoginForm = () => {
                     }}
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
-                        return console.log(values);
+                        // return console.log(values);
 
                         axios.post("https://my-backend-1.onrender.com/api/v1/auth/signup", values)
                             .then(res => {
