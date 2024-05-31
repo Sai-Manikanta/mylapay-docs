@@ -46,8 +46,8 @@ function ProductsTabs() {
 
                         <hr className='text-[#e2e8f0]' />
 
-                        <div className='my-8'>
-                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                        <div className='my-16'>
+                            <h3 className="text-xl xl:text-2xl font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                 API Endpoints
                             </h3>
 
@@ -79,8 +79,8 @@ function ProductsTabs() {
                                 <section className="mb-4">
                                     <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
                                     <p className="text-md text-black mb-2">The header comprises various fields and their corresponding values, delivering essential information about the message to the recipient. It also includes authentication details to verify the legitimacy of the message.</p>
-                                    <table className="min-w-full bg-white">
-                                        <thead>
+                                    <table className="min-w-full bg-[#E2E8F0]">
+                                        <thead className='bg-bluedark text-white'>
                                             <tr>
                                                 <th className="px-4 py-2 border">Field</th>
                                                 <th className="px-4 py-2 border">Type</th>
@@ -158,23 +158,26 @@ function ProductsTabs() {
 
                         <hr className='text-[#e2e8f0]' />
 
-                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-5 text-left m-auto group-hover:text-white">
-                            API Authentication
-                        </h3>
+                        <div className='my-16'>
 
-                        <p className="text-md text-black mb-2">
-                            Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the respective product header for each request.
-                        </p>
 
-                        <p className="text-md text-black mb-2 font-semibold">
-                            Obtaining a JWT token:
-                        </p>
+                            <h3 className="text-xl xl:text-2xl  font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-5 text-left m-auto group-hover:text-white">
+                                API Authentication
+                            </h3>
 
-                        <p className="text-md text-black mb-2">
-                            To obtain a JWT token, users must make a POST request to the endpoint <span className='text-primary'>https://sandbox.mylapay.com/v1/get_jwt_token</span> with a valid username and password. The API server will verify the credentials and return a JWT token in the response body.
-                        </p>
+                            <p className="text-md text-black mb-2">
+                                Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the respective product header for each request.
+                            </p>
 
-                        {/* <div className='my-8'>
+                            <p className="text-md text-black mb-2 font-semibold">
+                                Obtaining a JWT token:
+                            </p>
+
+                            <p className="text-md text-black mb-2">
+                                To obtain a JWT token, users must make a POST request to the endpoint <span className='text-primary'>https://sandbox.mylapay.com/v1/get_jwt_token</span> with a valid username and password. The API server will verify the credentials and return a JWT token in the response body.
+                            </p>
+
+                            {/* <div className='my-8'>
                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                 JWT Headers
                             </h3>
@@ -188,79 +191,61 @@ function ProductsTabs() {
                             </p>
                         </div> */}
 
-                        <div className='my-8 grid sm:grid-cols-2 gap-4'>
-                            <div>
-                                <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                    Sample Request
-                                </h3>
-
+                            <div className='my-8 grid sm:grid-cols-2 gap-4'>
                                 <div>
-                                    <DynamicReactJson
-                                        src={requestJSON}
-                                        theme="monokai"
-                                        enableClipboard={false}
-                                        displayObjectSize={false}
-                                        displayDataTypes={false}
-                                        displayArrayKey={false}
-                                        name={false}
-                                    />
+                                    <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Sample Request
+                                    </h3>
+
+                                    <div>
+                                        <DynamicReactJson
+                                            src={requestJSON}
+                                            theme="monokai"
+                                            enableClipboard={false}
+                                            displayObjectSize={false}
+                                            displayDataTypes={false}
+                                            displayArrayKey={false}
+                                            name={false}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                        Sample Response
+                                    </h3>
+                                    <div>
+                                        <DynamicReactJson
+                                            src={responseJSON}
+                                            theme="monokai"
+                                            enableClipboard={false}
+                                            displayObjectSize={false}
+                                            displayDataTypes={false}
+                                            displayArrayKey={false}
+                                            name={false}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                    Sample Response
-                                </h3>
+
+
+                        </div>
+
+                        <hr className='text-[#e2e8f0]' />
+
+                        <div className='my-16'>
+                            <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
                                 <div>
-                                    <DynamicReactJson
-                                        src={responseJSON}
-                                        theme="monokai"
-                                        enableClipboard={false}
-                                        displayObjectSize={false}
-                                        displayDataTypes={false}
-                                        displayArrayKey={false}
-                                        name={false}
-                                    />
+                                    <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
+                                        Token Format
+                                    </h2>
+
+                                    <p className=" text-para mx-auto">
+                                        JWT tokens used for authentication should be signed using the HS256 algorithm
+                                    </p>
                                 </div>
                             </div>
-                        </div>
 
-
-                        <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
-                            <div>
-                                <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
-                                    Token Format
-                                </h2>
-
-                                <p className=" text-para mx-auto">
-                                    JWT tokens used for authentication should be signed using the HS256 algorithm
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* <div className='my-8'>
-                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
-                                Token Format
-                            </h3>
-
-                            <p className="text-md text-black  mb-3">
-                                JWT tokens used for authentication should be signed using the HS256 algorithm
-                            </p>
-                        </div> */}
-
-
-                        {/* <div className="mx-auto my-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
-                            <div>
-                                <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
-                                    Verifying a JWT token
-                                </h2>
-
-                                <p className=" text-para mx-auto">
-                                    The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for X days. If a JWT token is invalid or has expired, the API server will return Unauthorized response. If a client sends an invalid or expired JWT token, the API server will return Unauthorized response with the following JSON body: <span style={{ color: 'crimson' }}>{JSON.stringify({ "error": "Invalid or expired token" })}</span>
-                                </p>
-                            </div>
-                        </div> */}
-
-                        <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-4 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-8 text-left m-auto group-hover:text-white">
+                            <h3 className="text-xl xl:text-2xl font-semibold text-bluedark mb-2 md:mb-4 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-8 text-left m-auto group-hover:text-white">
                             Verifying a JWT token
                         </h3>
 
@@ -304,8 +289,8 @@ function ProductsTabs() {
 
                         <section className="mb-4">
                             <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
-                            <table className="bg-white">
-                                <thead>
+                            <table className='bg-[#E2E8F0]'>
+                                <thead className='bg-bluedark text-white'>
                                     <tr>
                                         <th className="px-4 py-2 border">Code</th>
                                         <th className="px-4 py-2 border">Description</th>
@@ -331,6 +316,33 @@ function ProductsTabs() {
                                 </tbody>
                             </table>
                         </section>
+                        </div>
+
+
+                        {/* <div className='my-8'>
+                            <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                Token Format
+                            </h3>
+
+                            <p className="text-md text-black  mb-3">
+                                JWT tokens used for authentication should be signed using the HS256 algorithm
+                            </p>
+                        </div> */}
+
+
+                        {/* <div className="mx-auto my-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
+                            <div>
+                                <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
+                                    Verifying a JWT token
+                                </h2>
+
+                                <p className=" text-para mx-auto">
+                                    The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for X days. If a JWT token is invalid or has expired, the API server will return Unauthorized response. If a client sends an invalid or expired JWT token, the API server will return Unauthorized response with the following JSON body: <span style={{ color: 'crimson' }}>{JSON.stringify({ "error": "Invalid or expired token" })}</span>
+                                </p>
+                            </div>
+                        </div> */}
+
+
 
                         {/* <div className='my-8'>
                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import ResetPasswordSuccessModel from './ResetPasswordSuccessModel'
 
 const validationSchema = Yup.object().shape({
     Password: Yup.string().required('Password is required'),
@@ -12,10 +13,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const ResetPasswordForm = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const { token } = router.query;
 
     return (
+        <>
+            <ResetPasswordSuccessModel isOpen={isOpen} setIsOpen={setIsOpen}  />
         <div className="relative z-10 bg-white rounded-xl border border-gray/20 m-4 sm:m-0">
             <Formik
                 initialValues={{
@@ -29,7 +33,8 @@ const ResetPasswordForm = () => {
                             password: values?.Password?.trim(),
                         });
                         // Assuming the reset password response redirects to login or another page
-                        router.push('/login'); 
+                        // router.push('/login'); 
+                        setIsOpen(true);
                     } catch (error) {
                         if (error.response && error.response.data && error.response.data.error) {
                             setErrors({ serverError: error.response.data.error });
@@ -85,6 +90,7 @@ const ResetPasswordForm = () => {
                 )}
             </Formik>
         </div>
+        </>
     );
 } 
 
