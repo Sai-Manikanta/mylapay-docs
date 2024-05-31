@@ -65,7 +65,7 @@ function ProductsTabs() {
                             </div>
 
                             <div>
-                                <section className="mb-4">
+                                <section className="my-8">
                                     <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">HTTP Method</h2>
                                     <p className="text-md text-black mb-2">This defines a set of request methods corresponding to the action performed by the resource. There are four basic HTTP methods:</p>
                                     <ul className="list-disc list-inside ml-4 text-gray-700 mt-3">
@@ -76,10 +76,10 @@ function ProductsTabs() {
                                     </ul>
                                 </section>
 
-                                <section className="mb-4">
+                                <section className="my-8">
                                     <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
                                     <p className="text-md text-black mb-2">The header comprises various fields and their corresponding values, delivering essential information about the message to the recipient. It also includes authentication details to verify the legitimacy of the message.</p>
-                                    <table className="min-w-full bg-[#E2E8F0]">
+                                    <table className="min-w-full bg-[#E2E8F0] mt-4">
                                         <thead className='bg-bluedark text-white'>
                                             <tr>
                                                 <th className="px-4 py-2 border">Field</th>
@@ -107,7 +107,7 @@ function ProductsTabs() {
                                     </table>
                                 </section>
 
-                                <section>
+                                <section className='my-8'>
                                     <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Body</h2>
                                     <p className="text-gray-700">The request in JSON format.</p>
                                     <div className='mt-2'>
@@ -169,13 +169,20 @@ function ProductsTabs() {
                                 Mylapay API uses JWT-based authentication for all requests that require authentication. Clients must include a valid JWT token in the respective product header for each request.
                             </p>
 
-                            <p className="text-md text-black mb-2 font-semibold">
+                            {/* <p className="text-md text-black mb-2 font-semibold">
                                 Obtaining a JWT token:
-                            </p>
+                            </p> */}
 
-                            <p className="text-md text-black mb-2">
-                                To obtain a JWT token, users must make a POST request to the endpoint <span className='text-primary'>https://sandbox.mylapay.com/v1/get_jwt_token</span> with a valid username and password. The API server will verify the credentials and return a JWT token in the response body.
-                            </p>
+                            <div className="my-6">
+                                <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
+                                    Obtaining a JWT token:
+                                </h3>
+
+                                <p className="text-md text-black mb-2">
+                                    To obtain a JWT token, users must make a POST request to the endpoint <span className='text-primary'>https://sandbox.mylapay.com/v1/get_jwt_token</span> with a valid username and password. The API server will verify the credentials and return a JWT token in the response body.
+                                </p>
+                            </div>
+
 
                             {/* <div className='my-8'>
                             <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
@@ -191,7 +198,7 @@ function ProductsTabs() {
                             </p>
                         </div> */}
 
-                            <div className='my-8 grid sm:grid-cols-2 gap-4'>
+                            <div className='my-6 grid sm:grid-cols-2 gap-4'>
                                 <div>
                                     <h3 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">
                                         Sample Request
@@ -246,76 +253,76 @@ function ProductsTabs() {
                             </div>
 
                             <h3 className="text-xl xl:text-2xl font-semibold text-bluedark mb-2 md:mb-4 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-8 text-left m-auto group-hover:text-white">
-                            Verifying a JWT token
-                        </h3>
+                                Verifying a JWT token
+                            </h3>
 
-                        <p className="text-md text-black mb-3">
-                            The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for 30 days.
-                        </p>
+                            <p className="text-md text-black mb-3">
+                                The API server verifies JWT tokens by checking the signature and expiration time. Tokens must be signed with the secret key “mysecretkey” and is valid for 30 days.
+                            </p>
 
-                        <p className="text-md text-black mb-3">
-                            If a JWT token is invalid or has expired, the API server will return an Unauthorized response.
-                        </p>
+                            <p className="text-md text-black mb-3">
+                                If a JWT token is invalid or has expired, the API server will return an Unauthorized response.
+                            </p>
 
-                        <p className="text-md text-black mb-3">
-                            If a client sends an invalid or expired JWT token, the API server will return an Unauthorized response with the following JSON body:
-                        </p>
+                            <p className="text-md text-black mb-3">
+                                If a client sends an invalid or expired JWT token, the API server will return an Unauthorized response with the following JSON body:
+                            </p>
 
-                        <div>
-                            <DynamicReactJson
-                                src={{
-                                    "error": "Invalid or expired token"
-                                }}
-                                theme="monokai"
-                                enableClipboard={false}
-                                displayObjectSize={false}
-                                displayDataTypes={false}
-                                displayArrayKey={false}
-                                name={false}
-                            />
-                        </div>
+                            <div>
+                                <DynamicReactJson
+                                    src={{
+                                        "error": "Invalid or expired token"
+                                    }}
+                                    theme="monokai"
+                                    enableClipboard={false}
+                                    displayObjectSize={false}
+                                    displayDataTypes={false}
+                                    displayArrayKey={false}
+                                    name={false}
+                                />
+                            </div>
 
 
-                        <section className="mb-4">
-                            <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Parameters:</h2>
-                            <p className="text-md text-black mb-2">There are four types of parameters:</p>
-                            <ul className="list-disc list-inside ml-4 text-gray-700 mt-3">
-                                <li className="text-md text-black mb-1">Path parameters are part of the endpoints, and it is mandatory.</li>
-                                <li className="text-md text-black mb-1">Query parameters appear after the question mark in the endpoint</li>
-                                <li className="text-md text-black mb-1">Request parameters are mentioned in the request code and used to send data.</li>
-                                <li className="text-md text-black mb-1">Response parameters are received as a response to the request sent.</li>
-                            </ul>
-                        </section>
+                            <section className="my-8">
+                                <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Parameters:</h2>
+                                <p className="text-md text-black mb-2">There are four types of parameters:</p>
+                                <ul className="list-disc list-inside ml-4 text-gray-700 mt-3">
+                                    <li className="text-md text-black mb-1">Path parameters are part of the endpoints, and it is mandatory.</li>
+                                    <li className="text-md text-black mb-1">Query parameters appear after the question mark in the endpoint</li>
+                                    <li className="text-md text-black mb-1">Request parameters are mentioned in the request code and used to send data.</li>
+                                    <li className="text-md text-black mb-1">Response parameters are received as a response to the request sent.</li>
+                                </ul>
+                            </section>
 
-                        <section className="mb-4">
-                            <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
-                            <table className='bg-[#E2E8F0]'>
-                                <thead className='bg-bluedark text-white'>
-                                    <tr>
-                                        <th className="px-4 py-2 border">Code</th>
-                                        <th className="px-4 py-2 border">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="border px-4 py-2">200</td>
-                                        <td className="border px-4 py-2">Success</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="border px-4 py-2">400</td>
-                                        <td className="border px-4 py-2">Invalid</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="border px-4 py-2">500</td>
-                                        <td className="border px-4 py-2">Unexpected System Error</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="border px-4 py-2">401</td>
-                                        <td className="border px-4 py-2">Unauthorized request</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </section>
+                            <section className="my-8">
+                                <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
+                                <table className='bg-[#E2E8F0] mt-4'>
+                                    <thead className='bg-bluedark text-white'>
+                                        <tr>
+                                            <th className="px-4 py-2 border">Code</th>
+                                            <th className="px-4 py-2 border">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border px-4 py-2">200</td>
+                                            <td className="border px-4 py-2">Success</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border px-4 py-2">400</td>
+                                            <td className="border px-4 py-2">Invalid</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border px-4 py-2">500</td>
+                                            <td className="border px-4 py-2">Unexpected System Error</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border px-4 py-2">401</td>
+                                            <td className="border px-4 py-2">Unauthorized request</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
                         </div>
 
 
