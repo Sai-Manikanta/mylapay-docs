@@ -35,7 +35,7 @@ const LoginForm = () => {
                         });
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('user', JSON.stringify(response.data.user));
-                        router.push('/sandbox?api=authentication'); 
+                        router.push('/sandbox?api=API-Authentication'); 
                     } catch (error) {
                         if (error.response && error.response.data && error.response.data.error) {
                             setErrors({ serverError: error.response.data.error });

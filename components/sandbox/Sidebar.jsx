@@ -119,7 +119,7 @@ function Sidebar() {
                                 </Link>
                             </div>
                             <ul className="flex flex-col py-4 bg-white" style={{ maxHeight: 'calc(100vh - 3rem)', overflowY: 'auto', overflowX: 'hidden' }}>
-                                <Disclosure as="li" defaultOpen={false}>
+                                <Disclosure as="li" defaultOpen={true}>
                                     {({ open }) => (
                                         <>
                                             <Disclosure.Button
