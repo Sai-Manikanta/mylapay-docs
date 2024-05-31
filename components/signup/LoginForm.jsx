@@ -164,10 +164,10 @@ const LoginForm = () => {
                                     <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                                 </div>
                                 <div className="relative">
-                                    <div className="mt-4">
+                                    <div className="mt-0">
                                         <label className="block font-normal text-sm text-para">Product of Interest</label>
-                                        <div className='grid grid-cols-2 gap-y-1 mt-4' role="group" aria-labelledby="checkbox-group">
-                                            <label className="block">
+                                        <div className='flex flex-wrap gap-x-3 gap-y-1 mt-2' role="group" aria-labelledby="checkbox-group">
+                                            <label className="flex items-center gap-x-1">
                                                 <Field
                                                     type="checkbox"
                                                     name="productOfInterest"
@@ -183,7 +183,7 @@ const LoginForm = () => {
                                                 />
                                                 Authentication
                                             </label>
-                                            <label className="block">
+                                            <label className="flex items-center gap-x-1">
                                                 <Field
                                                     type="checkbox"
                                                     name="productOfInterest"
@@ -199,7 +199,7 @@ const LoginForm = () => {
                                                 />
                                                 Authorization
                                             </label>
-                                            <label className="block">
+                                            <label className="flex items-center gap-x-1">
                                                 <Field
                                                     type="checkbox"
                                                     name="productOfInterest"
