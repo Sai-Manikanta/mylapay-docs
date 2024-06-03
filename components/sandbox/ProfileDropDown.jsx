@@ -63,20 +63,6 @@ export default function ProfileDropDown() {
                 className={`bg-white text-black flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
                 href="/"
               >
-                <RiLockPasswordLine
-                  className="mr-2"
-                  size="1.2rem"
-                  aria-hidden="true"
-                />
-                Forgot Password
-              </Link>
-            </Menu.Item>
-            <hr className='text-[#E4E4E7]' />
-            <Menu.Item>
-              <Link
-                className={`bg-white text-black flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
-                href="/"
-              >
                 <IoIosGitNetwork
                   className="mr-2"
                   size="1.2rem"

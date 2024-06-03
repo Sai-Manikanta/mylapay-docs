@@ -56,6 +56,15 @@ const data = {
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         ]
     },
+    Payments: {
+        overview: [
+            'Mylapay Switch authorizes both card-present (POS) and card-not-present (PG) payments. This sandbox test environment will help you to test APIs, check error responses, request, and response data parameters for ISO switch authorization and reversal with Visa, MasterCard and Rupay networks.',
+            'APIs are used to take card payment authorization from Issuing banks through card networks environment. Mylapay takes the API request and initiates the request to respective card networks with the required data elements in ISO formats.'
+        ],
+        apiSpecification: [
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        ]
+    },
     capture: {
         overview: [
             'Capture Overview',
