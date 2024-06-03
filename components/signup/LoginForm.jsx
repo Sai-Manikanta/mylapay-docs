@@ -53,7 +53,18 @@ const LoginForm = () => {
                                 setIsOpen(true);
                             })
                             .catch(err => {
-                                alert(err.message);
+                                if (err.response) {
+                                    // The request was made and the server responded with a status code
+                                    // that falls out of the range of 2xx
+                                    console.log(err.response.data);
+                                    alert(err.response.data.error || err.response.data.message || 'An error occurred. Please try again.');
+                                } else if (err.request) {
+                                    // The request was made but no response was received
+                                    alert('No response received from the server. Please check your network connection.');
+                                } else {
+                                    // Something happened in setting up the request that triggered an Error
+                                    alert('An error occurred. Please try again.');
+                                }
                             });
                     }}
                 >
