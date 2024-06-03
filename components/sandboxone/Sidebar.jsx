@@ -112,7 +112,7 @@ function Sidebar() {
                                 </li>
                                 <li>
                                     <Link
-                                        href="/sandbox?api=authentication"
+                                        href="/sandbox?api=API-Authentication"
                                         className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
                                              ${query?.api === 'authentication' ? 'text-bluedark' : 'text-white'}

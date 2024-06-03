@@ -19,7 +19,7 @@ function LoginPage() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      router.push('/sandbox?api=authentication');
+      router.push('/sandbox?api=API-Authentication');
     }
   }, [router]);
 

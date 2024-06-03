@@ -126,7 +126,7 @@ export default function Steps() {
                         </Link>
 
                        
-                        <Link href={ isLoggedIn ? "/sandbox?api=authentication" : "/login"}>
+                        <Link href={ isLoggedIn ? "/sandbox?api=API-Authentication" : "/login"}>
                             <div className="flex  group">
                                 <div className="flex flex-col items-center mr-6">
                                     <div className="w-[2px] h-10 bg-bggray sm:h-full" />
