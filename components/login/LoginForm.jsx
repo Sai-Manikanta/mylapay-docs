@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -12,7 +12,34 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    const handleLogin = async (values, { setSubmitting, setErrors }) => {
+        // return console.log(values);
+        setLoading(true)
+        try {
+            const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/login', {
+                secretKey: values?.SecretKey?.trim(),
+                userName: values?.Username?.trim(),
+                organizationId: values?.organizationID?.trim(),
+                password: values?.Password?.trim(),
+            });
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            router.push('/sandbox?api=API-Authentication');
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.error) {
+                setErrors({ serverError: error.response.data.error });
+            } else {
+                setErrors({ serverError: 'An error occurred. Please try again.' });
+            }
+            window.alert("Login failed: Incorrect credentials. Please try again.")
+        } finally {
+            setLoading(false);
+            setSubmitting(false);
+        }
+    }
 
     return (
         <div className="relative z-10 bg-white rounded-xl border border-gray/20 m-4 sm:m-0">
@@ -24,30 +51,9 @@ const LoginForm = () => {
                     SecretKey: ''
                 }}
                 validationSchema={validationSchema}
-                onSubmit={async (values, { setSubmitting, setErrors }) => {
-                    // return console.log(values);
-                    try {
-                        const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/login', {
-                            secretKey: values?.SecretKey?.trim(),
-                            userName: values?.Username?.trim(),
-                            organizationId: values?.organizationID?.trim(),
-                            password: values?.Password?.trim(),
-                        });
-                        localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('user', JSON.stringify(response.data.user));
-                        router.push('/sandbox?api=API-Authentication'); 
-                    } catch (error) {
-                        if (error.response && error.response.data && error.response.data.error) {
-                            setErrors({ serverError: error.response.data.error });
-                        } else {
-                            setErrors({ serverError: 'An error occurred. Please try again.' });
-                        }
-                        window.alert("Login failed: Incorrect credentials. Please try again.")
-                    }
-                    setSubmitting(false);
-                }}
+                onSubmit={handleLogin}
             >
-                {({ errors, touched }) => (
+                {({ errors, touched, isSubmitting }) => (
                     <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
@@ -63,7 +69,7 @@ const LoginForm = () => {
                                 <ErrorMessage name="organizationID" component="div" className="text-sm mt-2 text-red" />
                             </div>
                         </div>
-    
+
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
                                 <Field
@@ -78,7 +84,7 @@ const LoginForm = () => {
                                 <ErrorMessage name="Username" component="div" className="text-sm mt-2 text-red" />
                             </div>
                         </div>
-    
+
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
                                 <Field
@@ -93,8 +99,8 @@ const LoginForm = () => {
                                 <ErrorMessage name="Password" component="div" className="text-sm mt-2 text-red" />
                             </div>
                         </div>
-    
-    
+
+
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
                                 <Field
@@ -109,10 +115,10 @@ const LoginForm = () => {
                                 <ErrorMessage name="SecretKey" component="div" className="text-sm mt-2 text-red" />
                             </div>
                         </div>
-    
+
                         <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
-                            <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
-                                Login
+                            <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray" disabled={isSubmitting || loading}>
+                                {loading ? 'Logging in...' : 'Login'}
                             </button>
                         </div>
                     </Form>
@@ -120,6 +126,6 @@ const LoginForm = () => {
             </Formik>
         </div>
     );
-} 
+}
 
 export default LoginForm;
