@@ -117,7 +117,7 @@ const LoginForm = () => {
                         </div>
 
                         <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
-                            <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray" disabled={isSubmitting || loading}>
+                            <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:opacity-50" disabled={isSubmitting || loading}>
                                 {loading ? 'Logging in...' : 'Login'}
                             </button>
                         </div>

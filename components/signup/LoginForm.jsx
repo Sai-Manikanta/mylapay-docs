@@ -26,6 +26,32 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const handleSignup = async (values, { setSubmitting, setErrors }) => {
+        setLoading(true)
+        try {
+            const response = await axios.post("https://my-backend-1.onrender.com/api/v1/auth/signup", values);
+            setIsOpen(true);
+        } catch (err) {
+            if (err.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(err.response.data);
+                alert(err.response.data.error || err.response.data.message || 'An error occurred. Please try again.');
+            } else if (err.request) {
+                // The request was made but no response was received
+                alert('No response received from the server. Please check your network connection.');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                alert('An error occurred. Please try again.');
+            }
+        } finally {
+            setLoading(false);
+            setSubmitting(false);
+        }
+    }
+    
 
     return (
         <div>
@@ -52,30 +78,9 @@ const LoginForm = () => {
                         productOfInterest: [],
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                        // return console.log(values);
-
-                        axios.post("https://my-backend-1.onrender.com/api/v1/auth/signup", values)
-                            .then(res => {
-                                setIsOpen(true);
-                            })
-                            .catch(err => {
-                                if (err.response) {
-                                    // The request was made and the server responded with a status code
-                                    // that falls out of the range of 2xx
-                                    console.log(err.response.data);
-                                    alert(err.response.data.error || err.response.data.message || 'An error occurred. Please try again.');
-                                } else if (err.request) {
-                                    // The request was made but no response was received
-                                    alert('No response received from the server. Please check your network connection.');
-                                } else {
-                                    // Something happened in setting up the request that triggered an Error
-                                    alert('An error occurred. Please try again.');
-                                }
-                            });
-                    }}
+                    onSubmit={handleSignup}
                 >
-                    {({ errors, touched, values, setFieldValue }) => (
+                    {({ errors, touched, values, setFieldValue, isSubmitting }) => (
                         <Form className="rounded-3xl bg-[#fff] px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-3 mb-10">
                                 <div className="relative">
@@ -302,8 +307,8 @@ const LoginForm = () => {
 
                             </div>
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
-                                <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
-                                    Create Account
+                                <button disabled={isSubmitting || loading} type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:opacity-50">
+                                    {loading ? ' Creating Account...' : 'Create Account'}
                                 </button>
                             </div>
                             <div className="mt-3 text-center font-normal">
