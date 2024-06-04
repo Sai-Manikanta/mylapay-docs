@@ -29,7 +29,7 @@ const ResetPasswordForm = () => {
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
                     try {
-                        const response = await axios.post(`https://my-backend-1.onrender.com/api/v1/auth/user/reset-password/${token}`, {
+                        const response = await axios.post(`https://my-backend-1.onrender.com/api/v1/auth/user/generate-password/${token}`, {
                             password: values?.Password?.trim(),
                         });
                         // Assuming the reset password response redirects to login or another page
@@ -83,7 +83,7 @@ const ResetPasswordForm = () => {
     
                         <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
                             <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
-                                Reset Password
+                                Set Password
                             </button>
                         </div>
                     </Form>

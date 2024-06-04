@@ -20,12 +20,14 @@ function RegisterSuccessModel({ isOpen, setIsOpen }) {
       >
         <Dialog.Panel>
           <IoCheckmarkCircleSharp size="4rem" className="mx-auto text-[#22C55E]" />
-          <Dialog.Title className="text-xl font-bold text-center mb-2 text-bluedark">Thank you for submitting your information</Dialog.Title>
+          <Dialog.Title className="text-xl font-bold text-center mb-2 text-bluedark">
+          Thank you for submitting your information!
+          </Dialog.Title>
           {/* <button className='absolute top-4 right-4' onClick={() => setIsOpen(false)}>
             <IoIosCloseCircle size="1.5rem" />
           </button> */}
           <Dialog.Description>
-            You will be receiving an email with further instructions to create a username and password. After completing the registration process, you will be able to send test transactions.
+          You will be receiving an email with Organization ID and Username along with Secret Key. After setting up your password and 2-Factor Authentication, you will be able to send test transactions in our sandbox environment.
           </Dialog.Description>
 
           <Link href="/login" className='block mt-4 rounded w-full text-center py-2 bg-bluedark text-white'>

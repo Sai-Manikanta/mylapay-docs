@@ -21,17 +21,17 @@ function ResetPasswordSuccessModel({ isOpen, setIsOpen }) {
         <Dialog.Panel>
           <IoCheckmarkCircleSharp size="4rem" className="mx-auto text-[#22C55E]" />
           <Dialog.Title className="text-xl font-bold text-center mb-2 text-bluedark">
-            Password reset successful
+            Your password is successfully set
           </Dialog.Title>
           {/* <button className='absolute top-4 right-4' onClick={() => setIsOpen(false)}>
             <IoIosCloseCircle size="1.5rem" />
           </button> */}
           <Dialog.Description>
-            Your password has been reset successfully.<br />
+          Please complete your 2-factor Authentication using Google / Microsoft Authenticator Apps.<br />
           </Dialog.Description>
 
           <Link href="/login" className='block mt-4 rounded w-full text-center py-2 bg-bluedark text-white'>
-            Login
+          Set 2FA
           </Link>
         </Dialog.Panel>
       </Dialog>

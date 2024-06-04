@@ -5,6 +5,7 @@ import Image from 'next/image'
 // import ReactJson from 'react-json-view'
 // const LazyReactJson = lazy(() => import("react-json-view"))
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
+import Link from 'next/link'
 import { GoGraph } from "react-icons/go"
 import { IoMdSwitch } from "react-icons/io"
 import { RiSecurePaymentLine } from "react-icons/ri";
@@ -40,7 +41,7 @@ function ProductsTabs() {
                             </p>
 
                             <p className="text-lg text-para max-w-4xl mx-auto px-2 mt-5">
-                                For further information, please refer to Developer Guides (link to Developer Guides Page) for details on each of the product APIs and parameters.”
+                                For further information, please refer to <Link href="/" className='underline'>Developer Guides</Link> for details on each of the product APIs and parameters.
                             </p>
                         </div>
 
@@ -60,7 +61,7 @@ function ProductsTabs() {
                                     Endpoints
                                 </div>
                                 <div className='py-2 px-4 flex-grow text-primary'>
-                                    https://transactions.mylapay.com/v1
+                                https://sandbox.mylapay.com/v1
                                 </div>
                             </div>
 

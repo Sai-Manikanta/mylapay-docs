@@ -41,8 +41,8 @@ export default function Header() {
 
 
                     <Popover.Group className="hidden lg:flex lg:items-center">
-                        <Link href="/api-endpoints-and-specifications" className="text-sm font-semibold leading-6 text-gray-900">
-                            Product APIs
+                        <Link href="/api-reference" className="text-sm font-semibold leading-6 text-gray-900">
+                            API Reference
                         </Link>
                         <Link href="#" className="ml-8 text-sm font-semibold leading-6 text-gray-900">
                             Developer Guides
@@ -60,6 +60,13 @@ export default function Header() {
                                 </div>
                             </Link>
 
+
+                            {router.pathname === "/api-reference" && !isLoggedIn && (
+                                <Link href="/signup" className="block w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase mr-4">
+                                    <span className="relative z-10">Signup</span>
+                                </Link>
+                            )}
+
                             {isLoggedIn ? (
                                 <button onClick={handleLogout} className="w-fit my-3 mx-4 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
                                     <span className="relative z-10">Logout</span>
@@ -69,8 +76,6 @@ export default function Header() {
                                     <span className="relative z-10">Login</span>
                                 </Link>
                             )}
-
-
                         </div>
                     </Popover.Group>
                 </nav>
@@ -109,6 +114,13 @@ export default function Header() {
                                             </span>
                                         </div>
                                     </Link>
+
+
+                                    {router.pathname === "/api-reference" && !isLoggedIn && (
+                                        <Link href="/signup" className="w-fit my-6 lg:my-0 lg:mx-0 lg:mr-0 text-[12px] py-2 px-3 font-bold text-white rounded-md bg-bluedark hover:before:bg-bluelight relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase">
+                                        <span className="relative z-10">Signup</span>
+                                    </Link>
+                                    )}
 
 
                                     {isLoggedIn ? (

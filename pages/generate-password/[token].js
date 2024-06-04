@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from "next/font/google";
 import Header from '../../components/layout/Header'
-import Banner from '../../components/reset-password/Banner'
+import Banner from '../../components/generate-password/Banner'
 // import AccessSteps from '../components/login/AccessSteps'
 // import LoginForm from '../components/login/LoginForm'
 // import IntegratingSteps from '../components/getting-started/IntegratingSteps'

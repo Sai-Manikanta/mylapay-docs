@@ -170,7 +170,7 @@ function ProductsTabs() {
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={flexibleIntegration}
@@ -184,7 +184,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={enhancedFraudProtection}
@@ -198,7 +198,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={increasedTransactionApprovals}
@@ -212,7 +212,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={reducedChargebacks}
@@ -347,7 +347,7 @@ function ProductsTabs() {
 
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={increasedPaymentSuccessRate}
@@ -378,7 +378,7 @@ function ProductsTabs() {
                                         </div> */}
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={secureEnvironment}
@@ -393,7 +393,7 @@ function ProductsTabs() {
                                         </div>
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={highAvailability}
@@ -408,7 +408,7 @@ function ProductsTabs() {
                                         </div>
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={proactiveRiskAssessment}
@@ -425,7 +425,7 @@ function ProductsTabs() {
                                         </div>
 
 
-                                        {/* <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        {/* <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={switch1}
@@ -515,7 +515,7 @@ function ProductsTabs() {
                                     import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-revenue-leakage-system.png' */}
 
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={seamlessPaymentProcessingWithHighSuccessRates}
@@ -531,7 +531,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={cloudSolutionHighlySecuredEnvironment}
@@ -547,7 +547,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={riskProtectionEmbeddedAcrossTheProcess}
@@ -563,7 +563,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={simplifiedEasyAPIIntegration}
@@ -579,7 +579,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={transactionCostPlusPricing}
@@ -595,7 +595,7 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        <div className='bg-gradient-to-r from-[#47BDFF] to-[#002060] p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
+                                        <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
                                                     src={zeroRevenueleakageSystem}

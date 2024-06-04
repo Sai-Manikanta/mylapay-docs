@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Listbox } from '@headlessui/react';
+import axios from 'axios';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { countryList } from '../../data/countryList';
 import RegisterSuccessModel from './RegisterSuccessModel';
-import axios from 'axios';
+
+import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
+
+const products = ['3DSS - Merchant Plug-ins', 'Authorization', 'Network Tokens', 'Risk', 'Dispute', 'Value Added Services', 'Webhook'];
+// 'Authentication', 'Authorization', 'Intellengine'
 
 const validationSchema = Yup.object().shape({
     companyName: Yup.string().required('Company Name is required'),
@@ -174,7 +181,7 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-                                <div className="relative">
+                                {/* <div className="relative">
                                     <div className="mt-0">
                                         <label className="block font-normal text-sm text-para">Product of Interest</label>
                                         <div className='flex flex-wrap gap-x-3 gap-y-1 mt-2' role="group" aria-labelledby="checkbox-group">
@@ -229,7 +236,70 @@ const LoginForm = () => {
                                         </div>
                                         <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                                     </div>
+                                </div> */}
+
+
+
+
+
+                                <div className="relative md:-mt-7">
+                                    <label className="block font-normal text-sm text-para">Product of Interest</label>
+                                    <Listbox
+                                        as="div"
+                                        value={values.productOfInterest}
+                                        onChange={selectedOptions => setFieldValue('productOfInterest', selectedOptions)}
+                                        multiple
+                                    >
+                                        {({ open }) => (
+                                            <>
+                                                <div className="mt-2 relative">
+                                                    <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 focus:ring-offset-2 focus:ring-offset-gray-100 sm:text-sm">
+                                                        <span className="block truncate">
+                                                            {values.productOfInterest.length > 0 ? values.productOfInterest.join(', ') : 'Select products'}
+                                                        </span>
+                                                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                            <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                                        </span>
+                                                    </Listbox.Button>
+                                                    <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                        {products.map((product, index) => (
+                                                            <Listbox.Option
+                                                                key={index}
+                                                                className={({ active }) =>
+                                                                    `cursor-default select-none relative py-2 pl-10 pr-4 ${active ? '' : ''}`
+                                                                }
+                                                                value={product}
+                                                            >
+                                                                {({ selected }) => (
+                                                                    <>
+                                                                        <span className={`block truncate text-bluedark ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                                            {product}
+                                                                        </span>
+                                                                        {/* FaRegSquare, FaRegCheckSquare */}
+                                                                        {selected ? (
+                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                                                                <FaRegCheckSquare className="w-5 h-5 text-bluedark" aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : (
+                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                                                                <FaRegSquare className="w-5 h-5 text-bluedark" aria-hidden="true" />
+                                                                            </span>
+                                                                        )}
+                                                                    </>
+                                                                )}
+                                                            </Listbox.Option>
+                                                        ))}
+                                                    </Listbox.Options>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                    <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                                 </div>
+
+
+
+
                             </div>
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
                                 <button type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white">
