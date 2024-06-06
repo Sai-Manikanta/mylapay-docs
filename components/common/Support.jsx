@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useLoginStatus } from '../../hooks/useLoginStatus';
 // import { IoIosCloseCircle } from "react-icons/io";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import Link from 'next/link'
@@ -17,6 +18,7 @@ const validationSchema = Yup.object().shape({
 const SupportQueryForm = ({ setIsOpen }) => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { isLoggedIn, user, loading: userLoading } = useLoginStatus();
 
     const handleSubmit = async (values, { setSubmitting, setErrors }) => {
         setLoading(true);
@@ -46,12 +48,13 @@ const SupportQueryForm = ({ setIsOpen }) => {
         <div className="relative z-10 sm:m-0">
             <Formik
                 initialValues={{
-                    organizationId: '',
-                    userName: '',
+                    organizationId: user?.organizationId ? user?.organizationId : '',
+                    userName: user?.userName ? user?.userName : '',
                     description: ''
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                enableReinitialize
             >
                 {({ errors, touched, isSubmitting }) => (
                     <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
