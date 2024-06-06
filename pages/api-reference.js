@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Header from '../components/layout/Header'
 // import Banner from '../components/mylapay-products-apis/Banner'
 import ProductsTabs from '../components/mylapay-products-apis/ProductsTabs'
-import Support from '../components/mylapay-products-apis/Support'
+import Support from '../components/common/Support'
 // import Steps from '../components/mylapay-products-apis/Steps'
 
 // import LoginForm from '../components/login/LoginForm'
