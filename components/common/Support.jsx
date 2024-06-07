@@ -23,7 +23,7 @@ const SupportQueryForm = ({ setIsOpen }) => {
     const handleSubmit = async (values, { setSubmitting, setErrors }) => {
         setLoading(true);
         try {
-            await axios.post('http://localhost:9000/api/v1/query-support', {
+            await axios.post('https://my-backend-1.onrender.com/api/v1/query-support', {
                 organizationId: values.organizationId.trim(),
                 userName: values.userName.trim(),
                 description: values.description.trim(),
