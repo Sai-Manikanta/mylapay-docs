@@ -8,10 +8,12 @@ import { IoMenuSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdClose, IoMdHome } from "react-icons/io";
 import { SiMicrosoftaccess, SiCoronaengine } from "react-icons/si";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { SiAuthelia } from "react-icons/si";
 import { MdOutlineToken } from "react-icons/md";
 import { LiaFighterJetSolid } from "react-icons/lia";
 import { GrBusinessService } from "react-icons/gr";
 import { PiWebhooksLogo } from "react-icons/pi";
+import { BsPlugin } from "react-icons/bs";
 import Sandbox from './SandboxForm';
 import ProfileDropDown from './ProfileDropDown'
 // import NewAside from './NewAside'
@@ -65,33 +67,33 @@ const data = {
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
         ]
     },
-    capture: {
+    Capture: {
         overview: [
-            'Capture Overview',
+            'Capture APIs are used to capture an authorized transaction from the issuing bank in ISO formats for checking error responses, request, and response data parameters. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
         ],
         apiSpecification: [
             "Capture API Specifications"
         ]
     },
-    refund: {
+    Refund: {
         overview: [
-            'Refund Overview',
+            'Refund APIs are used to show a refund which is linked to a capture or sale. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
         ],
         apiSpecification: [
             "Refund API Specifications"
         ]
     },
-    reversal: {
+    Reversal: {
         overview: [
-            'Reverel Overview',
+            'Reversal APIs are used to reverse / cancel the authorization taken for the card payment earlier from Issuing banks through card networks environment by providing the data elements in ISO formats.',
         ],
         apiSpecification: [
             "Reversal API Specifications"
         ]
     },
-    void: {
+    Void: {
         overview: [
-            'Void Overview',
+            'Void APIs are used to void a capture or credit that was submitted but not yet processed by the processor. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
         ],
         apiSpecification: [
             "Void API Specifications"
@@ -128,17 +130,47 @@ function Sidebar() {
                                 </Link>
                             </div>
                             <ul className="flex flex-col py-4 bg-white" style={{ maxHeight: 'calc(100vh - 3rem)', overflowY: 'auto', overflowX: 'hidden' }}>
-                                <Disclosure as="li" defaultOpen={true}>
+                                {/* <Link
+                                    href="/sandbox?api=API-Authentication"
+                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'API-Authentication' ? 'text-primary' : 'text-bluedark'}
+                                        `}
+                                >
+                                    <span className="text-sm font-medium">
+                                        API Authentication
+                                    </span>
+                                </Link> */}
+
+
+                                <Link
+                                    href="/sandbox?api=API-Authentication"
+                                    className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'API-Authentication') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                >
+                                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                        {/* <i className="bx bx-shopping-bag" /> */}
+                                        <SiAuthelia />
+                                    </span>
+                                    <span className="text-sm font-medium text-left">
+                                        API Authentication
+                                    </span>
+                                </Link>
+
+                                <Disclosure as="li" defaultOpen={false}>
                                     {({ open }) => (
                                         <>
                                             <Disclosure.Button
                                                 className={`
                                             flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                            ${(query?.api === '3DSS-v2.2' || query?.api === '3DSS-v2.3' || query?.api === 'API-Authentication') ? 'text-primary' : 'text-bluedark'}
+                                            ${(query?.api === '3DSS-v2.2' || query?.api === '3DSS-v2.3') ? 'text-primary' : 'text-bluedark'}
                                        `}
                                             >
                                                 <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                                    <i className="bx bx-shopping-bag" />
+                                                    {/* <i className="bx bx-shopping-bag" /> */}
+                                                    <BsPlugin />
                                                 </span>
                                                 <span className="text-sm font-medium text-left">
                                                     3DSS - Merchant<br /> Plug-ins
@@ -149,17 +181,7 @@ function Sidebar() {
                                                 </span>
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="text-gray-500 pl-10">
-                                                <Link
-                                                    href="/sandbox?api=API-Authentication"
-                                                    className={`
-                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'API-Authentication' ? 'text-primary' : 'text-bluedark'}
-                                        `}
-                                                >
-                                                    <span className="text-sm font-medium">
-                                                        API Authentication
-                                                    </span>
-                                                </Link>
+
 
                                                 <Link
                                                     href="/sandbox?api=3DSS-v2.2"
@@ -721,7 +743,7 @@ function Sidebar() {
                                     ))}
 
 
-                                    <h2 className="text-xl font-semibold text-bluedark sm:text-2xl md:text-2xl mb-2">
+                                    {/* <h2 className="text-xl font-semibold text-bluedark sm:text-2xl md:text-2xl mb-2">
                                         API Specifications
                                     </h2>
 
@@ -729,7 +751,7 @@ function Sidebar() {
                                         <p key={index} className=" text-para max-w-4xl mb-4">
                                             {text}
                                         </p>
-                                    ))}
+                                    ))} */}
 
                                 </div>
 
@@ -739,42 +761,42 @@ function Sidebar() {
 
                         {query?.api === 'API-Authentication' && (
                             // <div className='bg-white rounded py-6 px-8 mb-8'>
-                                <div className="min-h-screen flex flex-col items-center justify-center">
-                                    <div className=" bg-white shadow-lg rounded-lg p-8 ">
-                                        <h2 className="text-2xl font-bold mb-6 text-bluedark">Mylapay API Authentication Process and Sandbox Setup</h2>
-                                        <p className="mb-4 text-gray-700">
-                                            Mylapay uses HTTP Signature as an authentication method.
-                                        </p>
-                                        <p className="mb-4 text-gray-700">
-                                            After logging into Mylapay’s Developer Account, the following credentials are required to successfully authenticate and setup the sandbox environment:
-                                        </p>
-                                        <ul className="list-decimal list-inside mb-6 text-gray-700">
+                            <div className="min-h-screen flex flex-col items-center justify-center">
+                                <div className=" bg-white shadow-lg rounded-lg p-8 ">
+                                    <h2 className="text-2xl font-bold mb-6 text-bluedark">Mylapay API Authentication Process and Sandbox Setup</h2>
+                                    <p className="mb-4 text-gray-700">
+                                        Mylapay uses HTTP Signature as an authentication method.
+                                    </p>
+                                    <p className="mb-4 text-gray-700">
+                                        After logging into Mylapay’s Developer Account, the following credentials are required to successfully authenticate and setup the sandbox environment:
+                                    </p>
+                                    <ul className="list-decimal list-inside mb-6 text-gray-700">
+                                        <li className="mb-2">
+                                            <span className="font-semibold">Organization ID</span> – The unique ID that is generated by Mylapay for the user. This is non-editable and non-transferable.
+                                        </li>
+                                        <li className="mb-2">
+                                            <span className="font-semibold">API URL</span> – Each of Mylapay’s products has a unique API URL that will be used in sandbox testing.
+                                        </li>
+                                        <li className="mb-2">
+                                            <span className="font-semibold">API Keys</span> – Two keys will be generated and shared with the User, viz., Key & Shared Secret Key that will be used to authenticate the user in the sandbox environment.
+                                        </li>
+                                        <li className="mb-2">
+                                            <span className="font-semibold">Password</span> – A random password will be generated for the user during the time of account creation, and it will be sent along with the account confirmation email.
+                                        </li>
+                                    </ul>
+                                    <div className="bg-bluedark border-l-4 border-primary p-4 mb-6">
+                                        <p className="text-primary font-semibold">Note:</p>
+                                        <ul className="list-disc list-inside text-primary">
                                             <li className="mb-2">
-                                                <span className="font-semibold">Organization ID</span> – The unique ID that is generated by Mylapay for the user. This is non-editable and non-transferable.
+                                                If the API keys are lost, they can be generated again using “Generate Keys”. If the password is lost or needs to be changed, “Forgot my Password” option can be used.
                                             </li>
                                             <li className="mb-2">
-                                                <span className="font-semibold">API URL</span> – Each of Mylapay’s products has a unique API URL that will be used in sandbox testing.
-                                            </li>
-                                            <li className="mb-2">
-                                                <span className="font-semibold">API Keys</span> – Two keys will be generated and shared with the User, viz., Key & Shared Secret Key that will be used to authenticate the user in the sandbox environment.
-                                            </li>
-                                            <li className="mb-2">
-                                                <span className="font-semibold">Password</span> – A random password will be generated for the user during the time of account creation, and it will be sent along with the account confirmation email.
+                                                Do not share your API Key and Secret Key with anyone or on any public platforms. This can pose serious threats for your Mylapay Account.
                                             </li>
                                         </ul>
-                                        <div className="bg-bluedark border-l-4 border-primary p-4 mb-6">
-                                            <p className="text-primary font-semibold">Note:</p>
-                                            <ul className="list-disc list-inside text-primary">
-                                                <li className="mb-2">
-                                                    If the API keys are lost, they can be generated again using “Generate Keys”. If the password is lost or needs to be changed, “Forgot my Password” option can be used.
-                                                </li>
-                                                <li className="mb-2">
-                                                    Do not share your API Key and Secret Key with anyone or on any public platforms. This can pose serious threats for your Mylapay Account.
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
                             // </div>
                         )}
 

@@ -4,27 +4,141 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
-import JSONInput from "react-json-editor-ajrm/index";
-import locale from "react-json-editor-ajrm/locale/en";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
-import { IoMdInformationCircle } from "react-icons/io";
+import { IoMdInformationCircle, IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { FaCopy } from "react-icons/fa";
+// import { IoMdEye } from "react-icons/io";
 import { Popover } from '@headlessui/react'
+import Editor from 'react-simple-code-editor';
+import Prism from 'prismjs';
+import { highlight, languages } from "prismjs/components/prism-core";
+import axios from 'axios';
+import { useLoginStatus } from '../../hooks/useLoginStatus'
+import _ from 'lodash';
+import 'prismjs/components/prism-json';
+import { data3DSS, } from '../../data/sandbox/3DSS'
+import { data3DSSResponse } from '../../data/sandbox/3DSS-response'
+import { authenticationPaymentsRequestParams } from '../../data/sandbox/authentication-payments-request-params'
+import { authReversalRequestParams } from '../../data/sandbox/auth-reversal'
+import { authCaptureRequestParams } from '../../data/sandbox/auth-capture'
+import { authRefundRequestParams } from '../../data/sandbox/auth-refund'
+import { dataVoid } from '../../data/sandbox/void'
+import 'prismjs/themes/prism.css'; // You can choose a different theme
+// import './JsonEditor.css'; // Custom styles for line numbers
 import 'react-toastify/dist/ReactToastify.css';
 
-const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
+// const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const validationSchema = Yup.object().shape({
-    OrganizationID: Yup.string().required('Organization ID is required').length(10, 'Organization ID must be exactly 10 characters'),
-    browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
+    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters'),
+    // browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
 });
+
+// const userDataLocal = localStorage?.getItem('user') ? JSON.parse(localStorage?.getItem('user')) : {};
 
 const data = {
     authentication: {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure',
         configuration: {
             OrganizationID: '3576812',
-            SecretKey: '91989736'
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    ['3DSS-v2.2']: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.2',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    ['3DSS-v2.3']: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.3',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Payments: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/payments',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Reversal: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/reversal',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Capture: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/capture',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Refund: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/refund',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Void: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/void',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
+        },
+        Header: {
+            host: 'sandbox.mylapay.com',
+            contentType: 'application/json',
+            vcMerchantId: '6237486819'
+        }
+    },
+    Status: {
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/status',
+        configuration: {
+            OrganizationID: '3576812',
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -36,7 +150,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -48,7 +162,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -60,7 +174,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -72,7 +186,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/refund',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -84,7 +198,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/void',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -96,7 +210,7 @@ const data = {
         apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/reversal',
         configuration: {
             OrganizationID: '2571448',
-            SecretKey: '8626561781'
+            SecretKey: ""
         },
         Header: {
             host: 'sandbox.mylapay.com',
@@ -106,80 +220,78 @@ const data = {
     },
 };
 
+
+
+const customizer = (objValue, srcValue, key, object, source) => {
+    if (_.isObject(objValue)) {
+        return _.mergeWith({}, objValue, srcValue, customizer);
+    }
+    if (srcValue === '') {
+        return objValue;
+    }
+    if (!(key in source)) {
+        return undefined;
+    }
+    return srcValue;
+};
+
+const findDifferencesOfObjects = (original, edited) => {
+    const changes = {};
+    const checkChanges = (origObj, editObj, path = '') => {
+        for (const key in origObj) {
+            const newPath = path ? `${path}.${key}` : key;
+            if (typeof origObj[key] === 'object' && origObj[key] !== null) {
+                checkChanges(origObj[key], editObj[key], newPath);
+            } else if (origObj[key] !== editObj[key]) {
+                changes[newPath] = { original: origObj[key], edited: editObj[key] };
+            }
+        }
+        for (const key in editObj) {
+            if (!(key in origObj)) {
+                const newPath = path ? `${path}.${key}` : key;
+                changes[newPath] = { original: undefined, edited: editObj[key] };
+            }
+        }
+    };
+    checkChanges(original, edited);
+    return changes;
+};
+
+const highlightWithPrism = (code) => Prism.highlight(code, Prism.languages.json, 'json');
+
+const validateOrganizationID = async (value) => {
+    let errorMessage;
+    if (!value) {
+        errorMessage = 'Organization ID is required';
+    } else if (value.length !== 20) {
+        errorMessage = 'Organization ID must be exactly 20 characters';
+    }
+
+    return errorMessage;
+};
+
+const hightlightWithLineNumbers = (input, language) =>
+    highlight(input, language)
+        .split("\n")
+        .map((line, i) => `<span class='editorLineNumber' style="padding-right:10px">${i + 1}</span>${line}`)
+        .join("\n");
+
 const SandboxForm = () => {
     const router = useRouter();
     const { query } = router;
     const [intialFormData, setIntialFormData] = useState(null);
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
-    const [parametersData, setParametersData] = useState([
-        {
-            id: 10,
-            fieldCategory: true,
-            fieldCategoryName: 'Seller Info',
-            fields: [
-                {
-                    name: "sellerName",
-                    type: "text",
-                    dataType: "String",
-                    lengthAndType: "Variable a- 100",
-                    description: "Name of the Seller",
-                    status: "mandate",
-                    checked: true,
-                    value: ""
-                },
-                {
-                    name: "sellerId",
-                    type: "text",
-                    dataType: "String",
-                    lengthAndType: "Variable an-50",
-                    description: "Required if Seller ID in Multi Transaction object is present. Merchant-assigned Seller identifier",
-                    status: "conditionally required",
-                    checked: false,
-                    value: ""
-                },
-                {
-                    name: "sellerBusinessName",
-                    type: "text",
-                    dataType: "String",
-                    lengthAndType: "Variable a- 100",
-                    description: "Business name of the Seller",
-                    status: "optional",
-                    checked: false,
-                    value: ""
-                }
-            ]
-        },
-        {
-            id: 11,
-            fieldCategory: true,
-            fieldCategoryName: 'Pay Token Info',
-            fields: [
-                {
-                    name: "token",
-                    type: "text",
-                    dataType: "String",
-                    lengthAndType: "Variable n -13 to 19",
-                    description: "Payment token used to initiate the EMV 3DS transaction",
-                    status: "optional",
-                    checked: false,
-                    value: ""
-                },
-                {
-                    name: "tokenAdditionalData",
-                    type: "text",
-                    dataType: "Object",
-                    lengthAndType: "Variable an-500",
-                    description: "Additional information about the Payment Token from the Token Service Provider",
-                    status: "optional",
-                    checked: false,
-                    value: ""
-                }
-            ]
-        }
-    ]);
+    const [error, setError] = useState(null);
+    // const [userData, setUserData] = useState({});
+    const { user } = useLoginStatus();
+    const [showSecret, setShowSecret] = useState(false);
+    // const [notChangingParameterData, setNotChangingParameterData] = useState([]);
+    const [parametersData, setParametersData] = useState([]);
 
-    const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState({});
+    const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
     const [responseData, setResponseData] = useState(null);
+
+
 
 
     useEffect(() => {
@@ -189,189 +301,158 @@ const SandboxForm = () => {
             // CHANGES
             setOrganizationIDValidationStatus("pending");
             setResponseData(null);
-            setSelectedSandboxTestCodes({})
-            setParametersData([
-                {
-                    id: 10,
-                    fieldCategory: true,
-                    fieldCategoryName: 'Seller Info',
-                    fields: [
-                        {
-                            name: "sellerName",
-                            type: "text",
-                            dataType: "String",
-                            lengthAndType: "Variable a- 100",
-                            description: "Name of the Seller",
-                            status: "mandate",
-                            checked: true,
-                            value: ""
-                        },
-                        {
-                            name: "sellerId",
-                            type: "text",
-                            dataType: "String",
-                            lengthAndType: "Variable an-50",
-                            description: "Required if Seller ID in Multi Transaction object is present. Merchant-assigned Seller identifier",
-                            status: "conditionally required",
-                            checked: false,
-                            value: ""
-                        },
-                        {
-                            name: "sellerBusinessName",
-                            type: "text",
-                            dataType: "String",
-                            lengthAndType: "Variable a- 100",
-                            description: "Business name of the Seller",
-                            status: "optional",
-                            checked: false,
-                            value: ""
-                        }
-                    ]
-                },
-                {
-                    id: 11,
-                    fieldCategory: true,
-                    fieldCategoryName: 'Pay Token Info',
-                    fields: [
-                        {
-                            name: "token",
-                            type: "text",
-                            dataType: "String",
-                            lengthAndType: "Variable n -13 to 19",
-                            description: "Payment token used to initiate the EMV 3DS transaction",
-                            status: "optional",
-                            checked: false,
-                            value: ""
-                        },
-                        {
-                            name: "tokenAdditionalData",
-                            type: "text",
-                            dataType: "Object",
-                            lengthAndType: "Variable an-500",
-                            description: "Additional information about the Payment Token from the Token Service Provider",
-                            status: "optional",
-                            checked: false,
-                            value: ""
-                        }
-                    ]
-                }
-            ])
+            setSelectedSandboxTestCodes(JSON.stringify({}, null, 2))
+
+            if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
+                setParametersData(data3DSS)
+                // setParametersData(authenticationPaymentsRequestParams)
+            } else if (query?.api === "Payments") {
+                console.log("RUN")
+                setParametersData(authenticationPaymentsRequestParams)
+            } else if (query?.api === "Reversal") {
+                setParametersData(authReversalRequestParams)
+            } else if (query?.api === "Capture") {
+                // authCaptureRequestParams
+                setParametersData(authCaptureRequestParams)
+            } else if (query?.api === "Refund") {
+                setParametersData(authRefundRequestParams)
+            } else if (query?.api === "Void") {
+                setParametersData(dataVoid)
+            } else {
+                setParametersData([])
+            }
+
+            // setNotChangingParameterData(data3DSS)
         }
-    }, [data[query?.api]])
+    }, [query?.api])
 
 
     useEffect(() => {
+        const selectedDataKeyValues = JSON.parse(selectedSandboxTestCodes);
+
+        const selectedData = parametersData.reduce(function (total, currentValue) {
+            if (!currentValue?.fieldCategory) {
+                currentValue?.fields?.forEach(item => {
+                    if (item?.checked) {
+                        const valueOfProperty = selectedDataKeyValues[item.name];
+                        total[item?.name] = valueOfProperty ? valueOfProperty : item.value;
+                    }
+                });
+            } else {
+                const now = currentValue?.fieldCategoryName;
+                total = {
+                    ...total,
+                    [currentValue?.fieldCategoryName]: currentValue?.fields?.reduce(function (totalObj, currentValueData) {
+                        if (currentValueData?.checked) {
+                            if (selectedDataKeyValues[now]) {
+                                const valueOfProperty = selectedDataKeyValues[now][currentValueData?.name] ? selectedDataKeyValues[now][currentValueData?.name] : "";
+                                totalObj[currentValueData?.name] = valueOfProperty ? valueOfProperty : currentValueData?.value;
+                            } else {
+                                totalObj[currentValueData?.name] = currentValueData.value
+                            }
+                        }
+                        return totalObj
+                    }, {})
+                }
+            }
+            return total;
+        }, {})
+
+        setSelectedSandboxTestCodes(prevDataOri => {
+            return JSON.stringify(selectedData, null, 2)
+        });
+    }, [parametersData, query?.api])
+
+
+    const validateOrganisationId = async (value) => {
+
+        if (value.length < 20) {
+            setOrganizationIDValidationStatus("pending");
+            return null;
+        } else if (value.length > 20) {
+            setOrganizationIDValidationStatus("failed");
+            return null;
+        }
+
+        // Set status to pending when request is being sent
+        setOrganizationIDValidationStatus("pending");
+
+        try {
+            const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/verify-sandbox-access', {
+                organizationId: value
+            }, {
+                headers: {
+                    Authorization: `${localStorage.getItem('token')}` // Add the authorization header with the token
+                }
+            });
+
+            // setOrganizationIDValidationStatus("success");
+
+            if (response.status === 200) {
+                setOrganizationIDValidationStatus("success");
+            } else {
+                setOrganizationIDValidationStatus("failed");
+            }
+        } catch (error) {
+            // console.error('Error validating organization ID:', error);
+            setOrganizationIDValidationStatus("failed");
+        }
+
+        // You might also want to handle length check separately before making the request
+
+    }
+
+    useEffect(() => {
+        if (user?.organizationId) {
+            validateOrganisationId(user?.organizationId);
+        }
+    }, [user?.organizationId, data[query?.api]])
+
+    const handleReset = () => {
+        const selectedDataKeyValues = JSON.parse(selectedSandboxTestCodes);
+
         const selectedData = parametersData.reduce(function (total, currentValue) {
             if (!currentValue.fieldCategory) {
                 currentValue.fields.forEach(item => {
                     if (item.checked) {
+                        // const valueOfProperty = selectedDataKeyValues[item.name];
                         total[item.name] = item.value;
                     }
                 });
             } else {
-
+                const now = currentValue.fieldCategoryName;
                 total = {
                     ...total,
-                    [currentValue.fieldCategoryName]: currentValue.fields.reduce(function (totalObj, currentValue) {
-                        if (currentValue.checked) {
-                            totalObj[currentValue.name] = currentValue.value
+                    [currentValue.fieldCategoryName]: currentValue.fields.reduce(function (totalObj, currentValueData) {
+                        if (currentValueData.checked) {
+                            if (selectedDataKeyValues[now]) {
+                                // const valueOfProperty = selectedDataKeyValues[now][currentValueData?.name] ? selectedDataKeyValues[now][currentValueData?.name] : "";
+                                totalObj[currentValueData.name] = currentValueData?.value;
+                            } else {
+                                totalObj[currentValueData.name] = currentValueData.value
+                            }
+
+
                         }
 
                         return totalObj
                     }, {})
                 }
             }
-
             return total;
-
         }, {})
 
+        setSelectedSandboxTestCodes(prevDataOri => {
+            return JSON.stringify(selectedData, null, 2)
+        });
 
-        setSelectedSandboxTestCodes(selectedData);
-    }, [parametersData])
-
-
-    const validateOrganisationId = (value) => {
-        if (value.length === 10) {
-            setOrganizationIDValidationStatus("success");
-        } else if (value.length < 10) {
-            setOrganizationIDValidationStatus("pending");
-        } else {
-            setOrganizationIDValidationStatus("failed");
-        }
-    }
-
-    const handleReset = () => {
-        setParametersData([
-            {
-                id: 10,
-                fieldCategory: true,
-                fieldCategoryName: 'Seller Info',
-                fields: [
-                    {
-                        name: "sellerName",
-                        type: "text",
-                        dataType: "String",
-                        lengthAndType: "Variable a- 100",
-                        description: "Name of the Seller",
-                        status: "mandate",
-                        checked: true,
-                        value: ""
-                    },
-                    {
-                        name: "sellerId",
-                        type: "text",
-                        dataType: "String",
-                        lengthAndType: "Variable an-50",
-                        description: "Required if Seller ID in Multi Transaction object is present. Merchant-assigned Seller identifier",
-                        status: "conditionally required",
-                        checked: false,
-                        value: ""
-                    },
-                    {
-                        name: "sellerBusinessName",
-                        type: "text",
-                        dataType: "String",
-                        lengthAndType: "Variable a- 100",
-                        description: "Business name of the Seller",
-                        status: "optional",
-                        checked: false,
-                        value: ""
-                    }
-                ]
-            },
-            {
-                id: 11,
-                fieldCategory: true,
-                fieldCategoryName: 'Pay Token Info',
-                fields: [
-                    {
-                        name: "token",
-                        type: "text",
-                        dataType: "String",
-                        lengthAndType: "Variable n -13 to 19",
-                        description: "Payment token used to initiate the EMV 3DS transaction",
-                        status: "optional",
-                        checked: false,
-                        value: ""
-                    },
-                    {
-                        name: "tokenAdditionalData",
-                        type: "text",
-                        dataType: "Object",
-                        lengthAndType: "Variable an-500",
-                        description: "Additional information about the Payment Token from the Token Service Provider",
-                        status: "optional",
-                        checked: false,
-                        value: ""
-                    }
-                ]
-            }
-        ])
+        // setParametersData(notChangingParameterData)
+        // setParametersData([])
     }
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
+            {/* <p>{JSON.stringify(user)}</p> */}
             {intialFormData && (
                 <Formik
                     key={intialFormData?.apiUrl}
@@ -379,29 +460,31 @@ const SandboxForm = () => {
                         apiURLs: intialFormData?.apiUrl,
                         laptop: false,
                         browserIP: false,
-                        OrganizationID: '',
-                        SecretKey: intialFormData?.configuration?.SecretKey,
+                        OrganizationID: user?.organizationId,
+                        SecretKey: user?.secretkey,
                         host: intialFormData?.Header?.host,
                         ContentType: intialFormData?.Header?.contentType,
-                        vcMerchantId: intialFormData?.Header?.vcMerchantId,
+                        vcMerchantId: user?.vcMerchantId, // intialFormData?.Header?.vcMerchantId
                     }}
                     validationSchema={validationSchema}
+                    validateOnChange={true}
+                    validateOnBlur={true}
                     onSubmit={(values, { setFieldError }) => {
                         // Handle form submission here
-                        console.log({ ...values, ...selectedSandboxTestCodes });
+                        console.log({ ...values, selectedSandboxTestCodes });
+
+                        let responseData = { response: `${query?.api} response` };
+
+                        if(query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3"){
+                            responseData = data3DSSResponse
+                        }
+                        
 
                         // Set response data if request successfull
                         setResponseData({
                             statusCode: 200,
                             description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-                            response: {
-                                status: "success",
-                                data: {
-                                    id: 12345,
-                                    name: "John Doe",
-                                    email: "john.doe@example.com"
-                                }
-                            },
+                            response: responseData,
                             header: {
                                 Status: "200 OK",
                                 Date: "Fri, 25 Mar 2024 12:00:00 GMT",
@@ -414,7 +497,7 @@ const SandboxForm = () => {
 
                     }}
                 >
-                    {({ setFieldValue, handleChange }) => (
+                    {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
                         <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-1 mb-6">
                                 <div className="relative">
@@ -440,21 +523,23 @@ const SandboxForm = () => {
                                             name="OrganizationID"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
                                             validateOnChange={true}
-                                            validate={(value) => {
-                                                let errorMessage;
-                                                if (!value) {
-                                                    errorMessage = 'Organization ID is required';
-                                                } else if (value.length !== 10) {
-                                                    errorMessage = 'Organization ID must be exactly 10 characters';
-                                                }
-                                                return errorMessage;
+                                            validate={validateOrganizationID}
+                                           
+                                            onFocus={(event) => {
+                                                setFieldTouched('OrganizationID', true);
+                                                handleChange(event);
                                             }}
                                             onChange={(event) => {
-                                                const { name, value } = event.target;
+                                                handleChange(event);
+                                                setFieldValue('OrganizationID', event.target.value, true);
+                                                setFieldValue('vcMerchantId', event.target.value);
 
-                                                validateOrganisationId(value)
-
-                                                handleChange(event)
+                                                // if (event?.target?.value?.length === 20) {
+                                                validateOrganisationId(event.target.value)
+                                                // }
+                                            }}
+                                            onBlur={(event) => {
+                                                handleBlur(event);
                                             }}
                                         />
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
@@ -465,8 +550,17 @@ const SandboxForm = () => {
                                             <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
                                         )}
 
+
+
                                         {organizationIDValidationStatus === "failed" && (
                                             <FaCircleXmark className='text-[#F43F5E] text-xl absolute top-[9px] right-[10px]' />
+                                        )}
+
+
+                                        {(errors.OrganizationID && touched.OrganizationID) && organizationIDValidationStatus !== "success" && (
+                                            <div className="text-sm mt-2 text-[#F43F5E]">
+                                                {errors.OrganizationID}
+                                            </div>
                                         )}
                                     </div>
                                     <div className="relative">
@@ -474,12 +568,67 @@ const SandboxForm = () => {
                                             type="text"
                                             name="SecretKey"
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            placeholder=" "
+                                            value={user?.secretkey}
                                         />
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Secret Key
                                         </label>
                                         <ErrorMessage name="SecretKey" component="div" className="text-sm mt-2 text-red" />
+                                    </div>
+                                    <div className="relative">
+                                        <Field
+                                            type="text"
+                                            name="vcMerchantId"
+                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                            placeholder=""
+                                            disabled
+                                        />
+                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                            VC Merchant Id
+                                        </label>
+                                        {/* <ErrorMessage name="vcMerchantId" component="div" className="text-sm mt-2 text-red" /> */}
+                                    </div>
+                                    <div className="relative">
+                                        <Field
+                                            type={showSecret ? "text" : "password"}
+                                            name="sharedSecretKey"
+                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                            value={"Shared Sectret key text"}
+                                            disabled
+                                        />
+                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                            Shared Secret Key
+                                        </label>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setShowSecret((prevShowSecret) => !prevShowSecret);
+                                            }}
+                                            className="absolute right-9 top-2 text-sm text-para"
+                                        >
+                                            {showSecret ? <IoMdEyeOff size="1.3rem" /> : <IoMdEye size="1.3rem" />}
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                navigator.clipboard.writeText("Shared Sectret key text")
+                                                    .then(() => {
+                                                        // alert("Text copied to clipboard!");
+                                                        toast("Secret key copied!");
+                                                    }).catch(err => {
+                                                        console.error("Failed to copy text: ", err);
+                                                    });
+                                            }}
+                                            className="absolute right-2 top-2 text-sm text-para"
+                                        >
+                                            <FaCopy size="1rem" />
+                                        </button>
+
+
+
+                                        <ErrorMessage name="sharedSecretKey" component="div" className="text-sm mt-2 text-red" />
                                     </div>
                                 </div>
                             </div>
@@ -513,18 +662,7 @@ const SandboxForm = () => {
                                         <ErrorMessage name="ContentType" component="div" className="text-sm mt-2 text-red" />
                                     </div>
 
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="vcMerchantId"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            placeholder=""
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            VC Merchant Id
-                                        </label>
-                                        <ErrorMessage name="vcMerchantId" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -543,7 +681,7 @@ const SandboxForm = () => {
                                                             </h3>
                                                         )}
 
-                                                        {parameter?.fields.map((field, index) => {
+                                                        {parameter?.fields?.map((field, index) => {
                                                             return (
                                                                 <div key={index} className='flex items-center'>
                                                                     <Field
@@ -573,12 +711,14 @@ const SandboxForm = () => {
 
                                                                                         return {
                                                                                             ...item,
-                                                                                            fields: updatedFields
+                                                                                            fields: updatedFields,
                                                                                         }
                                                                                     }
 
                                                                                     return item;
                                                                                 })
+
+                                                                                console.log(updatedData)
 
                                                                                 return updatedData;
                                                                             })
@@ -657,69 +797,43 @@ const SandboxForm = () => {
                                     <div className='bg-bggray p-4 rounded relative'>
                                         <h2 className='mb-4'>Sandbox Test Codes</h2>
 
-                                        {organizationIDValidationStatus === 'success' && (
-                                            <p className='text-sm mb-5'>
-                                                To edit a value, hover your mouse cursor over the target value and click on the displayed edit icon button
-                                            </p>
-                                        )}
-
-                                        {selectedSandboxTestCodes['Browser Info']?.browserIP === "" && (
-                                            <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
-                                        )}
-
                                         <div>
-                                            {/* <DynamicReactJson
-                                                src={selectedSandboxTestCodes}
-                                                theme="monokai"
-                                                enableClipboard={false}
-                                                displayObjectSize={false}
-                                                displayDataTypes={false}
-                                                displayArrayKey={false}
-                                                name={false}
-                                                onEdit={organizationIDValidationStatus != 'success' ? false : (edit) => {
-                                                    setParametersData(prevData => {
-                                                        const newData = prevData.map(item => {
-                                                            const newItem = { ...item };
-                                                            const fieldIndex = newItem.fields.findIndex(field => field.name === edit.name);
-                                                            if (fieldIndex !== -1) {
-                                                                newItem.fields[fieldIndex] = {
-                                                                    ...newItem.fields[fieldIndex],
-                                                                    value: edit.new_value
-                                                                };
-                                                            }
-                                                            return newItem;
-                                                        });
+                                            <div className="editor-container">
+                                               
+                                                <Editor
+                                                    value={selectedSandboxTestCodes}
+                                                    onValueChange={(code) => {
+                                                        console.log(code);
 
-                                                        return newData;
-                                                    });
-                                                }}
-                                            /> */}
+                                                        setSelectedSandboxTestCodes(code);
 
-
-                                            <JSONInput
-                                                placeholder={selectedSandboxTestCodes}
-                                                onBlur={(newData) => {
-                                                    console.log(newData.jsObject);
-                                                    // setParametersData(newData.jsObject);
-                                                    // setData(newData.jsObject)
-                                                }}
-                                                onKeyPressUpdate={false}
-                                                theme="light_mitsuketa_tribute"
-                                                locale={locale}
-                                                height="100%"
-                                                width="100%"
-                                            />
-
-
+                                                        // console.log(code)
+                                                        // console.log(JSON.parse(code))
+                                                        // setSelectedSandboxTestCodes(prevData => {
+                                                        //     // let parsedCode = JSON?.parse(code);
+                                                        //     // const changes = findDifferencesOfObjects(JSON.parse(prevData), parsedCode);
+                                                        //     // const firstPropertyName = Object.keys(changes)[0];
+                                                        //     return code;
+                                                        // });
+                                                        // try {
+                                                        //     setError(null); // Clear the error if JSON is valid
+                                                        // } catch (err) {
+                                                        //     setError('Invalid JSON'); // Set error message if JSON is invalid
+                                                        // }
+                                                    }}
+                                                    highlight={code => hightlightWithLineNumbers(code, languages.json)}
+                                                    padding={10}
+                                                    className="code-editor"
+                                                />
+                                            </div>
+                                            {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
                                         </div>
 
                                         <button
                                             className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-3 right-5'
                                             type="button"
                                             onClick={() => {
-                                                const jsonData = JSON.stringify(selectedSandboxTestCodes);
-
-                                                navigator.clipboard.writeText(jsonData)
+                                                navigator.clipboard.writeText(selectedSandboxTestCodes)
                                                     .then(() => {
                                                         toast("Copied");
                                                     })
@@ -734,18 +848,8 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-                            <div>
-                                <h1>selectedSandboxTestCodes</h1>
-                                <p>{JSON.stringify(selectedSandboxTestCodes)}</p>
-                            </div>
-
-                            <div>
-                                <h1>responseData</h1>
-                                <p>{JSON.stringify(responseData)}</p>
-                            </div>
-
                             <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
-                                <button type="submit" disabled={organizationIDValidationStatus != 'success'} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
+                                <button type="submit" disabled={organizationIDValidationStatus != 'success' || error} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
                                     Send
                                 </button>
                                 <button onClick={handleReset} disabled={organizationIDValidationStatus != 'success'} type="button" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray disabled:text-black">
@@ -755,127 +859,6 @@ const SandboxForm = () => {
                         </Form>
                     )}
                 </Formik>
-            )}
-
-            {/* responseData */}
-
-            {responseData && (
-                <div className='px-4 py-8 lg:px-8'>
-                    {/* <div className='flex gap-x-4'>
-                        <span className='text-bluedark mb-4 block'>Status Codes</span>
-                        <span className='text-[#22C55E]'>
-                            {responseData.statusCode}
-                        </span>
-                    </div> */}
-
-
-                    {/* <div className='bg-bggray p-4 rounded mb-8'>
-                                <h2 className='mb-3'>Status Codes</h2>
-                                <div className='space-y-2'>
-                                    <div className='bg-white p-2 border-l-4 border-[#22C55E] text-sm'>
-                                        <p>200 - Success</p>
-                                    </div>
-                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
-                                        <p>400 - Success</p>
-                                    </div>
-                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
-                                        <p>500 - Success</p>
-                                    </div>
-                                    <div className='bg-white p-2 border-l-4 border-[#EF4444] text-sm'>
-                                        <p>401 - Success</p>
-                                    </div>
-                                </div>
-                            </div> */}
-
-
-                    <div className='bg-bggray p-4 rounded mb-8'>
-                        <h2 className='mb-3'>Status Codes</h2>
-                        <div className='flex space-x-4 text-sm'>
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#22C55E] text-white">200</span><p className='bg-white py-2 px-4'>Success</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">400</span><p className='bg-white py-2 px-4'>Invalid</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">500</span><p className='bg-white py-2 px-4'>Unexpected System Error</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">401</span><p className='bg-white py-2 px-4'>Unauthorized request</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {/* <div className="mx-auto mt-8 p-4 bg-[#E2E8F0] border-l-4 border-primary">
-                        <div>
-                            <h2 className="text-xl font-bold text-bluedark sm:text-lg mb-2">
-                                Used by
-                            </h2>
-
-                            <p className=" text-para mx-auto">
-                                Payment Acquiring Banks, Merchants, and Payment Aggregators.
-                            </p>
-                        </div>
-                    </div> */}
-
-                    {/* <div className='mb-4'>
-                        <span className='text-bluedark mb-1 block'>Description</span>
-                        <span className='text-sm'>
-                            {responseData.description}
-                        </span>
-                    </div> */}
-
-                    <div className="grid gap-10 md:grid-cols-2 mb-6 ">
-                        <div className='bg-bggray p-4 rounded'>
-                            <h2 className='mb-3'>Response</h2>
-
-                            <div className='relative'>
-                                <DynamicReactJson
-                                    src={responseData.response}
-                                    theme="monokai"
-                                    enableClipboard={false}
-                                    displayObjectSize={false}
-                                    displayDataTypes={false}
-                                    displayArrayKey={false}
-                                    name={false}
-                                />
-
-                                <button
-                                    className='py-1 px-4 rounded-sm text-sm bg-white text-bluedark absolute top-5 right-5'
-                                    type="button"
-                                    onClick={() => {
-                                        const jsonData = JSON.stringify(responseData.response);
-
-                                        navigator.clipboard.writeText(jsonData)
-                                            .then(() => {
-                                                toast("Copied")
-                                                // alert('COPIED')
-                                                // console.log('JSON data copied to clipboard');
-                                            })
-                                            .catch((error) => {
-                                                console.error('Failed to copy JSON data: ', error);
-                                            });
-                                    }}
-                                >
-                                    COPY
-                                </button>
-                            </div>
-
-
-                        </div>
-
-                        <div className='bg-bggray p-4 rounded'>
-                            <h2 className='mb-3'>Description</h2>
-                            <p className='text-sm bg-white p-4'>
-                                {responseData.description}
-                            </p>
-                        </div>
-                    </div>
-                </div>
             )}
             <ToastContainer />
         </div>

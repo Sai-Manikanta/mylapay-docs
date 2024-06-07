@@ -152,7 +152,7 @@ function ProductsTabs() {
                                 </p>
 
                                 <p className=" text-para mx-auto mt-3">
-                                    To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
+                                    To obtain a JWT token, clients must make a POST request to the https://sandbox.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                                 </p>
                             </div>
                         </div> */}
@@ -195,7 +195,7 @@ function ProductsTabs() {
                             </p>
 
                             <p className="text-md text-black ">
-                                To obtain a JWT token, clients must make a POST request to the https://transactions.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
+                                To obtain a JWT token, clients must make a POST request to the https://sandbox.mylapay.com/v1/get_jwt_token endpoint with a valid username and password. The API server will verify the credentials and return a JWT token in the response body
                             </p>
                         </div> */}
 
@@ -296,7 +296,7 @@ function ProductsTabs() {
                             </section>
 
                             <section className="my-8">
-                                <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">Headers</h2>
+                                <h2 className="text-md xl:text-lg font-semibold text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:text-white">HTTP Status Codes:</h2>
                                 <table className='bg-[#E2E8F0] mt-4'>
                                     <thead className='bg-bluedark text-white'>
                                         <tr>
@@ -483,7 +483,7 @@ function ProductsTabs() {
                                                 Example
                                             </div>
                                             <div className='py-2 px-4 flex-grow break-all'>
-                                                <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_secure
+                                                <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_secure
                                             </div>
                                         </div>
                                     </div>
@@ -601,7 +601,7 @@ function ProductsTabs() {
                                                 Example
                                             </div>
                                             <div className='py-2 px-4 flex-grow break-all'>
-                                                <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch
+                                                <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_switch
                                             </div>
                                         </div>
                                     </div>
@@ -716,7 +716,7 @@ function ProductsTabs() {
 
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
-                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/capture
+                                                    <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_switch/capture
                                                 </div>
                                             </div>
                                         </div>
@@ -732,7 +732,7 @@ function ProductsTabs() {
                                                     Refund API URL
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
-                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/refund
+                                                    <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_switch/refund
                                                 </div>
                                             </div>
                                         </div>
@@ -749,7 +749,7 @@ function ProductsTabs() {
                                                     Void API URL
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
-                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/void
+                                                    <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_switch/void
                                                 </div>
                                             </div>
                                         </div>
@@ -765,7 +765,7 @@ function ProductsTabs() {
                                                     Reversal API URL
                                                 </div>
                                                 <div className='py-2 px-4 flex-grow break-all'>
-                                                    <span className='text-primary'>https://transactions.mylapay.com/v1</span>/mylapay_switch/reversal
+                                                    <span className='text-primary'>https://sandbox.mylapay.com/v1</span>/mylapay_switch/reversal
                                                 </div>
                                             </div>
                                         </div>

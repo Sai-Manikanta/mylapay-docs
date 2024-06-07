@@ -33,109 +33,109 @@ const validationSchema = Yup.object().shape({
 
 const data = {
     authentication: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_secure',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure',
         configuration: {
             OrganizationID: '3576812',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '6237486819'
         }
     },
     ['3DSS-v2.2']: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_secure/3DSS-v2.2',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.2',
         configuration: {
             OrganizationID: '3576812',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '6237486819'
         }
     },
     ['3DSS-v2.3']: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_secure/3DSS-v2.3',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.3',
         configuration: {
             OrganizationID: '3576812',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '6237486819'
         }
     },
     authorization: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
     },
     refund: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/capture',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
     },
     capture: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/capture',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
     },
     reversal: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/refund',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/refund',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
     },
     void: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/void',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/void',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
     },
     reversal: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch/reversal',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/reversal',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: ""
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }

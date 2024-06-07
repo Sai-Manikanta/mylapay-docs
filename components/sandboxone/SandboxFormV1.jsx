@@ -20,25 +20,25 @@ const validationSchema = Yup.object().shape({
 
 const data = {
     authentication: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_secure',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure',
         configuration: {
             OrganizationID: '3576812',
             SecretKey: '91989736'
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '6237486819'
         }
     },
     authorization: {
-        apiUrl: 'https://transactions.mylapay.com/v1/mylapay_switch',
+        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch',
         configuration: {
             OrganizationID: '2571448',
             SecretKey: '8626561781'
         },
         Header: {
-            host: 'transactions.mylapay.com',
+            host: 'sandbox.mylapay.com',
             contentType: 'application/json',
             vcMerchantId: '2963752899'
         }
