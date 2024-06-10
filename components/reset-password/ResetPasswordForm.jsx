@@ -87,6 +87,7 @@ const ResetPasswordForm = () => {
                                 >
                                     {isSubmitting ? 'Setting Password...' : 'Set Password'}
                                 </button>
+                                {/*  */}
                             </div>
                         </Form>
                     )}
