@@ -1,6 +1,5 @@
 import { TypeAnimation } from 'react-type-animation';
-import LoginForm from './LoginForm'
-// import Link from 'next/link'
+import LoginForm from './SignupForm'
 
 export default function AccessSteps() {
     return (
@@ -9,30 +8,21 @@ export default function AccessSteps() {
                 <div className="wrapper pb-4">
                     <div className="py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                         <div className="mb-10 text-center md:mb-0">
-
                             <TypeAnimation
                                 sequence={[
-                                    'Create your Developers Login', // Types 'One'
-                                    2000, // Waits 1s
-                                    "Its Easy", // Deletes 'One' and types 'Two'
-                                    2000, // Waits 2s
+                                    'Create your Developers Login', 
+                                    2000, 
+                                    "Its Easy", 
+                                    2000, 
                                 ]}
                                 wrapper="h1"
                                 cursor={true}
                                 repeat={Infinity}
-                                // style={{ fontSize: '2em', display: 'inline-block' }}
                                 className="text-xl font-bold text-black sm:text-3xl md:text-4xl text-center mb-8 px-2"
                             />
-
-                            {/* <h2 className="text-xl font-bold text-black sm:text-3xl md:text-4xl text-center mb-8 px-2">
-                                Create your Developers Login
-                            </h2> */}
-
                             <p className="mt-6 text-center mb-10 text-lg text-para max-w-4xl mx-auto px-2">
                                 This step is essential to receive unique organization ID and secret key. This key will be used for API authentication.
                             </p>
-
-
                             <div className="relative mt-12 lg:mt-12">
                                 <div className="absolute inset-x-0 hidden xl:px-44 top-2 md:block md:px-20 lg:px-28">
                                     <svg className="w-full" xmlns="http://www.w3.org/2000/svg" width="875" height="48" viewBox="0 0 875 48"
@@ -83,17 +73,6 @@ export default function AccessSteps() {
                                     </div>
                                 </div>
                             </div>
-
-
-                            {/* <Link href="/signup">
-                                <button className="mt-14 font-semibold px-5 pr-6 w-52 text-white text-center text-sm rounded-md bg-bluelight hover:before:bg-bluedark relative h-[50px] overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase btn_2">
-                                    <span className="relative z-10 text-[13px] py-4 ">Sign up</span>
-                                </button>
-                            </Link> */}
-
-                            {/* <p className="text-base text-gray-900 font-semibold md:text-lg">
-                                A quick overview of the steps required to get started with integrating with Mylapay Solutions
-                            </p> */}
                         </div>
                     </div>
                     <LoginForm />

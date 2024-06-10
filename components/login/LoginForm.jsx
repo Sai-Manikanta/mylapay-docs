@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const validationSchema = Yup.object().shape({
     organizationID: Yup.string().required('Organization ID is required'),
@@ -16,7 +17,6 @@ const LoginForm = () => {
     const router = useRouter();
 
     const handleLogin = async (values, { setSubmitting, setErrors }) => {
-        // return console.log(values);
         setLoading(true)
         try {
             const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/login', {
@@ -53,7 +53,7 @@ const LoginForm = () => {
                 validationSchema={validationSchema}
                 onSubmit={handleLogin}
             >
-                {({ errors, touched, isSubmitting }) => (
+                {({ isSubmitting }) => (
                     <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
@@ -121,9 +121,14 @@ const LoginForm = () => {
                                 {loading ? 'Logging in...' : 'Login'}
                             </button>
                         </div>
+
+                        {/* <div className='mt-4'>
+                             <Link href="/forgot-password" className='underline text-sm text-bluedark'>Forgot Password?</Link>
+                        </div> */}
                     </Form>
                 )}
             </Formik>
+
         </div>
     );
 }

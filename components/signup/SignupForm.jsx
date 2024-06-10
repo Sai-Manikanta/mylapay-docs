@@ -3,14 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Listbox } from '@headlessui/react';
 import axios from 'axios';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { countryList } from '../../data/countryList';
 import RegisterSuccessModel from './RegisterSuccessModel';
-
 import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
 
 const products = ['3DSS - Merchant Plug-ins', 'Authorization', 'Network Tokens', 'Risk', 'Dispute', 'Value Added Services', 'Webhook'];
-// 'Authentication', 'Authorization', 'Intellengine'
 
 const validationSchema = Yup.object().shape({
     companyName: Yup.string().required('Company Name is required'),
@@ -24,7 +22,7 @@ const validationSchema = Yup.object().shape({
     productOfInterest: Yup.array().of(Yup.string()).required('Product of Interest is required').min(1, 'Select at least one product'),
 });
 
-const LoginForm = () => {
+const SignupForm = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -35,15 +33,11 @@ const LoginForm = () => {
             setIsOpen(true);
         } catch (err) {
             if (err.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
                 console.log(err.response.data);
                 alert(err.response.data.error || err.response.data.message || 'An error occurred. Please try again.');
             } else if (err.request) {
-                // The request was made but no response was received
                 alert('No response received from the server. Please check your network connection.');
             } else {
-                // Something happened in setting up the request that triggered an Error
                 alert('An error occurred. Please try again.');
             }
         } finally {
@@ -186,66 +180,6 @@ const LoginForm = () => {
                                     </label>
                                     <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-                                {/* <div className="relative">
-                                    <div className="mt-0">
-                                        <label className="block font-normal text-sm text-para">Product of Interest</label>
-                                        <div className='flex flex-wrap gap-x-3 gap-y-1 mt-2' role="group" aria-labelledby="checkbox-group">
-                                            <label className="flex items-center gap-x-1">
-                                                <Field
-                                                    type="checkbox"
-                                                    name="productOfInterest"
-                                                    value="Authentication"
-                                                    checked={values.productOfInterest.includes('Authentication')}
-                                                    onChange={() => {
-                                                        if (values.productOfInterest.includes('Authentication')) {
-                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Authentication'));
-                                                        } else {
-                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Authentication']);
-                                                        }
-                                                    }}
-                                                />
-                                                Authentication
-                                            </label>
-                                            <label className="flex items-center gap-x-1">
-                                                <Field
-                                                    type="checkbox"
-                                                    name="productOfInterest"
-                                                    value="Authorization"
-                                                    checked={values.productOfInterest.includes('Authorization')}
-                                                    onChange={() => {
-                                                        if (values.productOfInterest.includes('Authorization')) {
-                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Authorization'));
-                                                        } else {
-                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Authorization']);
-                                                        }
-                                                    }}
-                                                />
-                                                Authorization
-                                            </label>
-                                            <label className="flex items-center gap-x-1">
-                                                <Field
-                                                    type="checkbox"
-                                                    name="productOfInterest"
-                                                    value="Intellengine"
-                                                    checked={values.productOfInterest.includes('Intellengine')}
-                                                    onChange={() => {
-                                                        if (values.productOfInterest.includes('Intellengine')) {
-                                                            setFieldValue('productOfInterest', values.productOfInterest.filter(value => value !== 'Intellengine'));
-                                                        } else {
-                                                            setFieldValue('productOfInterest', [...values.productOfInterest, 'Intellengine']);
-                                                        }
-                                                    }}
-                                                />
-                                                Intellengine
-                                            </label>
-                                        </div>
-                                        <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
-                                </div> */}
-
-
-
-
 
                                 <div className="relative md:-mt-7">
                                     <label className="block font-normal text-sm text-para">Product of Interest</label>
@@ -280,7 +214,6 @@ const LoginForm = () => {
                                                                         <span className={`block truncate text-bluedark ${selected ? 'font-medium' : 'font-normal'}`}>
                                                                             {product}
                                                                         </span>
-                                                                        {/* FaRegSquare, FaRegCheckSquare */}
                                                                         {selected ? (
                                                                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
                                                                                 <FaRegCheckSquare className="w-5 h-5 text-bluedark" aria-hidden="true" />
@@ -302,9 +235,6 @@ const LoginForm = () => {
                                     <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                                 </div>
 
-
-
-
                             </div>
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">
                                 <button disabled={isSubmitting || loading} type="submit" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:opacity-50">
@@ -325,4 +255,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default SignupForm;

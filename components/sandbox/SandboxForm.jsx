@@ -3,21 +3,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic'
-// import JSONInput from "react-json-editor-ajrm/index";
-// import locale from "react-json-editor-ajrm/locale/en";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { IoMdInformationCircle, IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { FaCopy } from "react-icons/fa";
-// import { IoMdEye } from "react-icons/io";
 import { Popover } from '@headlessui/react'
 import Editor from 'react-simple-code-editor';
-import Prism from 'prismjs';
+import { highlight, languages } from "prismjs/components/prism-core";
 import axios from 'axios';
 import { useLoginStatus } from '../../hooks/useLoginStatus'
 import _ from 'lodash';
-import 'prismjs/components/prism-json';
 import { data3DSS, } from '../../data/sandbox/3DSS'
 import { data3DSSResponse } from '../../data/sandbox/3DSS-response'
 import { authenticationPaymentsRequestParams } from '../../data/sandbox/authentication-payments-request-params'
@@ -25,18 +20,13 @@ import { authReversalRequestParams } from '../../data/sandbox/auth-reversal'
 import { authCaptureRequestParams } from '../../data/sandbox/auth-capture'
 import { authRefundRequestParams } from '../../data/sandbox/auth-refund'
 import { dataVoid } from '../../data/sandbox/void'
-import 'prismjs/themes/prism.css'; // You can choose a different theme
-// import './JsonEditor.css'; // Custom styles for line numbers
+import 'prismjs/components/prism-json';
+import 'prismjs/themes/prism.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-// const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
-
 const validationSchema = Yup.object().shape({
-    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters'),
-    // browserIP: Yup.boolean().oneOf([true], 'browserIP is conditionally required').required('browserIP is conditionally required')
+    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters')
 });
-
-// const userDataLocal = localStorage?.getItem('user') ? JSON.parse(localStorage?.getItem('user')) : {};
 
 const data = {
     authentication: {
@@ -221,15 +211,6 @@ const data = {
     },
 };
 
-// Two compare two objects and its keys, values to find which key value changed
-
-// const customizer = (objValue, srcValue) => {
-//     if (_.isObject(objValue)) {
-//         return _.mergeWith({}, objValue, srcValue, customizer);
-//     }
-//     return srcValue === '' ? objValue : srcValue;
-// };
-
 const customizer = (objValue, srcValue, key, object, source) => {
     if (_.isObject(objValue)) {
         return _.mergeWith({}, objValue, srcValue, customizer);
@@ -242,45 +223,6 @@ const customizer = (objValue, srcValue, key, object, source) => {
     }
     return srcValue;
 };
-
-const mergeAndPrune = (oldObj, newObj) => {
-    const merged = _.mergeWith({}, oldObj, newObj, customizer);
-    const prune = (obj, reference) => {
-        _.forOwn(obj, (value, key) => {
-            if (_.isObject(value)) {
-                prune(value, reference[key]);
-            } else if (!(key in reference)) {
-                delete obj[key];
-            }
-        });
-    };
-    prune(merged, newObj);
-    return merged;
-};
-
-const findDifferencesOfObjects = (original, edited) => {
-    const changes = {};
-    const checkChanges = (origObj, editObj, path = '') => {
-        for (const key in origObj) {
-            const newPath = path ? `${path}.${key}` : key;
-            if (typeof origObj[key] === 'object' && origObj[key] !== null) {
-                checkChanges(origObj[key], editObj[key], newPath);
-            } else if (origObj[key] !== editObj[key]) {
-                changes[newPath] = { original: origObj[key], edited: editObj[key] };
-            }
-        }
-        for (const key in editObj) {
-            if (!(key in origObj)) {
-                const newPath = path ? `${path}.${key}` : key;
-                changes[newPath] = { original: undefined, edited: editObj[key] };
-            }
-        }
-    };
-    checkChanges(original, edited);
-    return changes;
-};
-
-const highlightWithPrism = (code) => Prism.highlight(code, Prism.languages.json, 'json');
 
 const validateOrganizationID = async (value) => {
     let errorMessage;
@@ -308,6 +250,12 @@ const validateOrganizationID = async (value) => {
     return errorMessage;
 };
 
+const hightlightWithLineNumbers = (input, language) =>
+    highlight(input, language)
+        .split("\n")
+        .map((line, i) => `<span class='editorLineNumber' style="color:#002060">${i + 1}</span>${line}`)
+        .join("\n");
+
 const SandboxForm = () => {
     const router = useRouter();
     const { query } = router;
@@ -315,10 +263,8 @@ const SandboxForm = () => {
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
     const [error, setError] = useState(null);
     const [lineNumbers, setLineNumbers] = useState([]);
-    // const [userData, setUserData] = useState({});
     const { user } = useLoginStatus();
     const [showSecret, setShowSecret] = useState(false);
-    // const [notChangingParameterData, setNotChangingParameterData] = useState([]);
     const [parametersData, setParametersData] = useState([]);
 
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
@@ -335,34 +281,18 @@ const SandboxForm = () => {
     useEffect(() => {
         if (data[query?.api]) {
             setIntialFormData(data[query?.api])
-
-            // CHANGES
             setOrganizationIDValidationStatus("pending");
             setResponseData(null);
             setSelectedSandboxTestCodes(JSON.stringify({}, null, 2))
 
-            // console.log({
-            //     query: query?.api
-            // })
-
-            // console.log(query?.api)
-
-            // setParametersData(data3DSS)
-
-            // 3DSS-v2.3
-
-            // console.log(query?.api);
-
             if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
                 setParametersData(data3DSS)
-                // setParametersData(authenticationPaymentsRequestParams)
             } else if (query?.api === "Payments") {
                 console.log("RUN")
                 setParametersData(authenticationPaymentsRequestParams)
             } else if (query?.api === "Reversal") {
                 setParametersData(authReversalRequestParams)
             } else if (query?.api === "Capture") {
-                // authCaptureRequestParams
                 setParametersData(authCaptureRequestParams)
             } else if (query?.api === "Refund") {
                 setParametersData(authRefundRequestParams)
@@ -371,9 +301,6 @@ const SandboxForm = () => {
             } else {
                 setParametersData([])
             }
-
-
-            // setNotChangingParameterData(data3DSS)
         }
     }, [query?.api])
 
@@ -416,16 +343,6 @@ const SandboxForm = () => {
 
 
     const validateOrganisationId = async (value) => {
-        // axios.post('https://my-backend-1.onrender.com/api/v1/auth/verify-sandbox-access')
-
-        // if (value.length === 10) {
-        //     setOrganizationIDValidationStatus("success");
-        // } else if (value.length < 10) {
-        //     setOrganizationIDValidationStatus("pending");
-        // } else {
-        //     setOrganizationIDValidationStatus("failed");
-        // }
-
         if (value.length < 20) {
             setOrganizationIDValidationStatus("pending");
             return null;
@@ -434,7 +351,6 @@ const SandboxForm = () => {
             return null;
         }
 
-        // Set status to pending when request is being sent
         setOrganizationIDValidationStatus("pending");
 
         try {
@@ -442,11 +358,9 @@ const SandboxForm = () => {
                 organizationId: value
             }, {
                 headers: {
-                    Authorization: `${localStorage.getItem('token')}` // Add the authorization header with the token
+                    Authorization: `${localStorage.getItem('token')}`
                 }
             });
-
-            // setOrganizationIDValidationStatus("success");
 
             if (response.status === 200) {
                 setOrganizationIDValidationStatus("success");
@@ -454,12 +368,8 @@ const SandboxForm = () => {
                 setOrganizationIDValidationStatus("failed");
             }
         } catch (error) {
-            // console.error('Error validating organization ID:', error);
             setOrganizationIDValidationStatus("failed");
         }
-
-        // You might also want to handle length check separately before making the request
-
     }
 
     useEffect(() => {
@@ -475,7 +385,6 @@ const SandboxForm = () => {
             if (!currentValue.fieldCategory) {
                 currentValue.fields.forEach(item => {
                     if (item.checked) {
-                        // const valueOfProperty = selectedDataKeyValues[item.name];
                         total[item.name] = item.value;
                     }
                 });
@@ -486,7 +395,6 @@ const SandboxForm = () => {
                     [currentValue.fieldCategoryName]: currentValue.fields.reduce(function (totalObj, currentValueData) {
                         if (currentValueData.checked) {
                             if (selectedDataKeyValues[now]) {
-                                // const valueOfProperty = selectedDataKeyValues[now][currentValueData?.name] ? selectedDataKeyValues[now][currentValueData?.name] : "";
                                 totalObj[currentValueData.name] = currentValueData?.value;
                             } else {
                                 totalObj[currentValueData.name] = currentValueData.value
@@ -505,14 +413,10 @@ const SandboxForm = () => {
         setSelectedSandboxTestCodes(prevDataOri => {
             return JSON.stringify(selectedData, null, 2)
         });
-
-        // setParametersData(notChangingParameterData)
-        // setParametersData([])
     }
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
-            {/* <p>{JSON.stringify(user)}</p> */}
             {intialFormData && (
                 <Formik
                     key={intialFormData?.apiUrl}
@@ -524,23 +428,20 @@ const SandboxForm = () => {
                         SecretKey: user?.secretkey,
                         host: intialFormData?.Header?.host,
                         ContentType: intialFormData?.Header?.contentType,
-                        vcMerchantId: user?.vcMerchantId, // intialFormData?.Header?.vcMerchantId
+                        vcMerchantId: user?.vcMerchantId,
                     }}
                     validationSchema={validationSchema}
                     validateOnChange={true}
                     validateOnBlur={true}
                     onSubmit={(values, { setFieldError }) => {
-                        // Handle form submission here
                         console.log({ ...values, selectedSandboxTestCodes });
 
                         let responseData = { response: `${query?.api} response` };
 
-                        if(query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3"){
+                        if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
                             responseData = data3DSSResponse
                         }
-                        
 
-                        // Set response data if request successfull
                         setResponseData({
                             statusCode: 200,
                             description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
@@ -584,17 +485,6 @@ const SandboxForm = () => {
                                             className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
                                             validateOnChange={true}
                                             validate={validateOrganizationID}
-                                            // validate={(value) => {
-                                            //     let errorMessage;
-                                            //     if (!value) {
-                                            //         errorMessage = 'Organization ID is required';
-                                            //     } else if (value.length !== 10) {
-                                            //         errorMessage = 'Organization ID must be exactly 10 characters';
-                                            //     }
-                                            //     return errorMessage;
-                                            // }}
-                                            // value={user?.organizationId}
-
                                             onFocus={(event) => {
                                                 setFieldTouched('OrganizationID', true);
                                                 handleChange(event);
@@ -603,24 +493,11 @@ const SandboxForm = () => {
                                                 handleChange(event);
                                                 setFieldValue('OrganizationID', event.target.value, true);
                                                 setFieldValue('vcMerchantId', event.target.value);
-
-                                                // if (event?.target?.value?.length === 20) {
                                                 validateOrganisationId(event.target.value)
-                                                // }
                                             }}
                                             onBlur={(event) => {
                                                 handleBlur(event);
                                             }}
-                                        // onChange={(event) => {
-                                        //     const { name, value } = event.target;
-
-                                        //     console.log(value.length);
-
-
-                                        //     // validateOrganisationId(value)
-
-                                        //     handleChange(event)
-                                        // }}
                                         />
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             Organization ID
@@ -666,7 +543,6 @@ const SandboxForm = () => {
                                         <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                             VC Merchant Id
                                         </label>
-                                        {/* <ErrorMessage name="vcMerchantId" component="div" className="text-sm mt-2 text-red" /> */}
                                     </div>
                                     <div className="relative">
                                         <Field
@@ -695,7 +571,6 @@ const SandboxForm = () => {
                                             onClick={() => {
                                                 navigator.clipboard.writeText("Shared Sectret key text")
                                                     .then(() => {
-                                                        // alert("Text copied to clipboard!");
                                                         toast("Secret key copied!");
                                                     }).catch(err => {
                                                         console.error("Failed to copy text: ", err);
@@ -705,8 +580,6 @@ const SandboxForm = () => {
                                         >
                                             <FaCopy size="1rem" />
                                         </button>
-
-
 
                                         <ErrorMessage name="sharedSecretKey" component="div" className="text-sm mt-2 text-red" />
                                     </div>
@@ -745,11 +618,6 @@ const SandboxForm = () => {
 
                                 </div>
                             </div>
-
-                            {/* <div>
-                                {JSON.stringify(parametersData)}
-                            </div> */}
-
                             <div>
                                 <div className="grid gap-10 md:grid-cols-2 mb-10">
                                     <div className='bg-bggray p-4 rounded'>
@@ -816,18 +684,9 @@ const SandboxForm = () => {
 
 
                                                                         <Popover className="relative">
-                                                                            {/* disabled={organizationIDValidationStatus != 'success'} */}
                                                                             <Popover.Button className='disabled:text-para outline-none'>
                                                                                 <IoMdInformationCircle />
                                                                             </Popover.Button>
-
-                                                                            {/* name: 'billAddrCountry',
-                                                                                type: 'text',
-                                                                                status: 'conditionally',
-                                                                                dataType: 'String',
-                                                                                lengthAndType: 'Fixed ans-6',
-                                                                                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat', 
-                                                                            */}
 
                                                                             <Popover.Panel className="absolute z-10 bg-white shadow rounded block sm:w-96 p-6">
                                                                                 {({ close }) => (
@@ -859,10 +718,6 @@ const SandboxForm = () => {
                                                                                 )}
                                                                             </Popover.Panel>
                                                                         </Popover>
-
-                                                                        {/* <button type='button' disabled={organizationIDValidationStatus != 'success'} className='disabled:text-para'>
-                                                                            <IoMdInformationCircle />
-                                                                        </button> */}
                                                                     </div>
 
 
@@ -880,95 +735,25 @@ const SandboxForm = () => {
 
                                     <div className='bg-bggray p-4 rounded relative'>
                                         <h2 className='mb-4'>Sandbox Test Codes</h2>
-
-                                        {/* {organizationIDValidationStatus === 'success' && (
-                                            <p className='text-sm mb-5'>
-                                                To edit a value, hover your mouse cursor over the target value and click on the displayed edit icon button
-                                            </p>
-                                        )} */}
-
-                                        {/* {selectedSandboxTestCodes['Browser Info']?.browserIP === "" && (
-                                            <p className='text-[#880808] text-sm mb-4'>Please Enter a value for Browser IP</p>
-                                        )} */}
-
                                         <div>
-                                            {/* <DynamicReactJson
-                                                src={selectedSandboxTestCodes}
-                                                theme="monokai"
-                                                enableClipboard={false}
-                                                displayObjectSize={false}
-                                                displayDataTypes={false}
-                                                displayArrayKey={false}
-                                                name={false}
-                                                onEdit={organizationIDValidationStatus != 'success' ? false : (edit) => {
-                                                    setParametersData(prevData => {
-                                                        const newData = prevData.map(item => {
-                                                            const newItem = { ...item };
-                                                            const fieldIndex = newItem.fields.findIndex(field => field.name === edit.name);
-                                                            if (fieldIndex !== -1) {
-                                                                newItem.fields[fieldIndex] = {
-                                                                    ...newItem.fields[fieldIndex],
-                                                                    value: edit.new_value
-                                                                };
-                                                            }
-                                                            return newItem;
-                                                        });
-
-                                                        return newData;
-                                                    });
-                                                }}
-                                            /> */}
-
-
-                                            {/* <JSONInput
-                                                placeholder={selectedSandboxTestCodes}
-                                                onBlur={(newData) => {
-                                                    if (!newData.error) {
-                                                        setSelectedSandboxTestCodes(newData.jsObject);
-                                                    }
-                                                    // setSelectedSandboxTestCodes(newData.jsObject);
-                                                    // console.log(newData.jsObject);
-                                                    // setParametersData(newData.jsObject);
-                                                    // setData(newData.jsObject)
-                                                }}
-                                                // confirmGood={false}
-                                                onKeyPressUpdate={false}
-                                                theme="light_mitsuketa_tribute"
-                                                locale={locale}
-                                                height="100%"
-                                                width="100%"
-                                            /> */}
-
-
                                             <div className="editor-container">
-                                                <div className="line-numbers">
-                                                    {lineNumbers.map((lineNumber) => (
-                                                        <div key={lineNumber} style={{ color: '#022061' }}>{lineNumber}</div>
-                                                    ))}
-                                                </div>
                                                 <Editor
                                                     value={selectedSandboxTestCodes}
-                                                    onValueChange={(code) => {
-                                                        setSelectedSandboxTestCodes(prevData => {
-                                                            let parsedCode = JSON.parse(code);
-                                                            const changes = findDifferencesOfObjects(JSON.parse(prevData), parsedCode);
-                                                            const firstPropertyName = Object.keys(changes)[0];
-                                                            return code;
-                                                        });
-                                                        try {
-                                                            setError(null); // Clear the error if JSON is valid
-                                                        } catch (err) {
-                                                            setError('Invalid JSON'); // Set error message if JSON is invalid
-                                                        }
+                                                    onValueChange={code => {
+                                                        setSelectedSandboxTestCodes(code);
                                                     }}
-                                                    highlight={highlightWithPrism}
+                                                    highlight={code => hightlightWithLineNumbers(code, languages.json)}
                                                     padding={10}
-                                                    className="code-editor"
+                                                    textareaId="codeArea"
+                                                    className="editor"
+                                                    style={{
+                                                        fontFamily: '"Fira code", "Fira Mono", monospace',
+                                                        fontSize: 18,
+                                                        outline: 0
+                                                    }}
                                                 />
                                             </div>
                                             {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
-
-
                                         </div>
 
                                         <button
@@ -990,16 +775,6 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-                            {/* <div>
-                                <h1>selectedSandboxTestCodes</h1>
-                                <p>{JSON?.stringify(JSON?.parse(selectedSandboxTestCodes))}</p>
-                            </div> */}
-
-                            {/* <div>
-                                <h1>responseData</h1>
-                                <p>{JSON.stringify(responseData)}</p>
-                            </div> */}
-
                             <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
                                 <button type="submit" disabled={organizationIDValidationStatus != 'success' || error} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
                                     Send
@@ -1012,10 +787,6 @@ const SandboxForm = () => {
                     )}
                 </Formik>
             )}
-
-            {/* responseData */}
-
-            {/* <p>{JSON.stringify(responseData)}</p> */}
 
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>
@@ -1045,44 +816,29 @@ const SandboxForm = () => {
                             <h2 className='mb-3'>Response</h2>
 
                             <div className='relative'>
-                                {/* <DynamicReactJson
-                                    src={responseData.response}
-                                    theme="monokai"
-                                    enableClipboard={false}
-                                    displayObjectSize={false}
-                                    displayDataTypes={false}
-                                    displayArrayKey={false}
-                                    name={false}
-                                /> */}
 
                                 <div className="editor-container bg-white">
-                                    {/* <p>{JSON.stringify(responseData.response)}</p> */}
-                                    {/* <div className="line-numbers">
-                                        {lineNumbers.map((lineNumber) => (
-                                            <div key={lineNumber} style={{ color: '#022061' }}>{lineNumber}</div>
-                                        ))}
-                                    </div>  */}
+
                                     <Editor
                                         value={JSON.stringify(responseData.response, null, 2)}
-                                        onValueChange={(code) => {
-                                            setSelectedSandboxTestCodes(prevData => {
-                                                return code;
-                                            });
-                                            try {
-                                                setError(null);
-                                            } catch (err) {
-                                                setError('Invalid JSON');
-                                            }
+                                        onValueChange={code => {
+                                            setSelectedSandboxTestCodes(code);
                                         }}
-                                        highlight={highlightWithPrism}
+                                        highlight={code => hightlightWithLineNumbers(code, languages.json)}
                                         padding={10}
-                                        className="code-editor"
+                                        textareaId="codeArea"
+                                        className="editor"
+                                        style={{
+                                            fontFamily: '"Fira code", "Fira Mono", monospace',
+                                            fontSize: 18,
+                                            outline: 0
+                                        }}
                                     />
                                 </div>
 
 
                                 <button
-                                    className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-5 right-5'
+                                    className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-2 right-5'
                                     type="button"
                                     onClick={() => {
                                         const jsonData = JSON.stringify(responseData.response);
@@ -1090,8 +846,6 @@ const SandboxForm = () => {
                                         navigator.clipboard.writeText(jsonData)
                                             .then(() => {
                                                 toast("Copied")
-                                                // alert('COPIED')
-                                                // console.log('JSON data copied to clipboard');
                                             })
                                             .catch((error) => {
                                                 console.error('Failed to copy JSON data: ', error);

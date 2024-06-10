@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Sidebar from '../components/sandbox/Sidebar'
+import SandboxWrapper from '../components/sandbox/SandboxWrapper'
 import withAuth from '../hoc/withAuth'
 
 function sandbox() {
@@ -12,7 +12,7 @@ function sandbox() {
                     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
                 />
             </Head>
-            <Sidebar />
+            <SandboxWrapper />
         </div>
     )
 }

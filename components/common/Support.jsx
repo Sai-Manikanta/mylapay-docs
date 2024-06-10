@@ -3,11 +3,7 @@ import { Dialog } from '@headlessui/react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { useLoginStatus } from '../../hooks/useLoginStatus';
-// import { IoIosCloseCircle } from "react-icons/io";
-import { IoCheckmarkCircleSharp } from "react-icons/io5";
-import Link from 'next/link'
 
 const validationSchema = Yup.object().shape({
     organizationId: Yup.string().required('Organization ID is required'),
@@ -17,8 +13,7 @@ const validationSchema = Yup.object().shape({
 
 const SupportQueryForm = ({ setIsOpen }) => {
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
-    const { isLoggedIn, user, loading: userLoading } = useLoginStatus();
+    const { user, loading: userLoading } = useLoginStatus();
 
     const handleSubmit = async (values, { setSubmitting, setErrors }) => {
         setLoading(true);
@@ -33,7 +28,6 @@ const SupportQueryForm = ({ setIsOpen }) => {
         } catch (error) {
             if (error.response && error.response.data && error.response.data.error) {
                 setErrors({ serverError: error.response.data.error });
-                // alert(error.response.data.error);
             } else {
                 setErrors({ serverError: 'An error occurred. Please try again.' });
                 alert('Submission failed: Please try again.');
@@ -56,7 +50,7 @@ const SupportQueryForm = ({ setIsOpen }) => {
                 onSubmit={handleSubmit}
                 enableReinitialize
             >
-                {({ errors, touched, isSubmitting }) => (
+                {({ errors, isSubmitting }) => (
                     <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
                         <div className="grid gap-10 md:grid-cols-1 mb-10">
                             <div className="relative">
@@ -126,29 +120,17 @@ function Support() {
                 <div className=' '>
                     <div className="wrapper xxl:mx-[-30px]">
                         <div className="mx-auto py-20 px-4 sm:px-0">
-                            {/* <div className="mb-10 md:mb-14">
-                            <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8 px-2">
-                                Benefits
-                            </h2>
-
-                            <p className="text-center mb-6 text-lg text-para mx-auto px-2">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.
-                            </p>
-                        </div> */}
-
                             <div className=" mx-auto bg-bluedark py-12 px-5 rounded-xl shadow">
                                 <div className="grid gap-5 items-center text-center lg:grid-cols-2 xl:grid-cols-2">
                                     <div>
                                         <div
                                             className="text-xl leading-[40px] lg:text-3xl mt-3 text-white aos-init aos-animate"
                                         >
-                                            {/* Need support? */}
                                             Need{" "}
                                             <span className="text-bluelight font-bold text-3xl ">
                                                 support?
                                             </span>
                                             {" "}with Mylapay.
-                                            {/* now. */}
                                         </div>
                                         <p className="mt-4 text-white text-lg">We are here to guide you.</p>
                                     </div>
@@ -174,7 +156,6 @@ function Support() {
                 {isOpen && (
                     <div
                         className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"
-                    // onClick={() => setIsOpen(true)}
                     ></div>
                 )}
                 <Dialog
@@ -190,12 +171,6 @@ function Support() {
                         </Dialog.Title>
 
                         <SupportQueryForm setIsOpen={setIsOpen} />
-                       
-                        {/* <Dialog.Description>
-                            You will be receiving an email with Organization ID and Username along with Secret Key. After setting up your password and 2-Factor Authentication, you will be able to send test transactions in our sandbox environment.
-                        </Dialog.Description> */}
-
-                       
                     </Dialog.Panel>
                 </Dialog>
             </>

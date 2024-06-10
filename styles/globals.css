@@ -39,25 +39,26 @@
   padding: 10px;
 }
 
-
-/* .ps-submenu-content .ps-menuitem-root {
-  background-color: rgb(195, 43, 226);
-} 
-
-.ps-submenu-content .ps-menuitem-root:hover {
-  background-color: red;
-}  */
-
-
-
-
-
-/* .ps-submenu-content {
-color: #fff !important;
-background-color: red  !important;
+/* NEW CODE NUMBERS RELATED CODE */
+.editor {
+  counter-reset: line;
+  border: 1px solid #ced4da;
 }
 
-.ps-submenu-content:hover {
-  color: #fff !important;
-  background-color: gold  !important;
-  } */
+.editor #codeArea {
+  outline: none;
+  padding-left: 60px !important;
+}
+
+.editor pre {
+  padding-left: 60px !important;
+}
+
+.editor .editorLineNumber {
+  position: absolute;
+  left: 0px;
+  color: #cccccc;
+  text-align: right;
+  width: 40px;
+  font-weight: 100;
+}

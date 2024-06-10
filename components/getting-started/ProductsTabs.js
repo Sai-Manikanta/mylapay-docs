@@ -105,11 +105,9 @@ function ProductsTabs() {
                     </div>
 
                     <Tab.Group>
-                        {/* className="border-b-2 border-primary" */}
                         <Tab.List>
                             <Tab className="outline-none">
                                 {({ selected }) => (
-                                    /* Use the `selected` state to conditionally style the selected tab. */
                                     <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
                                         <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
                                             <span className="text-xs sm:text-sm relative z-10 select-none">
@@ -121,7 +119,6 @@ function ProductsTabs() {
                             </Tab>
                             <Tab className="outline-none">
                                 {({ selected }) => (
-                                    /* Use the `selected` state to conditionally style the selected tab. */
                                     <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
                                         <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8 font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
                                             <span className="text-xs sm:text-sm relative z-10 select-none">
@@ -133,7 +130,6 @@ function ProductsTabs() {
                             </Tab>
                             <Tab className="outline-none">
                                 {({ selected }) => (
-                                    /* Use the `selected` state to conditionally style the selected tab. */
                                     <div className="px-0 py-0 transition-transform duration-300 ease-in-out">
                                         <div className={`border border-primary mr-0 sm:mr-4 w-fit text-[12px] py-3 px-1 sm:px-4 md:px-8  font-bold ${selected ? 'text-white' : 'text-bluedark'} rounded-t-md ${selected ? 'bg-bluelight' : '#fff'} hover:before:bg-bluedark relative overflow-hidden shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:before:left-0 hover:before:w-full uppercase`}>
                                             <span className="text-xs sm:text-sm relative z-10 select-none">
@@ -168,7 +164,6 @@ function ProductsTabs() {
                                     </div>
 
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-
 
                                         <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
@@ -225,59 +220,8 @@ function ProductsTabs() {
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        {/* <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Flexible Integration</span><br />
-                                                Seamlessly integrate into your existing payment system with our APIs
-                                            </h3>
-                                        </div> */}
-
-                                        {/* <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden relative">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Enhanced Fraud Protection</span><br />
-                                                Reduces the risk of fraudulent transactions by leveraging additional verification
-                                            </h3>
-                                        </div> */}
-
-                                        {/* <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Increased Transaction Approvals</span><br />
-                                                Legitimate transactions are approved, leading to fewer transactions to decline
-                                            </h3>
-                                        </div> */}
-
                                     </div>
                                 </div>
-
 
                                 <div className="mx-auto pt-10 px-4 sm:px-0">
                                     <div>
@@ -289,19 +233,7 @@ function ProductsTabs() {
                                     </div>
                                 </div>
 
-
                                 <TabsCommonContent />
-
-
-
-
-
-
-
-
-
-
-
 
                             </Tab.Panel>
                             <Tab.Panel>
@@ -322,21 +254,6 @@ function ProductsTabs() {
                                         </p>
                                     </div>
                                 </div>
-
-                                {/* <div className="mx-auto pt-10 px-4 sm:px-0">
-                                    <div>
-                                        <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8">
-                                            What is Mylapay Switch?
-                                        </h2>
-
-                                        <p className="mb-6 text-lg text-para mx-auto">
-                                            Mylapay Switch empowers global aggregators, gateways, and banks with a robust and secure payment authorization solution. It seamlessly facilitates both online and offline transactions, ensuring compatibility with major card networks like Visa, Mastercard, and Rupay.
-                                        </p>
-                                        <p className="text-lg text-para mx-auto">
-                                            Embedded with comprehensive risk management tools, Mylapay Switch safeguards every transaction against fraud, while its intelligent algorithms optimize approval rates. This synergy of security and efficiency makes it the ideal choice for modernizing payment infrastructure.
-                                        </p>
-                                    </div>
-                                </div> */}
 
                                 <div className="mx-auto pt-10 px-4 sm:px-0">
                                     <div className="mb-6">
@@ -361,23 +278,6 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-                                        {/* <div
-                                            className="bg-[#f8fafc] rounded shadow p-4 grid gap-1 text-left transition ease-in-out delay-150 content-start"
-                                        >
-                                            <div className="items-left justify-left overflow-hidden">
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="max-w-[60px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                            </div>
-                                            <h3 className="text-md text-black mt-2 hover:text-bluedark">
-                                                <span className="font-bold text-bluelight">Increased payment success rate</span><br />
-                                                Seamless transaction processing assures high payment success rates.
-                                            </h3>
-                                        </div> */}
-
-
                                         <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
@@ -392,7 +292,6 @@ function ProductsTabs() {
                                             </div>
                                         </div>
 
-
                                         <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image
@@ -406,7 +305,6 @@ function ProductsTabs() {
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
@@ -423,23 +321,6 @@ function ProductsTabs() {
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        {/* <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
-                                            <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
-                                                <Image
-                                                    src={switch1}
-                                                    alt=""
-                                                    className="flex-shrink-0 max-w-[70px] opacity-70 hover:opacity-100 hover:duration-100"
-                                                />
-                                                <div className='flex-grow'>
-                                                    <h2 className='font-bold text-bluelight'>Improved decision-making</h2>
-                                                    <p className='text-sm'>
-                                                        Key data points provided additionally for better authorization success.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div> */}
 
                                     </div>
                                 </div>
@@ -478,21 +359,6 @@ function ProductsTabs() {
                                     </div>
                                 </div>
 
-                                {/* <div className="mx-auto pt-10 px-4 sm:px-0">
-                                    <div>
-                                        <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8">
-                                            What is Mylapay IntelleEngine?
-                                        </h2>
-
-                                        <p className="mb-6 text-lg text-para mx-auto">
-                                            IntelleEngine, a 360 degree transaction management system streamlines payment authorization to settlement post-authorization effectively overseeing clearing, settlements, reconciliation, and profitability analysis.
-                                        </p>
-                                        <p className="text-lg text-para mx-auto">
-                                            This intuitive platform provides a user-friendly operational dashboard and effortlessly integrates with any third-party switch, supporting both card-present and card-not-present transactions. It revolutionizes payment processing by offering comprehensive end-to-end acquiring capabilities. Compatible with cloud technology, it can be hosted or deployed within an acquirer's IT infrastructure for enhanced data security. While presenting a unified suite, we customize solutions to fulfill specific acquirer requirements.
-                                        </p>
-                                    </div>
-                                </div> */}
-
                                 <div className="mx-auto pt-10 px-4 sm:px-0">
                                     <div className="mb-6">
                                         <h2 className="text-xl font-bold text-bluedark sm:text-2xl md:text-2xl">
@@ -500,21 +366,7 @@ function ProductsTabs() {
                                         </h2>
                                     </div>
 
-
-
-
                                     <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-
-
-
-                                        {/* import seamlessPaymentProcessingWithHighSuccessRates from '../../public/images/benefit-icons/Seamless-payment-processing-with-high-success-rates.png'
-                                    import cloudSolutionHighlySecuredEnvironment from '../../public/images/benefit-icons/Cloud-Solution-Highly-Secured-environment.png'
-                                    import riskProtectionEmbeddedAcrossTheProcess from '../../public/images/benefit-icons/Risk-protection-embedded-across-the-process.png'
-                                    import simplifiedEasyAPIIntegration from '../../public/images/benefit-icons/Simplified-easy-API-Integration.png'
-                                    import transactionCostPlusPricing from '../../public/images/benefit-icons/Transaction-Cost-plus-pricing.png'
-                                    import zeroRevenueleakageSystem from '../../public/images/benefit-icons/Zero-revenue-leakage-system.png' */}
-
-
                                         <div className='bg-primary p-2 rounded shadow hover:scale-105 transition-transform duration-300 ease-in-out '>
                                             <div className='bg-white rounded h-full p-2 flex gap-x-4 items-start'>
                                                 <Image

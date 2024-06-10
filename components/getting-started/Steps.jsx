@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import { CiLogin } from "react-icons/ci";
 import { PiCodesandboxLogo } from "react-icons/pi";
-import { VscChip } from "react-icons/vsc";
 import { GoCodeReview } from "react-icons/go";
 import { CiGlobe } from "react-icons/ci";
 import { useLoginStatus } from '../../hooks/useLoginStatus'
 
 export default function Steps() {
     const { isLoggedIn } = useLoginStatus();
-    
+
     return (
         <section className="bg-[#F4F4F4] p-4 pb-0">
             <div className="bg-white">
@@ -41,19 +40,6 @@ export default function Steps() {
                                 <div className="flex flex-col pb-6 sm:items-center sm:flex-row sm:pb-0 group-hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                                     <div className="sm:mr-5">
                                         <div className="flex items-center justify-center w-16 h-16 my-3 rounded-full bg-primary group-hover:bg-bluedark sm:w-20 sm:h-20">
-                                            {/* <svg
-                                            className="w-12 h-12 text-deep-purple-accent-400 sm:w-16 sm:h-16"
-                                            stroke="currentColor"
-                                            viewBox="0 0 52 52"
-                                        >
-                                            <polygon
-                                                strokeWidth="3"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                fill="none"
-                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                            />
-                                        </svg> */}
                                             <CiLogin className="w-12 h-12 text-white sm:w-10 sm:h-10" />
                                         </div>
                                     </div>
@@ -62,13 +48,7 @@ export default function Steps() {
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark hover:text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto group-hover:underline group-hover:decoration-primary">
                                             Sign Up
                                         </h3>
-                                        {/* <p className="text-xl font-semibold sm:text-base">
-                                    Login
-                                    </p> */}
                                         <p className="text-[12px] leading-[16px] sm:text-sm text-left">Create an account</p>
-                                        {/* <p className="text-sm text-gray-700">
-                                    Create an account
-                                    </p> */}
                                     </div>
                                 </div>
                             </div>
@@ -90,19 +70,6 @@ export default function Steps() {
                                 <div className="flex flex-col pb-6 sm:items-center sm:flex-row sm:pb-0  group-hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                                     <div className="sm:mr-5">
                                         <div className="flex items-center justify-center w-16 h-16 my-3 rounded-full bg-primary group-hover:bg-bluedark sm:w-20 sm:h-20">
-                                            {/* <svg
-                                            className="w-12 h-12 text-deep-purple-accent-400 sm:w-16 sm:h-16"
-                                            stroke="currentColor"
-                                            viewBox="0 0 52 52"
-                                        >
-                                            <polygon
-                                                strokeWidth="3"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                fill="none"
-                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                            />
-                                        </svg> */}
                                             <GoCodeReview className="w-12 h-12 text-white sm:w-10 sm:h-10" />
                                         </div>
                                     </div>
@@ -112,21 +79,15 @@ export default function Steps() {
                                             Review
                                         </h3>
 
-                                        {/* <p className="text-xl font-semibold sm:text-base">
-                                    Review
-                                    </p> */}
                                         <p className="text-[12px] leading-[16px] sm:text-sm text-left">Check our Documentation</p>
-                                        {/* <p className="text-sm text-gray-700">
-                                    Check our Documentation
-                                    </p> */}
                                     </div>
                                 </div>
 
                             </div>
                         </Link>
 
-                       
-                        <Link href={ isLoggedIn ? "/sandbox?api=API-Authentication" : "/login"}>
+
+                        <Link href={isLoggedIn ? "/sandbox?api=API-Authentication" : "/login"}>
                             <div className="flex  group">
                                 <div className="flex flex-col items-center mr-6">
                                     <div className="w-[2px] h-10 bg-bggray sm:h-full" />
@@ -141,19 +102,6 @@ export default function Steps() {
                                 <div className="flex flex-col pb-6 sm:items-center sm:flex-row sm:pb-0  group-hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                                     <div className="sm:mr-5">
                                         <div className="flex items-center justify-center w-16 h-16 my-3 rounded-full bg-primary group-hover:bg-bluedark sm:w-20 sm:h-20">
-                                            {/* <svg
-                                            className="w-12 h-12 text-deep-purple-accent-400 sm:w-16 sm:h-16"
-                                            stroke="currentColor"
-                                            viewBox="0 0 52 52"
-                                        >
-                                            <polygon
-                                                strokeWidth="3"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                fill="none"
-                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                            />
-                                        </svg> */}
                                             <PiCodesandboxLogo className="w-12 h-12 text-white sm:w-10 sm:h-10" />
                                         </div>
                                     </div>
@@ -161,13 +109,7 @@ export default function Steps() {
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark group-hover:text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto  group-hover:underline group-hover:decoration-primary">
                                             Test
                                         </h3>
-                                        {/* <p className="text-xl font-semibold sm:text-base">
-                                    Test
-                                    </p> */}
                                         <p className="text-[12px] leading-[16px] sm:text-sm text-left">Test the APIs in Sandbox</p>
-                                        {/* <p className="text-sm text-gray-700">
-                                    Test the APIs in Sandbox
-                                    </p> */}
                                     </div>
                                 </div>
                             </div>
@@ -188,19 +130,6 @@ export default function Steps() {
                                 <div className="flex flex-col pb-6 sm:items-center sm:flex-row sm:pb-0  group-hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                                     <div className="sm:mr-5">
                                         <div className="flex items-center justify-center w-16 h-16 my-3 rounded-full bg-primary group-hover:bg-bluedark sm:w-20 sm:h-20">
-                                            {/* <svg
-                                            className="w-12 h-12 text-deep-purple-accent-400 sm:w-16 sm:h-16"
-                                            stroke="currentColor"
-                                            viewBox="0 0 52 52"
-                                        >
-                                            <polygon
-                                                strokeWidth="3"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                fill="none"
-                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                            />
-                                        </svg> */}
                                             <CiGlobe className="w-12 h-12 text-white sm:w-10 sm:h-10" />
                                         </div>
                                     </div>
@@ -208,18 +137,11 @@ export default function Steps() {
                                         <h3 className="text-md xl:text-lg font-semibold text-bluedark group-hover:text-bluedark mb-2 md:mb-2 mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-2 text-left m-auto  group-hover:underline group-hover:decoration-primary">
                                             Go Live
                                         </h3>
-
                                         <p className="text-[12px] leading-[16px] sm:text-sm text-left">Contact support for onboarding</p>
-                                        {/* <p className="text-xl font-semibold sm:text-base">Go Live</p> */}
-                                        {/* <p className="text-sm text-gray-700">
-                                    Contact support for onboarding
-                                    </p> */}
                                     </div>
                                 </div>
                             </div>
                         </Link>
-
-
                     </div>
                 </div>
             </div>

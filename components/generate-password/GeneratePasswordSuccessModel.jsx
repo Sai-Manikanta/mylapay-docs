@@ -1,8 +1,9 @@
 import { Dialog } from '@headlessui/react'
+// import { IoIosCloseCircle } from "react-icons/io";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import Link from 'next/link'
 
-function RegisterSuccessModel({ isOpen, setIsOpen }) {
+function ResetPasswordSuccessModel({ isOpen, setIsOpen }) {
   return (
     <>
       {isOpen && (
@@ -20,14 +21,17 @@ function RegisterSuccessModel({ isOpen, setIsOpen }) {
         <Dialog.Panel>
           <IoCheckmarkCircleSharp size="4rem" className="mx-auto text-[#22C55E]" />
           <Dialog.Title className="text-xl font-bold text-center mb-2 text-bluedark">
-          Thank you for submitting your information!
+            Your password is successfully set
           </Dialog.Title>
+          {/* <button className='absolute top-4 right-4' onClick={() => setIsOpen(false)}>
+            <IoIosCloseCircle size="1.5rem" />
+          </button> */}
           <Dialog.Description>
-          You will be receiving an email with Organization ID and Username along with Secret Key. After setting up your password and 2-Factor Authentication, you will be able to send test transactions in our sandbox environment.
+          Please complete your 2-factor Authentication using Google / Microsoft Authenticator Apps.<br />
           </Dialog.Description>
 
-          <Link href="/login" className='block mt-4 rounded w-full text-center py-2 bg-bluedark text-white'>
-            Close
+          <Link href="/2FA" className='block mt-4 rounded w-full text-center py-2 bg-bluedark text-white'>
+          Set 2FA
           </Link>
         </Dialog.Panel>
       </Dialog>
@@ -36,4 +40,4 @@ function RegisterSuccessModel({ isOpen, setIsOpen }) {
   )
 }
 
-export default RegisterSuccessModel
+export default ResetPasswordSuccessModel
