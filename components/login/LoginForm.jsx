@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link'
 
 const validationSchema = Yup.object().shape({
     organizationID: Yup.string().required('Organization ID is required'),
@@ -119,6 +120,10 @@ const LoginForm = () => {
                             <button type="submit" className="w-full btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:opacity-50" disabled={isSubmitting || loading}>
                                 {loading ? 'Logging in...' : 'Login'}
                             </button>
+                        </div>
+
+                        <div className='mt-4'>
+                             <Link href="/forgot-password" className='underline text-sm text-bluedark'>Forgot Password?</Link>
                         </div>
                     </Form>
                 )}
