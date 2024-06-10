@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 const validationSchema = Yup.object().shape({
     organizationID: Yup.string().required('Organization ID is required'),
@@ -19,7 +18,7 @@ const LoginForm = () => {
     const handleLogin = async (values, { setSubmitting, setErrors }) => {
         setLoading(true)
         try {
-            const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/login', {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/login`, {
                 secretKey: values?.SecretKey?.trim(),
                 userName: values?.Username?.trim(),
                 organizationId: values?.organizationID?.trim(),
@@ -121,10 +120,6 @@ const LoginForm = () => {
                                 {loading ? 'Logging in...' : 'Login'}
                             </button>
                         </div>
-
-                        {/* <div className='mt-4'>
-                             <Link href="/forgot-password" className='underline text-sm text-bluedark'>Forgot Password?</Link>
-                        </div> */}
                     </Form>
                 )}
             </Formik>

@@ -233,7 +233,7 @@ const validateOrganizationID = async (value) => {
     }
     // else {
     //     try {
-    //         const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/verify-sandbox-access', {
+    //         const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
     //             organizationId: value
     //         });
 
@@ -354,7 +354,7 @@ const SandboxForm = () => {
         setOrganizationIDValidationStatus("pending");
 
         try {
-            const response = await axios.post('https://my-backend-1.onrender.com/api/v1/auth/verify-sandbox-access', {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verify-sandbox-access`, {
                 organizationId: value
             }, {
                 headers: {

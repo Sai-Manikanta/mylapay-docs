@@ -29,7 +29,7 @@ const GeneratePasswordForm = () => {
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting, setErrors }) => {
                     try {
-                        const response = await axios.post(`https://my-backend-1.onrender.com/api/v1/auth/user/generate-password/${token}`, {
+                        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/user/generate-password/${token}`, {
                             password: values?.Password?.trim(),
                         });
                         // Assuming the reset password response redirects to login or another page

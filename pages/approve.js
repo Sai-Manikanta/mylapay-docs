@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
     let userName = ''
 
     try {
-        const response = await axios.patch(`https://my-backend-1.onrender.com/api/v1/auth/user/approve/${id}`);
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/user/approve/${id}`);
         message = response?.data?.message;
         status = response?.data?.status;
         userName = response?.data?.userName;

@@ -29,7 +29,7 @@ const SignupForm = () => {
     const handleSignup = async (values, { setSubmitting, setErrors }) => {
         setLoading(true)
         try {
-            const response = await axios.post("https://my-backend-1.onrender.com/api/v1/auth/signup", values);
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, values);
             setIsOpen(true);
         } catch (err) {
             if (err.response) {
