@@ -85,7 +85,7 @@ const LoginForm = () => {
                             </div>
                         </div>
 
-                        <div className="grid gap-10 md:grid-cols-1 mb-10">
+                        <div className="grid gap-10 md:grid-cols-1 mb-4">
                             <div className="relative">
                                 <Field
                                     type="password"
@@ -97,6 +97,10 @@ const LoginForm = () => {
                                     Password
                                 </label>
                                 <ErrorMessage name="Password" component="div" className="text-sm mt-2 text-red" />
+
+                                <div className='mt-2 flex justify-end'>
+                                    <Link href="/forgot-password" className='underline text-sm text-bluedark'>Forgot Password?</Link>
+                                </div>
                             </div>
                         </div>
 
@@ -122,9 +126,7 @@ const LoginForm = () => {
                             </button>
                         </div>
 
-                        <div className='mt-4'>
-                             <Link href="/forgot-password" className='underline text-sm text-bluedark'>Forgot Password?</Link>
-                        </div>
+
                     </Form>
                 )}
             </Formik>
