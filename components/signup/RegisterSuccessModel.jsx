@@ -23,7 +23,7 @@ function RegisterSuccessModel({ isOpen, setIsOpen }) {
           Thank you for submitting your information!
           </Dialog.Title>
           <Dialog.Description>
-          You will be receiving an email with Organization ID and Username along with Secret Key. After setting up your password and 2-Factor Authentication, you will be able to send test transactions in our sandbox environment.
+          You will receive an email with further instructions and a password generation link. After setting up your password and 2-Factor Authentication, you will be able to send test transactions in our sandbox environment.
           </Dialog.Description>
 
           <Link href="/login" className='block mt-4 rounded w-full text-center py-2 bg-bluedark text-white'>

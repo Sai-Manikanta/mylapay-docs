@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import axios from 'axios'
 import { Disclosure } from '@headlessui/react'
 import { IoMenuSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdClose, IoMdHome } from "react-icons/io";
@@ -72,8 +73,22 @@ const data = {
 
 function SandboxWrapper() {
     const [showSidebar, setShowSidebar] = useState(false);
+    const [sandboxPageData, setSandboxPageData] = useState({});
     const router = useRouter();
     const { query } = router;
+
+    useEffect(() => {
+        if (query?.api) {
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox-page-data/${query?.api}`)
+                .then(res => {
+                    setSandboxPageData(res.data.data)
+                })
+                .catch(err => {
+                    setSandboxPageData({})
+                    console.log(err)
+                })
+        }
+    }, [query?.api])
 
     const apisAndcontentNotReadyPages = ["Status", "Network-Tokens", "Risk-Check", "Report-Fraud", "Dispute-Check", "Dispute-Action", "Fx-Checker", "BIN-Checker", "MCC-Checker", "Cost-Checker", "Disputes", "Risky-transaction"];
 
@@ -581,22 +596,33 @@ function SandboxWrapper() {
                         <ProfileDropDown />
                     </div>
 
+                    
+
                     <div className='p-8 bg-bggray min-h-screen'>
-                        {!apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'API-Authentication' && (
+
+                        {!apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'API-Authentication' && Object.entries(sandboxPageData).length > 0 && (
                             <>
                                 <div className='bg-white rounded py-6 px-8 mb-8'>
+                                    {/* <p>{JSON.stringify(sandboxPageData)}</p> */}
                                     <h2 className="text-xl font-semibold text-bluedark sm:text-2xl md:text-2xl mb-2">
                                         Overview
                                     </h2>
 
-                                    {data[query?.api]?.overview?.map((text, index) => (
+                                    {sandboxPageData?.overview?.map((text, index) => (
                                         <p key={index} className=" text-para max-w-4xl mb-4">
                                             {text}
                                         </p>
                                     ))}
                                 </div>
 
-                                <Sandbox />
+                                
+
+                                
+                                <Sandbox 
+                                    apiEndPoint={sandboxPageData?.apiEndPoint}  
+                                    requestParams={sandboxPageData?.requestParams}
+                                    apiResponseData={sandboxPageData?.response}
+                                />
                             </>
                         )}
 
@@ -639,7 +665,11 @@ function SandboxWrapper() {
                             </div>
                         )}
 
-                        {apisAndcontentNotReadyPages.includes(query?.api) && (
+                        {/* Object.entries(sandboxPageData).length > 0 */}
+
+                        {/* apisAndcontentNotReadyPages.includes(query?.api) && */}
+
+                        {!(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && (
                             <div className="bg-white p-8 rounded-lg shadow-lg w-full text-center">
                                 <h2 className="text-2xl font-semibold mb-4">Coming Soon!</h2>
                                 <p className="text-gray-700 mb-4">

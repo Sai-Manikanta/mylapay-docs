@@ -7,19 +7,24 @@ import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { countryList } from '../../data/countryList';
 import RegisterSuccessModel from './RegisterSuccessModel';
 import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const products = ['3DSS - Merchant Plug-ins', 'Authorization', 'Network Tokens', 'Risk', 'Dispute', 'Value Added Services', 'Webhook'];
+const typeOfEntityOptionsArray = ['Cooperatives', 'Limited Liability Partnership', 'Partnership', 'Private Ltd Company', 'DPublic Ltd Company', 'Sec 8 Company', 'Society', 'Trust'];
 
 const validationSchema = Yup.object().shape({
-    companyName: Yup.string().required('Company Name is required'),
+    entityName: Yup.string().required('Entity Name is required'),
     firstName: Yup.string().required('First Name is required'),
     lastName: Yup.string().required('Last Name is required'),
     country: Yup.string().required('Country is required'),
-    city: Yup.string().required('City is required'),
+    // city: Yup.string().required('City is required'),
     pincode: Yup.number().required('Pincode is required'),
     email: Yup.string().email('Invalid email').required('Email ID is required'),
     mobileNumber: Yup.string().required('Mobile Number is required'),
-    productOfInterest: Yup.array().of(Yup.string()).required('Product of Interest is required').min(1, 'Select at least one product'),
+    // productOfInterest: Yup.array().of(Yup.string()).required('Product of Interest is required').min(1, 'Select at least one product'),
+    dateOfIncorporation: Yup.date().required('Date of Incorporation is required').nullable(),
+    typeOfEntity: Yup.string().required('Type of Entity is required'),
 });
 
 const SignupForm = () => {
@@ -45,7 +50,7 @@ const SignupForm = () => {
             setSubmitting(false);
         }
     }
-    
+
 
     return (
         <div>
@@ -61,7 +66,7 @@ const SignupForm = () => {
                 </div>
                 <Formik
                     initialValues={{
-                        companyName: '',
+                        entityName: '',
                         firstName: '',
                         lastName: '',
                         country: '',
@@ -70,6 +75,8 @@ const SignupForm = () => {
                         email: '',
                         mobileNumber: '',
                         productOfInterest: [],
+                        dateOfIncorporation: null,
+                        typeOfEntity: '',
                     }}
                     validationSchema={validationSchema}
                     onSubmit={handleSignup}
@@ -77,18 +84,88 @@ const SignupForm = () => {
                     {({ errors, touched, values, setFieldValue, isSubmitting }) => (
                         <Form className="rounded-3xl bg-[#fff] px-4 py-8 lg:px-8">
                             <div className="grid gap-10 md:grid-cols-3 mb-10">
+
                                 <div className="relative">
                                     <Field
                                         type="text"
-                                        name="companyName"
+                                        name="entityName"
                                         className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
                                         placeholder=" "
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                        Company Name
+                                        Entity Name
                                     </label>
-                                    <ErrorMessage name="companyName" component="div" className="text-sm mt-2 text-red" />
+                                    <ErrorMessage name="entityName" component="div" className="text-sm mt-2 text-red" />
                                 </div>
+
+                                <div className="relative md:-mt-7">
+                                    <label className="block font-normal text-sm text-para">Type of Entity</label>
+                                    <Listbox
+                                        as="div"
+                                        value={values.typeOfEntity}
+                                        onChange={selectedOption => setFieldValue('typeOfEntity', selectedOption)}
+                                    >
+                                        {({ open }) => (
+                                            <>
+                                                <div className="mt-2 relative">
+                                                    <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg border border-gray/30 cursor-default focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 focus:ring-offset-2 focus:ring-offset-gray-100 sm:text-sm">
+                                                        <span className="block truncate">
+                                                            {values.typeOfEntity ? values.typeOfEntity : 'Select a Type of Entity'}
+                                                        </span>
+                                                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                            <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                                        </span>
+                                                    </Listbox.Button>
+                                                    <Listbox.Options className="absolute z-10 mt-1 w-full bg-white max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                        {typeOfEntityOptionsArray.map((product, index) => (
+                                                            <Listbox.Option
+                                                                key={index}
+                                                                className={({ active }) =>
+                                                                    `cursor-default select-none relative py-2 pl-10 pr-4 ${active ? '' : ''}`
+                                                                }
+                                                                value={product}
+                                                            >
+                                                                {({ selected }) => (
+                                                                    <>
+                                                                        <span className={`block truncate text-bluedark ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                                            {product}
+                                                                        </span>
+                                                                        {selected ? (
+                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                                                                <FaRegCheckSquare className="w-5 h-5 text-bluedark" aria-hidden="true" />
+                                                                            </span>
+                                                                        ) : (
+                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                                                                <FaRegSquare className="w-5 h-5 text-bluedark" aria-hidden="true" />
+                                                                            </span>
+                                                                        )}
+                                                                    </>
+                                                                )}
+                                                            </Listbox.Option>
+                                                        ))}
+                                                    </Listbox.Options>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                    <ErrorMessage name="typeOfEntity" component="div" className="text-sm mt-2 text-red" />
+                                </div>
+
+                                <div className="relative">
+                                    <DatePicker
+                                        selected={values.dateOfIncorporation}
+                                        onChange={date => setFieldValue('dateOfIncorporation', date)}
+                                        dateFormat="dd-MM-yyyy"
+                                        className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition"
+                                        placeholderText=" "
+                                    />
+                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                        Date of Incorporation
+                                    </label>
+                                    <ErrorMessage name="dateOfIncorporation" component="div" className="text-sm mt-2 text-red" />
+                                </div>
+
+
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -113,6 +190,33 @@ const SignupForm = () => {
                                     </label>
                                     <ErrorMessage name="lastName" component="div" className="text-sm mt-2 text-red" />
                                 </div>
+
+                                <div className="relative">
+                                    <Field
+                                        type="text"
+                                        name="email"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        placeholder=" "
+                                    />
+                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                        Email
+                                    </label>
+                                    <ErrorMessage name="email" component="div" className="text-sm mt-2 text-red" />
+                                </div>
+
+                                <div className="relative">
+                                    <Field
+                                        type="text"
+                                        name="mobileNumber"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        placeholder=" "
+                                    />
+                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                        Mobile Number
+                                    </label>
+                                    <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
+                                </div>
+
                                 <div className="relative">
                                     <Field
                                         as="select"
@@ -132,7 +236,7 @@ const SignupForm = () => {
                                     </label>
                                     <ErrorMessage name="country" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-                                <div className="relative">
+                                {/* <div className="relative">
                                     <Field
                                         type="text"
                                         name="city"
@@ -143,7 +247,7 @@ const SignupForm = () => {
                                         City
                                     </label>
                                     <ErrorMessage name="city" component="div" className="text-sm mt-2 text-red" />
-                                </div>
+                                </div> */}
                                 <div className="relative">
                                     <Field
                                         type="text"
@@ -156,32 +260,10 @@ const SignupForm = () => {
                                     </label>
                                     <ErrorMessage name="pincode" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-                                <div className="relative">
-                                    <Field
-                                        type="text"
-                                        name="email"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                        placeholder=" "
-                                    />
-                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                        Email
-                                    </label>
-                                    <ErrorMessage name="email" component="div" className="text-sm mt-2 text-red" />
-                                </div>
-                                <div className="relative">
-                                    <Field
-                                        type="text"
-                                        name="mobileNumber"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                        placeholder=" "
-                                    />
-                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                        Mobile Number
-                                    </label>
-                                    <ErrorMessage name="mobileNumber" component="div" className="text-sm mt-2 text-red" />
-                                </div>
+                                
+                               
 
-                                <div className="relative md:-mt-7">
+                                {/* <div className="relative md:-mt-7">
                                     <label className="block font-normal text-sm text-para">Product of Interest</label>
                                     <Listbox
                                         as="div"
@@ -233,7 +315,13 @@ const SignupForm = () => {
                                         )}
                                     </Listbox>
                                     <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
-                                </div>
+                                </div> */}
+
+
+
+                                
+
+
 
                             </div>
                             <div className="mt-10 text-center ltr:lg:text-right rtl:lg:text-left">

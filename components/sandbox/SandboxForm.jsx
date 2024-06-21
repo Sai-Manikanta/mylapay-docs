@@ -12,7 +12,7 @@ import Editor from 'react-simple-code-editor';
 import { highlight, languages } from "prismjs/components/prism-core";
 import axios from 'axios';
 import { useLoginStatus } from '../../hooks/useLoginStatus'
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import { data3DSS, } from '../../data/sandbox/3DSS'
 import { data3DSSResponse } from '../../data/sandbox/3DSS-response'
 import { authenticationPaymentsRequestParams } from '../../data/sandbox/authentication-payments-request-params'
@@ -233,7 +233,7 @@ const validateOrganizationID = async (value) => {
     }
     // else {
     //     try {
-    //         const response = await axios.post('http://localhost:9000/api/v1/auth/verify-sandbox-access', {
+    //         const response = await axios.post('http://localhost:9000/v1/auth/verify-sandbox-access', {
     //             organizationId: value
     //         });
 
@@ -256,7 +256,7 @@ const hightlightWithLineNumbers = (input, language) =>
         .map((line, i) => `<span class='editorLineNumber' style="color:#002060">${i + 1}</span>${line}`)
         .join("\n");
 
-const SandboxForm = () => {
+const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
     const router = useRouter();
     const { query } = router;
     const [intialFormData, setIntialFormData] = useState(null);
@@ -265,7 +265,7 @@ const SandboxForm = () => {
     const [lineNumbers, setLineNumbers] = useState([]);
     const { user } = useLoginStatus();
     const [showSecret, setShowSecret] = useState(false);
-    const [parametersData, setParametersData] = useState([]);
+    const [parametersData, setParametersData] = useState(requestParams);
 
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
     const [responseData, setResponseData] = useState(null);
@@ -285,22 +285,22 @@ const SandboxForm = () => {
             setResponseData(null);
             setSelectedSandboxTestCodes(JSON.stringify({}, null, 2))
 
-            if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
-                setParametersData(data3DSS)
-            } else if (query?.api === "Payments") {
-                console.log("RUN")
-                setParametersData(authenticationPaymentsRequestParams)
-            } else if (query?.api === "Reversal") {
-                setParametersData(authReversalRequestParams)
-            } else if (query?.api === "Capture") {
-                setParametersData(authCaptureRequestParams)
-            } else if (query?.api === "Refund") {
-                setParametersData(authRefundRequestParams)
-            } else if (query?.api === "Void") {
-                setParametersData(dataVoid)
-            } else {
-                setParametersData([])
-            }
+            // if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
+            //     setParametersData(data3DSS)
+            // } else if (query?.api === "Payments") {
+            //     console.log("RUN")
+            //     setParametersData(authenticationPaymentsRequestParams)
+            // } else if (query?.api === "Reversal") {
+            //     setParametersData(authReversalRequestParams)
+            // } else if (query?.api === "Capture") {
+            //     setParametersData(authCaptureRequestParams)
+            // } else if (query?.api === "Refund") {
+            //     setParametersData(authRefundRequestParams)
+            // } else if (query?.api === "Void") {
+            //     setParametersData(dataVoid)
+            // } else {
+            //     setParametersData([])
+            // }
         }
     }, [query?.api])
 
@@ -335,6 +335,10 @@ const SandboxForm = () => {
             }
             return total;
         }, {})
+
+        console.log("=====333=====")
+        console.log(selectedData);
+        console.log("=====333=====")
 
         setSelectedSandboxTestCodes(prevDataOri => {
             return JSON.stringify(selectedData, null, 2)
@@ -417,19 +421,29 @@ const SandboxForm = () => {
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
+
+
+
+
+            {/* <p>{JSON.stringify({ apiEndPoint, requestParams, apiResponseData })}</p> */}
+            {/* <p>{JSON.stringify(requestParams)}</p>
+            <p>{JSON.stringify(apiEndPoint)}</p>
+            <p>{JSON.stringify(selectedSandboxTestCodes)}</p> */}
+
             {intialFormData && (
                 <Formik
                     key={intialFormData?.apiUrl}
                     initialValues={{
-                        apiURLs: intialFormData?.apiUrl,
+                        apiURLs: apiEndPoint,
                         laptop: false,
                         browserIP: false,
                         OrganizationID: user?.organizationId,
                         SecretKey: user?.secretkey,
                         host: intialFormData?.Header?.host,
                         ContentType: intialFormData?.Header?.contentType,
-                        vcMerchantId: user?.vcMerchantId,
+                        uniqueId: user?.vcMerchantId,
                     }}
+                    enableReinitialize={true}
                     validationSchema={validationSchema}
                     validateOnChange={true}
                     validateOnBlur={true}
@@ -465,8 +479,9 @@ const SandboxForm = () => {
                                     <Field
                                         type="text"
                                         name="apiURLs"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
                                         placeholder=" "
+                                        disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         API URLs
@@ -475,7 +490,7 @@ const SandboxForm = () => {
                                 </div>
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <h2 className='mb-6'>Configuration</h2>
                                 <div className="grid gap-10 md:grid-cols-2 mb-6">
                                     <div className="relative">
@@ -584,11 +599,23 @@ const SandboxForm = () => {
                                         <ErrorMessage name="sharedSecretKey" component="div" className="text-sm mt-2 text-red" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div>
                                 <h2 className='mb-6'>Header</h2>
                                 <div className="grid gap-10 md:grid-cols-2 mb-10">
+                                    <div className="relative">
+                                        <Field
+                                            type="text"
+                                            name="uniqueId"
+                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                            placeholder=""
+                                            disabled
+                                        />
+                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                            Unique Id
+                                        </label>
+                                    </div>
                                     <div className="relative">
                                         <Field
                                             type="textarea"
@@ -621,13 +648,14 @@ const SandboxForm = () => {
                             <div>
                                 <div className="grid gap-10 md:grid-cols-2 mb-10">
                                     <div className='bg-bggray p-4 rounded'>
+                                        {/* <p>{JSON.stringify(parametersData)}</p> */}
                                         <h2 className='mb-4'>Request Parameter</h2>
                                         <div>
                                             {parametersData?.map((parameter, i) => {
 
                                                 return (
                                                     <div key={i} className='mb-4'>
-                                                        {parameter?.fieldCategory && (
+                                                        {parameter?.fieldCategoryName && (
                                                             <h3 className='text-bluedark'>
                                                                 {parameter?.fieldCategoryName}
                                                             </h3>
@@ -734,6 +762,7 @@ const SandboxForm = () => {
                                     </div>
 
                                     <div className='bg-bggray p-4 rounded relative'>
+                                        {/* <p>selectedSandboxTestCodes:{JSON.stringify(selectedSandboxTestCodes)}</p> */}
                                         <h2 className='mb-4'>Sandbox Test Codes</h2>
                                         <div>
                                             <div className="editor-container">
@@ -790,10 +819,27 @@ const SandboxForm = () => {
 
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>
+
+                    {/* <p>{JSON.stringify(apiResponseData.statusCodes)}</p> */}
+
                     <div className='bg-bggray p-4 rounded mb-8'>
                         <h2 className='mb-3'>Status Codes</h2>
                         <div className='flex space-x-4 text-sm'>
-                            <div className='flex rounded-sm overflow-hidden shadow'>
+
+
+
+                            {apiResponseData?.statusCodes?.map(item => (
+                                <div className='flex rounded-sm overflow-hidden shadow'>
+                                    <span className={`py-2 px-4 ${item?.type === "success" ? 'bg-[#22C55E]' : 'bg-[#EF4444]'} text-white`}>
+                                        {item?.statusCode}
+                                    </span>
+                                    <p className='bg-white py-2 px-4'>
+                                        {item?.message}
+                                    </p>
+                                </div>
+                            ))}
+
+                            {/* <div className='flex rounded-sm overflow-hidden shadow'>
                                 <span className="py-2 px-4 bg-[#22C55E] text-white">200</span><p className='bg-white py-2 px-4'>Success</p>
                             </div>
 
@@ -807,12 +853,13 @@ const SandboxForm = () => {
 
                             <div className='flex rounded-sm overflow-hidden shadow'>
                                 <span className="py-2 px-4 bg-[#EF4444] text-white">401</span><p className='bg-white py-2 px-4'>Unauthorized request</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
                     <div className="grid gap-10 md:grid-cols-2 mb-6 ">
                         <div className='bg-bggray p-4 rounded'>
+
                             <h2 className='mb-3'>Response</h2>
 
                             <div className='relative'>
@@ -820,7 +867,7 @@ const SandboxForm = () => {
                                 <div className="editor-container bg-white">
 
                                     <Editor
-                                        value={JSON.stringify(responseData.response, null, 2)}
+                                        value={JSON.stringify(apiResponseData?.responseParameters, null, 2)}
                                         onValueChange={code => {
                                             setSelectedSandboxTestCodes(code);
                                         }}
@@ -862,7 +909,7 @@ const SandboxForm = () => {
                         <div className='bg-bggray p-4 rounded'>
                             <h2 className='mb-3'>Description</h2>
                             <p className='text-sm bg-white p-4'>
-                                {responseData.description}
+                                {apiResponseData.description}
                             </p>
                         </div>
                     </div>
