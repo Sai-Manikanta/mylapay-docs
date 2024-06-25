@@ -3,30 +3,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
-import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
-import { IoMdInformationCircle, IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { IoMdInformationCircle } from "react-icons/io";
 import { IoCloseCircleSharp } from "react-icons/io5";
-import { FaCopy } from "react-icons/fa";
 import { Popover } from '@headlessui/react'
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from "prismjs/components/prism-core";
-import axios from 'axios';
 import { useLoginStatus } from '../../hooks/useLoginStatus'
-import _, { uniqueId } from 'lodash';
-import { data3DSS, } from '../../data/sandbox/3DSS'
+import _ from 'lodash';
 import { data3DSSResponse } from '../../data/sandbox/3DSS-response'
-import { authenticationPaymentsRequestParams } from '../../data/sandbox/authentication-payments-request-params'
-import { authReversalRequestParams } from '../../data/sandbox/auth-reversal'
-import { authCaptureRequestParams } from '../../data/sandbox/auth-capture'
-import { authRefundRequestParams } from '../../data/sandbox/auth-refund'
-import { dataVoid } from '../../data/sandbox/void'
 import 'prismjs/components/prism-json';
 import 'prismjs/themes/prism.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-const validationSchema = Yup.object().shape({
-    OrganizationID: Yup.string().required('Organization ID is required').length(20, 'Organization ID must be exactly 20 characters')
-});
+const validationSchema = Yup.object().shape({});
 
 const data = {
     authentication: {
@@ -256,16 +245,15 @@ const hightlightWithLineNumbers = (input, language) =>
         .map((line, i) => `<span class='editorLineNumber' style="color:#002060">${i + 1}</span>${line}`)
         .join("\n");
 
-const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
+const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPageData }) => {
     const router = useRouter();
     const { query } = router;
     const [intialFormData, setIntialFormData] = useState(null);
-    const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("pending") // pending/success/failed
+    const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("success") // pending/success/failed
     const [error, setError] = useState(null);
     const [lineNumbers, setLineNumbers] = useState([]);
     const { user } = useLoginStatus();
     const [showSecret, setShowSecret] = useState(false);
-    const [parametersData, setParametersData] = useState(requestParams);
 
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
     const [responseData, setResponseData] = useState(null);
@@ -280,27 +268,9 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
 
     useEffect(() => {
         if (data[query?.api]) {
-            setIntialFormData(data[query?.api])
-            setOrganizationIDValidationStatus("pending");
+            setIntialFormData(data[query?.api]);
             setResponseData(null);
-            setSelectedSandboxTestCodes(JSON.stringify({}, null, 2))
-
-            // if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
-            //     setParametersData(data3DSS)
-            // } else if (query?.api === "Payments") {
-            //     console.log("RUN")
-            //     setParametersData(authenticationPaymentsRequestParams)
-            // } else if (query?.api === "Reversal") {
-            //     setParametersData(authReversalRequestParams)
-            // } else if (query?.api === "Capture") {
-            //     setParametersData(authCaptureRequestParams)
-            // } else if (query?.api === "Refund") {
-            //     setParametersData(authRefundRequestParams)
-            // } else if (query?.api === "Void") {
-            //     setParametersData(dataVoid)
-            // } else {
-            //     setParametersData([])
-            // }
+            setSelectedSandboxTestCodes(JSON.stringify({}, null, 2));
         }
     }, [query?.api])
 
@@ -308,7 +278,7 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
     useEffect(() => {
         const selectedDataKeyValues = JSON.parse(selectedSandboxTestCodes);
 
-        const selectedData = parametersData.reduce(function (total, currentValue) {
+        const selectedData = requestParams.reduce(function (total, currentValue) {
             if (!currentValue?.fieldCategory) {
                 currentValue?.fields?.forEach(item => {
                     if (item?.checked) {
@@ -336,56 +306,15 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
             return total;
         }, {})
 
-        console.log("=====333=====")
-        console.log(selectedData);
-        console.log("=====333=====")
-
         setSelectedSandboxTestCodes(prevDataOri => {
             return JSON.stringify(selectedData, null, 2)
         });
-    }, [parametersData, query?.api])
-
-
-    const validateOrganisationId = async (value) => {
-        if (value.length < 20) {
-            setOrganizationIDValidationStatus("pending");
-            return null;
-        } else if (value.length > 20) {
-            setOrganizationIDValidationStatus("failed");
-            return null;
-        }
-
-        setOrganizationIDValidationStatus("pending");
-
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verify-sandbox-access`, {
-                organizationId: value
-            }, {
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}`
-                }
-            });
-
-            if (response.status === 200) {
-                setOrganizationIDValidationStatus("success");
-            } else {
-                setOrganizationIDValidationStatus("failed");
-            }
-        } catch (error) {
-            setOrganizationIDValidationStatus("failed");
-        }
-    }
-
-    useEffect(() => {
-        if (user?.organizationId) {
-            validateOrganisationId(user?.organizationId);
-        }
-    }, [user?.organizationId, data[query?.api]])
+    }, [requestParams, query?.api])
 
     const handleReset = () => {
         const selectedDataKeyValues = JSON.parse(selectedSandboxTestCodes);
 
-        const selectedData = parametersData.reduce(function (total, currentValue) {
+        const selectedData = requestParams.reduce(function (total, currentValue) {
             if (!currentValue.fieldCategory) {
                 currentValue.fields.forEach(item => {
                     if (item.checked) {
@@ -403,10 +332,7 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                             } else {
                                 totalObj[currentValueData.name] = currentValueData.value
                             }
-
-
                         }
-
                         return totalObj
                     }, {})
                 }
@@ -421,15 +347,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
-
-
-
-
-            {/* <p>{JSON.stringify({ apiEndPoint, requestParams, apiResponseData })}</p> */}
-            {/* <p>{JSON.stringify(requestParams)}</p>
-            <p>{JSON.stringify(apiEndPoint)}</p>
-            <p>{JSON.stringify(selectedSandboxTestCodes)}</p> */}
-
             {intialFormData && (
                 <Formik
                     key={intialFormData?.apiUrl}
@@ -448,8 +365,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                     validateOnChange={true}
                     validateOnBlur={true}
                     onSubmit={(values, { setFieldError }) => {
-                        console.log({ ...values, selectedSandboxTestCodes });
-
                         let responseData = { response: `${query?.api} response` };
 
                         if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
@@ -469,7 +384,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                                 Connection: "close"
                             }
                         })
-
                     }}
                 >
                     {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
@@ -489,117 +403,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                                     <ErrorMessage name="apiURLs" component="div" className="text-sm mt-2 text-red" />
                                 </div>
                             </div>
-
-                            {/* <div>
-                                <h2 className='mb-6'>Configuration</h2>
-                                <div className="grid gap-10 md:grid-cols-2 mb-6">
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="OrganizationID"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            validateOnChange={true}
-                                            validate={validateOrganizationID}
-                                            onFocus={(event) => {
-                                                setFieldTouched('OrganizationID', true);
-                                                handleChange(event);
-                                            }}
-                                            onChange={(event) => {
-                                                handleChange(event);
-                                                setFieldValue('OrganizationID', event.target.value, true);
-                                                setFieldValue('vcMerchantId', event.target.value);
-                                                validateOrganisationId(event.target.value)
-                                            }}
-                                            onBlur={(event) => {
-                                                handleBlur(event);
-                                            }}
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Organization ID
-                                        </label>
-
-                                        {organizationIDValidationStatus === "success" && (
-                                            <FaCircleCheck className='text-[#22C55E] text-xl absolute top-[9px] right-[10px]' />
-                                        )}
-
-
-
-                                        {organizationIDValidationStatus === "failed" && (
-                                            <FaCircleXmark className='text-[#F43F5E] text-xl absolute top-[9px] right-[10px]' />
-                                        )}
-
-
-                                        {(errors.OrganizationID && touched.OrganizationID) && organizationIDValidationStatus !== "success" && (
-                                            <div className="text-sm mt-2 text-[#F43F5E]">
-                                                {errors.OrganizationID}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="SecretKey"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            value={user?.secretkey}
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Secret Key
-                                        </label>
-                                        <ErrorMessage name="SecretKey" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="vcMerchantId"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
-                                            placeholder=""
-                                            disabled
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            VC Merchant Id
-                                        </label>
-                                    </div>
-                                    <div className="relative">
-                                        <Field
-                                            type={showSecret ? "text" : "password"}
-                                            name="sharedSecretKey"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
-                                            value={"Shared Sectret key text"}
-                                            disabled
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Shared Secret Key
-                                        </label>
-
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setShowSecret((prevShowSecret) => !prevShowSecret);
-                                            }}
-                                            className="absolute right-9 top-2 text-sm text-para"
-                                        >
-                                            {showSecret ? <IoMdEyeOff size="1.3rem" /> : <IoMdEye size="1.3rem" />}
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText("Shared Sectret key text")
-                                                    .then(() => {
-                                                        toast("Secret key copied!");
-                                                    }).catch(err => {
-                                                        console.error("Failed to copy text: ", err);
-                                                    });
-                                            }}
-                                            className="absolute right-2 top-2 text-sm text-para"
-                                        >
-                                            <FaCopy size="1rem" />
-                                        </button>
-
-                                        <ErrorMessage name="sharedSecretKey" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
-                                </div>
-                            </div> */}
 
                             <div>
                                 <h2 className='mb-6'>Header</h2>
@@ -648,10 +451,9 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                             <div>
                                 <div className="grid gap-10 md:grid-cols-2 mb-10">
                                     <div className='bg-bggray p-4 rounded'>
-                                        {/* <p>{JSON.stringify(parametersData)}</p> */}
                                         <h2 className='mb-4'>Request Parameter</h2>
                                         <div>
-                                            {parametersData?.map((parameter, i) => {
+                                            {requestParams?.map((parameter, i) => {
 
                                                 return (
                                                     <div key={i} className='mb-4'>
@@ -672,10 +474,10 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                                                                         id={field?.name}
                                                                         disabled={organizationIDValidationStatus != 'success'}
                                                                         onChange={e => {
-                                                                            setParametersData(prevData => {
-                                                                                const updatedData = prevData.map(item => {
-                                                                                    if (item.id === parameter.id) {
-                                                                                        const updatedFields = parameter.fields.map(fi => {
+                                                                            setSandboxPageData(prevData => {
+                                                                                const updatedData = prevData?.requestParams?.map(item => {
+                                                                                    if (item?.id === parameter?.id) {
+                                                                                        const updatedFields = parameter?.fields?.map(fi => {
                                                                                             if (fi.name === field?.name) {
 
                                                                                                 setFieldValue(field?.name, e.target.checked);
@@ -698,10 +500,13 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                                                                                     return item;
                                                                                 })
 
-                                                                                console.log(updatedData)
+                                                                                // console.log(updatedData)
 
-                                                                                return updatedData;
-                                                                            })
+                                                                                return {
+                                                                                    ...prevData,
+                                                                                    requestParams: updatedData
+                                                                                };
+                                                                            });
                                                                         }}
                                                                     />
 
@@ -820,8 +625,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>
 
-                    {/* <p>{JSON.stringify(apiResponseData.statusCodes)}</p> */}
-
                     <div className='bg-bggray p-4 rounded mb-8'>
                         <h2 className='mb-3'>Status Codes</h2>
                         <div className='flex space-x-4 text-sm'>
@@ -839,21 +642,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData }) => {
                                 </div>
                             ))}
 
-                            {/* <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#22C55E] text-white">200</span><p className='bg-white py-2 px-4'>Success</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">400</span><p className='bg-white py-2 px-4'>Invalid</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">500</span><p className='bg-white py-2 px-4'>Unexpected System Error</p>
-                            </div>
-
-                            <div className='flex rounded-sm overflow-hidden shadow'>
-                                <span className="py-2 px-4 bg-[#EF4444] text-white">401</span><p className='bg-white py-2 px-4'>Unauthorized request</p>
-                            </div> */}
                         </div>
                     </div>
 

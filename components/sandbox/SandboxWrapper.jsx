@@ -18,59 +18,6 @@ import Sandbox from './SandboxForm';
 import ProfileDropDown from './ProfileDropDown'
 import mylapaylogo from '../../public/mylapaylogo.png';
 
-const data = {
-    authentication: {
-        overview: [
-            'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
-            "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
-        ]
-    },
-    ['3DSS-v2.2']: {
-        overview: [
-            'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
-            "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
-        ]
-    },
-    ['3DSS-v2.3']: {
-        overview: [
-            'Mylapay Secure facilitates authentication of card-not-present (Payment Gateway / Payment Aggregators) payments. This sandbox test environment will help you to test APIs, check error responses, request and response data parameters with Visa and MasterCard networks.',
-            "Mylapay API gateway receives the API request of the Visa / Mastercard / Rupay card payment authentication conducted via merchant - ecommerce - payment gateway channels, through its 3-D Secure server and initiates the request to the card network's directory server, including the necessary data elements in JSON formats, subsequently providing the authentication response."
-        ]
-    },
-    authorization: {
-        overview: [
-            'Mylapay Switch authorizes both card-present (POS) and card-not-present (PG) payments. This sandbox test environment will help you to test APIs, check error responses, request, and response data parameters for ISO switch authorization and reversal with Visa, MasterCard and Rupay networks.',
-            'APIs are used to take card payment authorization from Issuing banks through card networks environment. Mylapay takes the API request and initiates the request to respective card networks with the required data elements in ISO formats.'
-        ]
-    },
-    Payments: {
-        overview: [
-            'Mylapay Switch authorizes both card-present (POS) and card-not-present (PG) payments. This sandbox test environment will help you to test APIs, check error responses, request, and response data parameters for ISO switch authorization and reversal with Visa, MasterCard and Rupay networks.',
-            'APIs are used to take card payment authorization from Issuing banks through card networks environment. Mylapay takes the API request and initiates the request to respective card networks with the required data elements in ISO formats.'
-        ]
-    },
-    Capture: {
-        overview: [
-            'Capture APIs are used to capture an authorized transaction from the issuing bank in ISO formats for checking error responses, request, and response data parameters. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
-        ]
-    },
-    Refund: {
-        overview: [
-            'Refund APIs are used to show a refund which is linked to a capture or sale. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
-        ]
-    },
-    Reversal: {
-        overview: [
-            'Reversal APIs are used to reverse / cancel the authorization taken for the card payment earlier from Issuing banks through card networks environment by providing the data elements in ISO formats.',
-        ]
-    },
-    Void: {
-        overview: [
-            'Void APIs are used to void a capture or credit that was submitted but not yet processed by the processor. This API is applicable for both Card-present (POS) and Card-not-present (PG) payments.',
-        ]
-    },
-};
-
 function SandboxWrapper() {
     const [showSidebar, setShowSidebar] = useState(false);
     const [sandboxPageData, setSandboxPageData] = useState({});
@@ -81,6 +28,7 @@ function SandboxWrapper() {
         if (query?.api) {
             axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox-page-data/${query?.api}`)
                 .then(res => {
+                    console.log(res.data.data)
                     setSandboxPageData(res.data.data)
                 })
                 .catch(err => {
@@ -622,6 +570,7 @@ function SandboxWrapper() {
                                     apiEndPoint={sandboxPageData?.apiEndPoint}  
                                     requestParams={sandboxPageData?.requestParams}
                                     apiResponseData={sandboxPageData?.response}
+                                    setSandboxPageData={setSandboxPageData}
                                 />
                             </>
                         )}
@@ -664,10 +613,6 @@ function SandboxWrapper() {
                                 </div>
                             </div>
                         )}
-
-                        {/* Object.entries(sandboxPageData).length > 0 */}
-
-                        {/* apisAndcontentNotReadyPages.includes(query?.api) && */}
 
                         {!(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && (
                             <div className="bg-white p-8 rounded-lg shadow-lg w-full text-center">
