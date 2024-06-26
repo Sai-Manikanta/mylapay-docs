@@ -115,7 +115,7 @@ export default function IntegrationSteps() {
                             </Link>
 
 
-                            <Link href="/sandbox?api=API-Authentication">
+                            <Link href="/sandbox?api=Product-Management">
                             <div className="relative text-center hover:scale-110 transition-transform duration-300 ease-in-out">
                                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-primary sm:w-20 sm:h-20">
                                     <PiCodesandboxLogo className="w-10 h-10 text-white" />

@@ -13,7 +13,7 @@ function ForgotPasswordPage() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      router.push('/sandbox?api=API-Authentication');
+      router.push('/sandbox?api=Product-Management');
     }
   }, [router]);
 
