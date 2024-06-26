@@ -12,6 +12,8 @@ export default function ProfileDropDown() {
   const { logout } = useLoginStatus();
   const router = useRouter();
 
+  const { query } = router;
+
   const handleLogout = () => {
     logout();
     router.push('/login');
@@ -51,7 +53,7 @@ export default function ProfileDropDown() {
             <hr className='text-[#E4E4E7]' />
             <Menu.Item>
               <Link
-                className={`bg-white text-black flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
+                className={`${query?.api === "Product-Management" ? 'bg-bluedark text-white' : 'bg-white text-black'} flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
                 href="/"
               >
                 <IoIosGitNetwork
@@ -59,7 +61,7 @@ export default function ProfileDropDown() {
                   size="1.2rem"
                   aria-hidden="true"
                 />
-                Two-way SSL
+                Product Management
               </Link>
             </Menu.Item>
             <hr className='text-[#E4E4E7]' />
