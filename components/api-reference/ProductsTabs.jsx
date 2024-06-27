@@ -27,9 +27,8 @@ function ProductsTabs() {
     return (
         <div className='p-4 bg-bggray'>
             <div className='bg-[#fff] '>
-                <div className="wrapper xxl:mx-[-30px]">
+                <div className="wrapper">
                     <div className="max-w-4xl mx-auto py-20 px-4 sm:px-0">
-
                         <div className="mb-8">
                             <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-4xl text-center mb-8 px-2">
                                 {/* How to test our APIs */}

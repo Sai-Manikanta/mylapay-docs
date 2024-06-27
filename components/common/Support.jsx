@@ -117,10 +117,10 @@ function Support() {
     return (
         <>
             <div className='p-4 pt-0 bg-bggray'>
-                <div className=' '>
-                    <div className="wrapper xxl:mx-[-30px]">
+                <div>
+                    <div className="wrapper mx-auto">
                         <div className="mx-auto py-20 px-4 sm:px-0">
-                            <div className=" mx-auto bg-bluedark py-12 px-5 rounded-xl shadow">
+                            <div className="mx-auto bg-bluedark py-12 px-5 rounded-xl shadow">
                                 <div className="grid gap-5 items-center text-center lg:grid-cols-2 xl:grid-cols-2">
                                     <div>
                                         <div
