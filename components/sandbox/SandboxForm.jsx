@@ -17,189 +17,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const validationSchema = Yup.object().shape({});
 
-const data = {
-    authentication: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    ['3DSS-v2.2']: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.2',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    ['3DSS-v2.3']: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/3DSS-v2.3',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Payments: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/payments',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Reversal: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/reversal',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Capture: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/capture',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Refund: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/refund',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Void: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/void',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    Status: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_secure/status',
-        configuration: {
-            OrganizationID: '3576812',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '6237486819'
-        }
-    },
-    authorization: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-    refund: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-    capture: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/capture',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-    reversal: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/refund',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-    void: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/void',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-    reversal: {
-        apiUrl: 'https://sandbox.mylapay.com/v1/mylapay_switch/reversal',
-        configuration: {
-            OrganizationID: '2571448',
-            SecretKey: ""
-        },
-        Header: {
-            host: 'sandbox.mylapay.com',
-            contentType: 'application/json',
-            vcMerchantId: '2963752899'
-        }
-    },
-};
-
 const customizer = (objValue, srcValue, key, object, source) => {
     if (_.isObject(objValue)) {
         return _.mergeWith({}, objValue, srcValue, customizer);
@@ -248,12 +65,11 @@ const hightlightWithLineNumbers = (input, language) =>
 const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPageData }) => {
     const router = useRouter();
     const { query } = router;
-    const [intialFormData, setIntialFormData] = useState(null);
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("success") // pending/success/failed
     const [error, setError] = useState(null);
     const [lineNumbers, setLineNumbers] = useState([]);
     const { user } = useLoginStatus();
-    const [showSecret, setShowSecret] = useState(false);
+    // const [showSecret, setShowSecret] = useState(false);
 
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
     const [responseData, setResponseData] = useState(null);
@@ -267,11 +83,8 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
 
     useEffect(() => {
-        if (data[query?.api]) {
-            setIntialFormData(data[query?.api]);
             setResponseData(null);
             setSelectedSandboxTestCodes(JSON.stringify({}, null, 2));
-        }
     }, [query?.api])
 
 
@@ -347,280 +160,278 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
     return (
         <div className="relative z-10 bg-white rounded border-gray/20 sm:m-0">
-            {intialFormData && (
-                <Formik
-                    key={intialFormData?.apiUrl}
-                    initialValues={{
-                        apiURLs: apiEndPoint,
-                        laptop: false,
-                        browserIP: false,
-                        OrganizationID: user?.organizationId,
-                        SecretKey: user?.secretkey,
-                        host: intialFormData?.Header?.host,
-                        ContentType: intialFormData?.Header?.contentType,
-                        uniqueId: user?.vcMerchantId,
-                    }}
-                    enableReinitialize={true}
-                    validationSchema={validationSchema}
-                    validateOnChange={true}
-                    validateOnBlur={true}
-                    onSubmit={(values, { setFieldError }) => {
-                        let responseData = { response: `${query?.api} response` };
+            <Formik
+                key={apiEndPoint}
+                initialValues={{
+                    apiURLs: apiEndPoint,
+                    laptop: false,
+                    browserIP: false,
+                    OrganizationID: user?.organizationId,
+                    SecretKey: user?.secretkey,
+                    host: "sandbox.mylapay.com",
+                    ContentType: "application/json",
+                    uniqueId: user?.vcMerchantId,
+                }}
+                enableReinitialize={true}
+                validationSchema={validationSchema}
+                validateOnChange={true}
+                validateOnBlur={true}
+                onSubmit={(values, { setFieldError }) => {
+                    let responseData = { response: `${query?.api} response` };
 
-                        if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
-                            responseData = data3DSSResponse
+                    if (query?.api === "3DSS-v2.2" || query?.api === "3DSS-v2.3") {
+                        responseData = data3DSSResponse
+                    }
+
+                    setResponseData({
+                        statusCode: 200,
+                        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+                        response: responseData,
+                        header: {
+                            Status: "200 OK",
+                            Date: "Fri, 25 Mar 2024 12:00:00 GMT",
+                            Server: "Apache",
+                            ['Content-Type']: "application/json",
+                            ['Content-Length']: "56",
+                            Connection: "close"
                         }
+                    })
+                }}
+            >
+                {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
+                    <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
+                        <div className="grid gap-10 md:grid-cols-1 mb-6">
+                            <div className="relative">
+                                <Field
+                                    type="text"
+                                    name="apiURLs"
+                                    className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                    placeholder=" "
+                                    disabled
+                                />
+                                <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                    API URLs
+                                </label>
+                                <ErrorMessage name="apiURLs" component="div" className="text-sm mt-2 text-red" />
+                            </div>
+                        </div>
 
-                        setResponseData({
-                            statusCode: 200,
-                            description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-                            response: responseData,
-                            header: {
-                                Status: "200 OK",
-                                Date: "Fri, 25 Mar 2024 12:00:00 GMT",
-                                Server: "Apache",
-                                ['Content-Type']: "application/json",
-                                ['Content-Length']: "56",
-                                Connection: "close"
-                            }
-                        })
-                    }}
-                >
-                    {({ setFieldValue, handleChange, handleBlur, setFieldTouched, errors, touched }) => (
-                        <Form className="rounded-3xl bg-white px-4 py-8 lg:px-8">
-                            <div className="grid gap-10 md:grid-cols-1 mb-6">
+                        <div>
+                            <h2 className='mb-6'>Header</h2>
+                            <div className="grid gap-10 md:grid-cols-2 mb-10">
                                 <div className="relative">
                                     <Field
                                         type="text"
-                                        name="apiURLs"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
-                                        placeholder=" "
+                                        name="uniqueId"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                        placeholder=""
                                         disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                        API URLs
+                                        Unique Id
                                     </label>
-                                    <ErrorMessage name="apiURLs" component="div" className="text-sm mt-2 text-red" />
                                 </div>
-                            </div>
+                                <div className="relative">
+                                    <Field
+                                        type="textarea"
+                                        name="host"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        placeholder=""
 
-                            <div>
-                                <h2 className='mb-6'>Header</h2>
-                                <div className="grid gap-10 md:grid-cols-2 mb-10">
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="uniqueId"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
-                                            placeholder=""
-                                            disabled
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Unique Id
-                                        </label>
-                                    </div>
-                                    <div className="relative">
-                                        <Field
-                                            type="textarea"
-                                            name="host"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            placeholder=""
-
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Host
-                                        </label>
-                                        <ErrorMessage name="host" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
-                                    <div className="relative">
-                                        <Field
-                                            type="text"
-                                            name="ContentType"
-                                            className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
-                                            placeholder=""
-                                        />
-                                        <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
-                                            Content Type
-                                        </label>
-                                        <ErrorMessage name="ContentType" component="div" className="text-sm mt-2 text-red" />
-                                    </div>
-
-
+                                    />
+                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                        Host
+                                    </label>
+                                    <ErrorMessage name="host" component="div" className="text-sm mt-2 text-red" />
                                 </div>
+                                <div className="relative">
+                                    <Field
+                                        type="text"
+                                        name="ContentType"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        placeholder=""
+                                    />
+                                    <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
+                                        Content Type
+                                    </label>
+                                    <ErrorMessage name="ContentType" component="div" className="text-sm mt-2 text-red" />
+                                </div>
+
+
                             </div>
-                            <div>
-                                <div className="grid gap-10 md:grid-cols-2 mb-10">
-                                    <div className='bg-bggray p-4 rounded'>
-                                        <h2 className='mb-4'>Request Parameter</h2>
-                                        <div>
-                                            {requestParams?.map((parameter, i) => {
+                        </div>
+                        <div>
+                            <div className="grid gap-10 md:grid-cols-2 mb-10">
+                                <div className='bg-bggray p-4 rounded'>
+                                    <h2 className='mb-4'>Request Parameter</h2>
+                                    <div>
+                                        {requestParams?.map((parameter, i) => {
 
-                                                return (
-                                                    <div key={i} className='mb-4'>
-                                                        {parameter?.fieldCategoryName && (
-                                                            <h3 className='text-bluedark'>
-                                                                {parameter?.fieldCategoryName}
-                                                            </h3>
-                                                        )}
+                                            return (
+                                                <div key={i} className='mb-4'>
+                                                    {parameter?.fieldCategoryName && (
+                                                        <h3 className='text-bluedark'>
+                                                            {parameter?.fieldCategoryName}
+                                                        </h3>
+                                                    )}
 
-                                                        {parameter?.fields?.map((field, index) => {
-                                                            return (
-                                                                <div key={index} className='flex items-center'>
-                                                                    <Field
-                                                                        type="checkbox"
-                                                                        name={field?.name}
-                                                                        className="rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
-                                                                        checked={field?.checked}
-                                                                        id={field?.name}
-                                                                        disabled={organizationIDValidationStatus != 'success'}
-                                                                        onChange={e => {
-                                                                            setSandboxPageData(prevData => {
-                                                                                const updatedData = prevData?.requestParams?.map(item => {
-                                                                                    if (item?.id === parameter?.id) {
-                                                                                        const updatedFields = parameter?.fields?.map(fi => {
-                                                                                            if (fi.name === field?.name) {
+                                                    {parameter?.fields?.map((field, index) => {
+                                                        return (
+                                                            <div key={index} className='flex items-center'>
+                                                                <Field
+                                                                    type="checkbox"
+                                                                    name={field?.name}
+                                                                    className="rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                                                    checked={field?.checked}
+                                                                    id={field?.name}
+                                                                    disabled={organizationIDValidationStatus != 'success'}
+                                                                    onChange={e => {
+                                                                        setSandboxPageData(prevData => {
+                                                                            const updatedData = prevData?.requestParams?.map(item => {
+                                                                                if (item?.id === parameter?.id) {
+                                                                                    const updatedFields = parameter?.fields?.map(fi => {
+                                                                                        if (fi.name === field?.name) {
 
-                                                                                                setFieldValue(field?.name, e.target.checked);
+                                                                                            setFieldValue(field?.name, e.target.checked);
 
-                                                                                                return {
-                                                                                                    ...fi,
-                                                                                                    checked: e.target.checked,
-                                                                                                }
+                                                                                            return {
+                                                                                                ...fi,
+                                                                                                checked: e.target.checked,
                                                                                             }
-
-                                                                                            return fi;
-                                                                                        })
-
-                                                                                        return {
-                                                                                            ...item,
-                                                                                            fields: updatedFields,
                                                                                         }
+
+                                                                                        return fi;
+                                                                                    })
+
+                                                                                    return {
+                                                                                        ...item,
+                                                                                        fields: updatedFields,
                                                                                     }
+                                                                                }
 
-                                                                                    return item;
-                                                                                })
+                                                                                return item;
+                                                                            })
 
-                                                                                // console.log(updatedData)
+                                                                            // console.log(updatedData)
 
-                                                                                return {
-                                                                                    ...prevData,
-                                                                                    requestParams: updatedData
-                                                                                };
-                                                                            });
-                                                                        }}
-                                                                    />
+                                                                            return {
+                                                                                ...prevData,
+                                                                                requestParams: updatedData
+                                                                            };
+                                                                        });
+                                                                    }}
+                                                                />
 
-                                                                    <div className='flex items-center'>
-                                                                        <label className="px-2 font-normal left-3 text-sm text-para text-nowrap">
-                                                                            {field?.name} {field.status === 'conditionally required' ? '*' : ''}
-                                                                        </label>
-
-
-                                                                        <Popover className="relative">
-                                                                            <Popover.Button className='disabled:text-para outline-none'>
-                                                                                <IoMdInformationCircle />
-                                                                            </Popover.Button>
-
-                                                                            <Popover.Panel className="absolute z-10 bg-white shadow rounded block sm:w-96 p-6">
-                                                                                {({ close }) => (
-                                                                                    <>
-                                                                                        <button className='absolute top-4 right-4' onClick={() => close()}>
-                                                                                            <IoCloseCircleSharp className='text-xl text-bluedark' />
-                                                                                        </button>
-                                                                                        <h2 className='mb-2 border-b border-gray pb-2'>
-                                                                                            <span className='font-semibold mr-2'>Field Name:</span>
-                                                                                            {field?.name}
-                                                                                        </h2>
-                                                                                        <h2 className='mb-2 border-b border-gray pb-2'>
-                                                                                            <span className='font-semibold mr-2'>Data Type:</span>
-                                                                                            <span className='bg-primary inline-block px-4 py-1 text-sm rounded'>
-                                                                                                {field?.dataType}
-                                                                                            </span>
-                                                                                        </h2>
-                                                                                        <h2 className='mb-2 border-b border-gray pb-2'>
-                                                                                            <span className='font-semibold mr-2'>Type:</span>
-                                                                                            <span className='capitalize'>{field?.status}</span>
-                                                                                        </h2>
-                                                                                        <h2 className='mb-2 border-b border-gray pb-2'>
-                                                                                            <span className='font-semibold mr-2'>Length and Type:</span>
-                                                                                            {field?.lengthAndType}
-                                                                                        </h2>
-                                                                                        <span className='font-semibold mb-2'>Definition</span>
-                                                                                        <p style={{ whiteSpace: 'pre-line' }}>{field.description}</p>
-                                                                                    </>
-                                                                                )}
-                                                                            </Popover.Panel>
-                                                                        </Popover>
-                                                                    </div>
+                                                                <div className='flex items-center'>
+                                                                    <label className="px-2 font-normal left-3 text-sm text-para text-nowrap">
+                                                                        {field?.name} {field.status === 'conditionally required' ? '*' : ''}
+                                                                    </label>
 
 
-                                                                    {field.status === 'conditionally required' && (
-                                                                        <ErrorMessage name={field?.name} component="div" className="text-sm text-red" />
-                                                                    )}
+                                                                    <Popover className="relative">
+                                                                        <Popover.Button className='disabled:text-para outline-none'>
+                                                                            <IoMdInformationCircle />
+                                                                        </Popover.Button>
+
+                                                                        <Popover.Panel className="absolute z-10 bg-white shadow rounded block sm:w-96 p-6">
+                                                                            {({ close }) => (
+                                                                                <>
+                                                                                    <button className='absolute top-4 right-4' onClick={() => close()}>
+                                                                                        <IoCloseCircleSharp className='text-xl text-bluedark' />
+                                                                                    </button>
+                                                                                    <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                        <span className='font-semibold mr-2'>Field Name:</span>
+                                                                                        {field?.name}
+                                                                                    </h2>
+                                                                                    <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                        <span className='font-semibold mr-2'>Data Type:</span>
+                                                                                        <span className='bg-primary inline-block px-4 py-1 text-sm rounded'>
+                                                                                            {field?.dataType}
+                                                                                        </span>
+                                                                                    </h2>
+                                                                                    <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                        <span className='font-semibold mr-2'>Type:</span>
+                                                                                        <span className='capitalize'>{field?.status}</span>
+                                                                                    </h2>
+                                                                                    <h2 className='mb-2 border-b border-gray pb-2'>
+                                                                                        <span className='font-semibold mr-2'>Length and Type:</span>
+                                                                                        {field?.lengthAndType}
+                                                                                    </h2>
+                                                                                    <span className='font-semibold mb-2'>Definition</span>
+                                                                                    <p style={{ whiteSpace: 'pre-line' }}>{field.description}</p>
+                                                                                </>
+                                                                            )}
+                                                                        </Popover.Panel>
+                                                                    </Popover>
                                                                 </div>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                    </div>
 
-                                    <div className='bg-bggray p-4 rounded relative'>
-                                        {/* <p>selectedSandboxTestCodes:{JSON.stringify(selectedSandboxTestCodes)}</p> */}
-                                        <h2 className='mb-4'>Sandbox Test Codes</h2>
-                                        <div>
-                                            <div className="editor-container">
-                                                <Editor
-                                                    value={selectedSandboxTestCodes}
-                                                    onValueChange={code => {
-                                                        setSelectedSandboxTestCodes(code);
-                                                    }}
-                                                    highlight={code => hightlightWithLineNumbers(code, languages.json)}
-                                                    padding={10}
-                                                    textareaId="codeArea"
-                                                    className="editor"
-                                                    style={{
-                                                        fontFamily: '"Fira code", "Fira Mono", monospace',
-                                                        fontSize: 18,
-                                                        outline: 0
-                                                    }}
-                                                />
-                                            </div>
-                                            {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
-                                        </div>
 
-                                        <button
-                                            className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-3 right-5'
-                                            type="button"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText(selectedSandboxTestCodes)
-                                                    .then(() => {
-                                                        toast("Copied");
-                                                    })
-                                                    .catch((error) => {
-                                                        console.error('Failed to copy JSON data: ', error);
-                                                    });
-                                            }}
-                                        >
-                                            COPY
-                                        </button>
+                                                                {field.status === 'conditionally required' && (
+                                                                    <ErrorMessage name={field?.name} component="div" className="text-sm text-red" />
+                                                                )}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            )
+                                        })}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
-                                <button type="submit" disabled={organizationIDValidationStatus != 'success' || error} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
-                                    Send
-                                </button>
-                                <button onClick={handleReset} disabled={organizationIDValidationStatus != 'success'} type="button" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray disabled:text-black">
-                                    Reset
-                                </button>
+                                <div className='bg-bggray p-4 rounded relative'>
+                                    <h2 className='mb-4'>Sandbox Test Codes</h2>
+                                    <div>
+                                        <div className="editor-container">
+                                            <Editor
+                                                value={selectedSandboxTestCodes}
+                                                onValueChange={code => {
+                                                    setSelectedSandboxTestCodes(code);
+                                                }}
+                                                highlight={code => hightlightWithLineNumbers(code, languages.json)}
+                                                padding={10}
+                                                textareaId="codeArea"
+                                                className="editor"
+                                                style={{
+                                                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                                                    fontSize: 18,
+                                                    outline: 0
+                                                }}
+                                            />
+                                        </div>
+                                        {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+                                    </div>
+
+                                    <button
+                                        className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-3 right-5'
+                                        type="button"
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(selectedSandboxTestCodes)
+                                                .then(() => {
+                                                    toast("Copied");
+                                                })
+                                                .catch((error) => {
+                                                    console.error('Failed to copy JSON data: ', error);
+                                                });
+                                        }}
+                                    >
+                                        COPY
+                                    </button>
+                                </div>
                             </div>
-                        </Form>
-                    )}
-                </Formik>
-            )}
+                        </div>
+
+                        <div className="mt-10 ltr:lg:text-right rtl:lg:text-left">
+                            <button type="submit" disabled={organizationIDValidationStatus != 'success' || error} className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white mr-6 disabled:bg-bggray disabled:text-black">
+                                Send
+                            </button>
+                            <button onClick={handleReset} disabled={organizationIDValidationStatus != 'success'} type="button" className="btn bg-bluedark hover:bg-bluelight py-2 px-12 rounded capitalize text-white disabled:bg-bggray disabled:text-black">
+                                Reset
+                            </button>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
+
 
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>

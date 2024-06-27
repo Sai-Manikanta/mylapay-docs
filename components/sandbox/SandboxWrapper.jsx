@@ -30,6 +30,7 @@ function SandboxWrapper() {
 
     useEffect(() => {
         if (query?.api) {
+            // FETCHING SANDBOX API Page Data from Database
             axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox-page-data/${query?.api}`)
                 .then(res => {
                     console.log(res.data.data)
@@ -57,45 +58,6 @@ function SandboxWrapper() {
 
     const apisAndcontentNotReadyPages = ["Status", "Network-Tokens", "Risk-Check", "Report-Fraud", "Dispute-Check", "Dispute-Action", "Fx-Checker", "BIN-Checker", "MCC-Checker", "Cost-Checker", "Disputes", "Risky-transaction"];
 
-    // const productManagementData = {
-    //     products: {
-    //         merchantPlugins: {
-    //             mylapay3DSSv23: false
-    //         },
-    //         authorization: {
-    //             payments: true,
-    //             reversal: true,
-    //             capture: true,
-    //             refund: false,
-    //             void: false,
-    //             status: false
-    //         },
-    //         networkTokens: {
-    //             networkTokens: false
-    //         },
-    //         risk: {
-    //             riskCheck: false,
-    //             reportFraud: false
-    //         },
-    //         dispute: {
-    //             disputeCheck: false,
-    //             disputeAction: false
-    //         },
-    //         valueAddedServices: {
-    //             fxChecker: false,
-    //             binChecker: false,
-    //             mccChecker: false,
-    //             costChecker: false
-    //         },
-    //         webhooks: {
-    //             disputes: false,
-    //             riskyTransactions: false
-    //         }
-    //     },
-    //     keyManagementFile: {}
-    // }
-
-
     return (
         <div>
             <div className='flex min-h-screen relative'>
@@ -116,24 +78,6 @@ function SandboxWrapper() {
                                 </Link>
                             </div>
                             <ul className="flex flex-col py-4 bg-white" style={{ maxHeight: 'calc(100vh - 3rem)', overflowY: 'auto', overflowX: 'hidden' }}>
-
-
-                                {/* <Link
-                                    href="/sandbox?api=Product-Management"
-                                    className={`
-                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                            ${(query?.api === 'API-Authentication') ? 'text-primary' : 'text-bluedark'}
-                                       `}
-                                >
-                                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                        <SiAuthelia />
-                                    </span>
-                                    <span className="text-sm font-medium text-left">
-                                        API Authentication
-                                    </span>
-                                </Link> */}
-
-                                {/* Product-Management */}
 
                                 <Link
                                     href="/sandbox?api=Product-Management"
@@ -402,19 +346,6 @@ function SandboxWrapper() {
                                                         Network Tokens
                                                     </span>
                                                 </button>
-
-                                                {/* <Link
-                                                    href="/sandbox?api=Network-Tokens"
-                                                    className={`
-                                             flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === 'Network-Tokens' ? 'text-primary' : 'text-bluedark'}
-                                        `}
-                                                >
-                                                    <span className="text-sm font-medium">
-                                                        Network Tokens
-                                                    </span>
-                                                </Link> */}
-
 
                                             </Disclosure.Panel>
                                         </>
@@ -740,9 +671,6 @@ function SandboxWrapper() {
                                     ))}
                                 </div>
 
-
-
-
                                 <Sandbox
                                     apiEndPoint={sandboxPageData?.apiEndPoint}
                                     requestParams={sandboxPageData?.requestParams}
@@ -806,10 +734,6 @@ function SandboxWrapper() {
                                             </li>
                                         </ul>
                                     </div>
-
-
-
-
 
                                     <ProductManagementForm 
                                         userId={user?._id} 

@@ -6,11 +6,7 @@ function sandbox() {
     return (
         <div>
             <Head>
-                <title>My page title</title>
-                <link
-                    rel="stylesheet"
-                    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
-                />
+                <title>Sandbox | Mylapay</title>
             </Head>
             <SandboxWrapper />
         </div>

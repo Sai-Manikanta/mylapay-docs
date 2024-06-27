@@ -62,3 +62,31 @@
   width: 40px;
   font-weight: 100;
 }
+
+
+/* Product Management Checkboxes */
+.custom-checkbox {
+        width: 20px; /* Adjust size as needed */
+        height: 20px; /* Adjust size as needed */
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 3px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .custom-checkbox::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px; /* Adjust size as needed */
+        height: 10px; /* Adjust size as needed */
+        background-color: #007bff; /* Color when checked */
+        display: none;
+    }
+
+    input[type="checkbox"]:checked + .custom-checkbox::before {
+        display: block;
+    }

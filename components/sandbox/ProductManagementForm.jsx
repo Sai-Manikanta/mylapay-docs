@@ -67,13 +67,14 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
             <form onSubmit={formik.handleSubmit} className="space-y-4">
                 {/* Merchant Plugins */}
                 <fieldset>
-                    <legend className="font-semibold">Merchant Plugins</legend>
-                    <label className="block">
+                    <legend className="font-semibold text-bluedark">Merchant Plugins</legend>
+                    <label className="flex items-center 6 text-[#475569] mt-1">
                         <input
                             type="checkbox"
                             name="products.merchantPlugins.mylapay3DSSv23"
                             checked={formik?.values?.products?.merchantPlugins?.mylapay3DSSv23}
                             onChange={formik?.handleChange}
+                            style={{ width: '30px', height: '15px' }}
                         />
                         Mylapay 3DSS v2.3
                     </label>
@@ -81,15 +82,16 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Authorization */}
                 <fieldset>
-                    <legend className="font-semibold">Authorization</legend>
-                    <div className="flex space-x-4">
+                    <legend className="font-semibold text-bluedark">Authorization</legend>
+                    <div className="flex space-x-6 text-[#475569] mt-1">
                         {['payments', 'reversal', 'capture', 'refund', 'void', 'status'].map((field) => (
-                            <label key={field} className="block">
+                            <label key={field} className="flex items-center">
                                 <input
                                     type="checkbox"
                                     name={`products.authorization.${field}`}
                                     checked={formik?.values?.products?.authorization?.[field]}
                                     onChange={formik?.handleChange}
+                                    style={{ width: '30px', height: '15px' }}
                                 />
                                 {field?.charAt(0)?.toUpperCase() + field?.slice(1)}
                             </label>
@@ -99,13 +101,14 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Network Tokens */}
                 <fieldset>
-                    <legend className="font-semibold">Network Tokens</legend>
-                    <label className="block">
+                    <legend className="font-semibold text-bluedark">Network Tokens</legend>
+                    <label className="flex items-center text-[#475569] mt-1">
                         <input
                             type="checkbox"
                             name="products.networkTokens.networkTokens"
                             checked={formik?.values?.products?.networkTokens?.networkTokens}
                             onChange={formik.handleChange}
+                            style={{ width: '30px', height: '15px' }}
                         />
                         Network Tokens
                     </label>
@@ -113,8 +116,8 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Risk */}
                 <fieldset>
-                    <legend className="font-semibold">Risk</legend>
-                    <div className="flex space-x-4">
+                    <legend className="font-semibold text-bluedark">Risk</legend>
+                    <div className="flex space-x-6 text-[#475569] mt-1">
                         {['riskCheck', 'reportFraud'].map((field) => (
                             <label key={field} className="block">
                                 <input
@@ -122,6 +125,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                                     name={`products.risk.${field}`}
                                     checked={formik?.values?.products?.risk?.[field]}
                                     onChange={formik.handleChange}
+                                    style={{ width: '30px', height: '15px' }}
                                 />
                                 {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
                             </label>
@@ -131,15 +135,16 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Dispute */}
                 <fieldset>
-                    <legend className="font-semibold">Dispute</legend>
-                    <div className="flex space-x-4">
+                    <legend className="font-semibold text-bluedark">Dispute</legend>
+                    <div className="flex space-x-6 text-[#475569] mt-1">
                         {['disputeCheck', 'disputeAction'].map((field) => (
-                            <label key={field} className="block">
+                            <label key={field} className="flex items-center">
                                 <input
                                     type="checkbox"
                                     name={`products.dispute.${field}`}
                                     checked={formik?.values?.products?.dispute?.[field]}
                                     onChange={formik.handleChange}
+                                    style={{ width: '30px', height: '15px' }}
                                 />
                                 {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
                             </label>
@@ -149,15 +154,16 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Value Added Services */}
                 <fieldset>
-                    <legend className="font-semibold">Value Added Services</legend>
-                    <div className="flex space-x-4">
+                    <legend className="font-semibold text-bluedark">Value Added Services</legend>
+                    <div className="flex space-x-6 text-[#475569] mt-1">
                         {['fxChecker', 'binChecker', 'mccChecker', 'costChecker'].map((field) => (
-                            <label key={field} className="block">
+                            <label key={field} className="flex items-center">
                                 <input
                                     type="checkbox"
                                     name={`products.valueAddedServices.${field}`}
                                     checked={formik?.values?.products?.valueAddedServices?.[field]}
                                     onChange={formik.handleChange}
+                                    style={{ width: '30px', height: '15px' }}
                                 />
                                 {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
                             </label>
@@ -167,15 +173,16 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Webhooks */}
                 <fieldset>
-                    <legend className="font-semibold">Webhooks</legend>
-                    <div className="flex space-x-4">
+                    <legend className="font-semibold text-bluedark">Webhooks</legend>
+                    <div className="flex space-x-6 text-[#475569] mt-1">
                         {['disputes', 'riskyTransactions'].map((field) => (
-                            <label key={field} className="block">
+                            <label key={field} className="flex items-center">
                                 <input
                                     type="checkbox"
                                     name={`products.webhooks.${field}`}
                                     checked={formik?.values?.products?.webhooks?.[field]}
                                     onChange={formik.handleChange}
+                                    style={{ width: '30px', height: '15px' }}
                                 />
                                 {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
                             </label>
@@ -185,7 +192,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
                 {/* Key Management */}
                 <div className="mt-4">
-                    <label className="block font-semibold">Key Management</label>
+                    <label className="block font-semibold text-bluedark">Key Management</label>
                     <input
                         type="file"
                         name="keyManagementFile"
