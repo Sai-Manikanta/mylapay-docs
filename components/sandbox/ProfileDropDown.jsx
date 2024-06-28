@@ -40,7 +40,7 @@ export default function ProfileDropDown() {
             <Menu.Item>
               <Link
                 className={`bg-white text-black flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
-                href="/"
+                href="/profile-update"
               >
                 <FiUser
                   className="mr-2"
