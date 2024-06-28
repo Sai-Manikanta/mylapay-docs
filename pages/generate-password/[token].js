@@ -13,7 +13,7 @@ function LoginPage() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      router.push('/sandbox?api=Product-Management');
+      router.push('/sandbox?api=3DSS-v2.2');
     }
   }, [router]);
 

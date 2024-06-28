@@ -265,19 +265,19 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
                                 <div className='bg-bggray p-4 rounded'>
                                     <h2 className='mb-4'>Request Parameter</h2>
                                     <div>
-                                        {requestParams?.map((parameter, i) => {
+                                        {requestParams?.map((parameter, paramIndex) => {
 
                                             return (
-                                                <div key={i} className='mb-4'>
+                                                <div key={paramIndex} className='mb-4'>
                                                     {parameter?.fieldCategoryName && (
                                                         <h3 className='text-bluedark'>
                                                             {parameter?.fieldCategoryName}
                                                         </h3>
                                                     )}
 
-                                                    {parameter?.fields?.map((field, index) => {
+                                                    {parameter?.fields?.map((field, fieldIndex) => {
                                                         return (
-                                                            <div key={index} className='flex items-center'>
+                                                            <div key={fieldIndex} className='flex items-center'>
                                                                 <Field
                                                                     type="checkbox"
                                                                     name={field?.name}
@@ -286,9 +286,30 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
                                                                     id={field?.name}
                                                                     disabled={organizationIDValidationStatus != 'success'}
                                                                     onChange={e => {
+                                                                        // console.log({
+                                                                        //     parameterFieldCategoryName: parameter?.fieldCategoryName
+                                                                        // })  
                                                                         setSandboxPageData(prevData => {
-                                                                            const updatedData = prevData?.requestParams?.map(item => {
-                                                                                if (item?.id === parameter?.id) {
+                                                                            const updatedData = prevData?.requestParams?.map((item, itemIndex) => {
+                                                                                // if(parameter?.fieldCategoryName === item?.fieldCategoryName){
+                                                                                //     console.log({
+                                                                                //         item: item.fieldCategoryName,
+                                                                                //         match: parameter?.fieldCategoryName === item?.fieldCategoryName,
+                                                                                //         parameterFieldCategoryName: parameter?.fieldCategoryName,
+                                                                                //         itemFieldCategoryName: item?.fieldCategoryName,
+                                                                                //     })
+                                                                                // }
+
+                                                                                // console.log({
+                                                                                //     paramIndex,
+                                                                                //     fieldIndex,
+                                                                                //     itemIndex
+                                                                                // })
+                                                                                
+                                                                                // item?.id === parameter?.id - previous
+                                                                                // parameter?.fieldCategoryName === item?.fieldCategoryName - new 
+                                                                                //  paramIndex === itemIndex - based on index
+                                                                                if (paramIndex === itemIndex) {
                                                                                     const updatedFields = parameter?.fields?.map(fi => {
                                                                                         if (fi.name === field?.name) {
 
@@ -311,8 +332,6 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
                                                                                 return item;
                                                                             })
-
-                                                                            // console.log(updatedData)
 
                                                                             return {
                                                                                 ...prevData,

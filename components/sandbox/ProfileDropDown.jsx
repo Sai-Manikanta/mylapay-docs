@@ -52,20 +52,6 @@ export default function ProfileDropDown() {
             </Menu.Item>
             <hr className='text-[#E4E4E7]' />
             <Menu.Item>
-              <Link
-                className={`${query?.api === "Product-Management" ? 'bg-bluedark text-white' : 'bg-white text-black'} flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
-                href="/"
-              >
-                <IoIosGitNetwork
-                  className="mr-2"
-                  size="1.2rem"
-                  aria-hidden="true"
-                />
-                Product Management
-              </Link>
-            </Menu.Item>
-            <hr className='text-[#E4E4E7]' />
-            <Menu.Item>
               <button
                 className={`bg-white text-black flex w-full items-center rounded-md px-2 py-2 text-sm hover:bg-bluedark hover:text-white`}
                 onClick={handleLogout}

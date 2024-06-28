@@ -10,7 +10,7 @@ const validationSchema = Yup.object().shape({
     // Username: Yup.string().required('Username is required'),
     Username: Yup.string().email('Invalid email format').required('Username is required'),
     Password: Yup.string().required('Password is required'),
-    ['2FACode']: Yup.string().required('Password is required'),
+    ['2FACode']: Yup.string().required('2FA Code is required'),
     // SecretKey: Yup.string().required('Secret Key is required'),
 });
 
@@ -30,7 +30,7 @@ const LoginForm = () => {
             });
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
-            router.push('/sandbox?api=Product-Management');
+            router.push('/product-management');
         } catch (error) {
             if (error.response && error.response.data && error.response.data.error) {
                 setErrors({ serverError: error.response.data.error });

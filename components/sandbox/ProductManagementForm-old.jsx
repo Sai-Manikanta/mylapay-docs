@@ -43,11 +43,11 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                 //     riskyTransactions: false,
                 // },
             },
-            keyManagementFile: null,
+            // keyManagementFile: null,
         },
-        validationSchema: Yup.object({
-            keyManagementFile: Yup.mixed().required('A file is required'),
-        }),
+        // validationSchema: Yup.object({
+        //     keyManagementFile: Yup.mixed().required('A file is required'),
+        // }),
         onSubmit: async (values) => {
             try {
                 const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${userId}`, values);
@@ -191,7 +191,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                 </fieldset>
 
                 {/* Key Management */}
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <label className="block font-semibold text-bluedark">Key Management</label>
                     <input
                         type="file"
@@ -200,7 +200,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                         className="mt-1"
                     />
                     {formik.errors.keyManagementFile ? <div className="text-[#EF4444]">{formik.errors.keyManagementFile}</div> : null}
-                </div>
+                </div> */}
 
                 {/* Buttons */}
                 <div className="mt-4 space-x-2">
