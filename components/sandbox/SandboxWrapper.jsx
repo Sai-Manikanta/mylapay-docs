@@ -46,12 +46,14 @@ function SandboxWrapper() {
                     setSandboxPageData({});
                     setDataLoading(false);
                 })
+        } else {
+            setDataLoading(false);
         }
     }, [query?.api])
 
     useEffect(() => {
         if (user?._id) {
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${user?._id}`)
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${user?._id}`)
                 .then(res => {
                     setProductManagementData(res.data);
                 })
@@ -781,7 +783,7 @@ function SandboxWrapper() {
                             </div>
                         )}
 
-                        {!dataLoading && !apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'API-Authentication' && Object.entries(sandboxPageData).length > 0 && (
+                        {!dataLoading && !apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'Product-Management' && query?.api !== 'Key-Management' && Object.entries(sandboxPageData).length > 0 && (
                             <>
                                 <div className='bg-white rounded py-6 px-8 mb-8'>
                                     {/* <p>{JSON.stringify(sandboxPageData)}</p> */}
@@ -857,7 +859,7 @@ function SandboxWrapper() {
                             <KeyManagement />
                         )}
 
-                        {!(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && query?.api !== "Key-Management" && (
+                        {!dataLoading && !(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && query?.api !== "Key-Management" && (
                             <div className="bg-white p-8 rounded-lg shadow-lg w-full text-center">
                                 <h2 className="text-2xl font-semibold mb-4">Coming Soon!</h2>
                                 <p className="text-gray-700 mb-4">

@@ -95,7 +95,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-6 text-bluedark">Explore our Products</h2>
+            <h2 className="text-2xl font-bold mb-6 text-bluedark">Choose our Products</h2>
             <form onSubmit={formik.handleSubmit} className="space-y-4">
                 <div className="text-[#475569] mt-1">
                     {productsData.map((field) => (
