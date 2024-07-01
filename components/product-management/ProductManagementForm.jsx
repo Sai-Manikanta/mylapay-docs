@@ -23,7 +23,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
         onSubmit: async (values) => {
             // console.log({ userId, products: { ...values } });
             try {
-                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${userId}`, { products: values });
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${userId}`, { products: values });
 
                 setProductManagementData(response.data);
                 toast.success("Your Product Management data has been successfully updated.");
@@ -33,6 +33,27 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
         },
         enableReinitialize: true
     });
+
+    const handleReset = async () => {
+        try {
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${userId}`, {
+                products: {
+                    merchantPlugins: false,
+                    authorization: false,
+                    networkTokens: false,
+                    risk: false,
+                    dispute: false,
+                    valueAddedServices: false,
+                    webhooks: false
+                }
+            });
+
+            setProductManagementData(response.data);
+            toast.success("Your product management data has been reset successfully.");
+        } catch (error) {
+            toast.error("Something went wrong. Please try again.");
+        }
+    }
 
     const productsData = [
         {
@@ -103,7 +124,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                     <button type="submit" className="px-4 py-2 bg-bluedark text-white rounded">
                         Save Changes
                     </button>
-                    <button type="button" className="px-4 py-2 bg-bluedark text-white rounded" onClick={formik.handleReset}>
+                    <button type="button" className="px-4 py-2 bg-bluedark text-white rounded" onClick={handleReset}>
                         Reset
                     </button>
                 </div>

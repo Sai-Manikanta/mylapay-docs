@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Inter } from "next/font/google";
 import axios from 'axios';
-import Header from '../components/layout/Header'
-import Footer from '../components/layout/Footer'
-import ProductManagementForm from "../components/product-management/ProductManagementForm";
-import { useLoginStatus } from '../hooks/useLoginStatus';
+// import Header from '../components/layout/Header'
+// import Footer from '../components/layout/Footer'
+import ProductManagementForm from "./ProductManagementForm";
+import { useLoginStatus } from '../../hooks/useLoginStatus';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +27,8 @@ function ProductManagement() {
 
     return (
         <div className={`${inter.className}`}>
-            <Header />
-            <div className='bg-white wrapper my-16'>
+            {/* <Header /> */}
+            <div className='bg-white wrapper p-12'>
                 <div>
                     <div>
 
@@ -51,7 +51,6 @@ function ProductManagement() {
                         <p className="mb-4 text-gray-700 font-semibold">
                             The following credentials are required to successfully authenticate and setup the sandbox environment:
                         </p>
-
 
                         <ul className="list-decimal list-inside mb-6 text-gray-700">
                             <li className="mb-2">
@@ -92,7 +91,7 @@ function ProductManagement() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

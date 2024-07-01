@@ -8,44 +8,50 @@ import { IoMenuSharp, IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdClose, IoMdHome } from "react-icons/io";
 import { SiMicrosoftaccess } from "react-icons/si";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { SiAuthelia } from "react-icons/si";
+// import { SiAuthelia } from "react-icons/si";
 import { MdOutlineToken } from "react-icons/md";
 import { LiaFighterJetSolid } from "react-icons/lia";
 import { GrBusinessService } from "react-icons/gr";
 import { PiWebhooksLogo } from "react-icons/pi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BsPlugin } from "react-icons/bs";
 import { HiOutlineHome } from "react-icons/hi";
 import Sandbox from './SandboxForm';
 import ProfileDropDown from './ProfileDropDown';
 import { useLoginStatus } from '../../hooks/useLoginStatus'
 import mylapaylogo from '../../public/mylapaylogo.png';
+import ProductManagement from '../product-management/ProductManagement';
+import KeyManagement from './KeyManagement';
 
 function SandboxWrapper() {
     const [showSidebar, setShowSidebar] = useState(false);
     const [sandboxPageData, setSandboxPageData] = useState({});
     const [productManagementData, setProductManagementData] = useState({});
+    const [dataLoading, setDataLoading] = useState(true);
     const { user } = useLoginStatus();
     const router = useRouter();
     const { query } = router;
 
     useEffect(() => {
-        if (query?.api) {
+        const dataLoadNotRequiredRoutes = ['Product-Management', 'Key-Management'];
+        if (query?.api && !dataLoadNotRequiredRoutes.includes(query?.api)) {
             // FETCHING SANDBOX API Page Data from Database
+            setDataLoading(true);
             axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox-page-data/${query?.api}`)
                 .then(res => {
-                    console.log(res.data.data)
                     setSandboxPageData(res.data.data)
+                    setDataLoading(false);
                 })
                 .catch(err => {
-                    setSandboxPageData({})
-                    console.log(err)
+                    setSandboxPageData({});
+                    setDataLoading(false);
                 })
         }
     }, [query?.api])
 
     useEffect(() => {
         if (user?._id) {
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${user?._id}`)
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${user?._id}`)
                 .then(res => {
                     setProductManagementData(res.data);
                 })
@@ -100,10 +106,10 @@ function SandboxWrapper() {
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="text-gray-500 pl-10">
                                                 <button
-                                                    onClick={() => router.push('/product-management')}
+                                                    onClick={() => router.push('/sandbox?api=Product-Management')}
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             text-bluedark
+                                              ${query?.api === 'Product-Management' ? 'text-primary' : 'text-bluedark'}
                                              disabled:opacity-50
                                         `}
                                                 >
@@ -113,11 +119,11 @@ function SandboxWrapper() {
                                                 </button>
 
                                                 <button
-                                                    onClick={() => router.push('/key-management')}
+                                                    onClick={() => router.push('/sandbox?api=Key-Management')}
                                                     // disabled={!productManagementData?.merchantPlugins?.mylapay3DSSv23}
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                             ${query?.api === '3DSS-v2.3' ? 'text-primary' : 'text-bluedark'}
+                                             ${query?.api === 'Key-Management' ? 'text-primary' : 'text-bluedark'}
                                              disabled:opacity-50
                                         `}
                                                 >
@@ -136,7 +142,7 @@ function SandboxWrapper() {
                                             <Disclosure.Button
                                                 className={`
                                             flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                            ${(query?.api === 'Payment-Aggregator') ? 'text-primary' : 'text-bluedark'}
+                                            ${['Payment-Aggregator'].includes(query?.api) ? 'text-primary' : 'text-bluedark'}
                                        `}
                                             >
                                                 <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
@@ -184,6 +190,33 @@ function SandboxWrapper() {
                                                 </button>
 
 
+                                                <button
+                                                    onClick={() => router.push('/sandbox?api=Payment-Aggregator-Risk')}
+                                                    // disabled={!productManagementData?.authorization?.capture}
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Payment-Aggregator-Risk' ? 'text-primary' : 'text-bluedark'}
+                                             disabled:opacity-50
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                        Payment Aggregator Risk
+                                                    </span>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => router.push('/sandbox?api=Merchant-Risk')}
+                                                    // disabled={!productManagementData?.authorization?.capture}
+                                                    className={`
+                                             flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                             ${query?.api === 'Merchant-Risk' ? 'text-primary' : 'text-bluedark'}
+                                             disabled:opacity-50
+                                        `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                        Merchant Risk
+                                                    </span>
+                                                </button>
                                             </Disclosure.Panel>
                                         </>
                                     )}
@@ -191,7 +224,24 @@ function SandboxWrapper() {
 
                                 </Disclosure>
 
-                                <Disclosure as="li" defaultOpen={true}>
+                                <li>
+                                    <button
+                                        className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === '3DSS-v2.3') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                        onClick={() => router.push('/sandbox?api=3DSS-v2.3')}
+                                    >
+                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                            <BsPlugin />
+                                        </span>
+                                        <span className="text-sm font-medium text-left">
+                                            3DSS V2.3
+                                        </span>
+                                    </button>
+                                </li>
+
+                                {/* <Disclosure as="li" defaultOpen={true}>
                                     {({ open }) => (
                                         <>
                                             <Disclosure.Button
@@ -214,7 +264,6 @@ function SandboxWrapper() {
                                             <Disclosure.Panel className="text-gray-500 pl-10">
                                                 <button
                                                     onClick={() => router.push('/sandbox?api=3DSS-v2.2')}
-                                                    // disabled={!productManagementData?.merchantPlugins?.mylapay3DSSv23}
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
                                              ${query?.api === '3DSS-v2.2' ? 'text-primary' : 'text-bluedark'}
@@ -228,7 +277,6 @@ function SandboxWrapper() {
 
                                                 <button
                                                     onClick={() => router.push('/sandbox?api=3DSS-v2.3')}
-                                                    // disabled={!productManagementData?.merchantPlugins?.mylapay3DSSv23}
                                                     className={`
                                              flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
                                              ${query?.api === '3DSS-v2.3' ? 'text-primary' : 'text-bluedark'}
@@ -242,7 +290,7 @@ function SandboxWrapper() {
                                             </Disclosure.Panel>
                                         </>
                                     )}
-                                </Disclosure>
+                                </Disclosure> */}
 
                                 <Disclosure as="li" defaultOpen={false}>
                                     {({ open }) => (
@@ -359,9 +407,27 @@ function SandboxWrapper() {
                                     )}
                                 </Disclosure>
 
-                              
 
-                                <Disclosure as="li" defaultOpen={false}>
+                                <li>
+                                    <button
+                                        className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Network-Tokens') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                        onClick={() => router.push('/sandbox?api=Network-Tokens')}
+                                    >
+                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                            <MdOutlineToken />
+                                        </span>
+                                        <span className="text-sm font-medium text-left">
+                                            Network Tokens
+                                        </span>
+                                    </button>
+                                </li>
+
+
+
+                                {/* <Disclosure as="li" defaultOpen={false}>
                                     {({ open }) => (
                                         <>
                                             <Disclosure.Button
@@ -404,7 +470,7 @@ function SandboxWrapper() {
                                     )}
 
 
-                                </Disclosure>
+                                </Disclosure> */}
 
                                 <Disclosure as="li" defaultOpen={false}>
                                     {({ open }) => (
@@ -648,7 +714,7 @@ function SandboxWrapper() {
     `}
                                                 >
                                                     <span className="text-sm font-medium">
-                                                        Risky transaction
+                                                        Risky Transaction
                                                     </span>
                                                 </button>
 
@@ -708,7 +774,14 @@ function SandboxWrapper() {
 
                     <div className='p-8 bg-bggray min-h-screen'>
 
-                        {!apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'API-Authentication' && Object.entries(sandboxPageData).length > 0 && (
+                        {dataLoading && (
+                            <div className='h-52 flex flex-col justify-center items-center bg-white'>
+                                <AiOutlineLoading3Quarters size="2rem" className='text-bluedark animate-spin' />
+                                <span className='text-bluedark mt-2'>Loading...</span>
+                            </div>
+                        )}
+
+                        {!dataLoading && !apisAndcontentNotReadyPages.includes(query?.api) && query?.api !== 'API-Authentication' && Object.entries(sandboxPageData).length > 0 && (
                             <>
                                 <div className='bg-white rounded py-6 px-8 mb-8'>
                                     {/* <p>{JSON.stringify(sandboxPageData)}</p> */}
@@ -736,7 +809,7 @@ function SandboxWrapper() {
                             </>
                         )}
 
-                        {query?.api === 'API-Authentication' && (
+                        {!dataLoading && query?.api === 'API-Authentication' && (
                             <div className="min-h-screen flex flex-col items-center justify-center">
                                 <div className=" bg-white shadow-lg rounded-lg p-8 ">
                                     <h2 className="text-2xl font-bold mb-6 text-bluedark">Mylapay API Authentication Process and Sandbox Setup</h2>
@@ -775,7 +848,16 @@ function SandboxWrapper() {
                             </div>
                         )}
 
-                        {!(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && (
+
+                        {!dataLoading && query?.api === 'Product-Management' && (
+                            <ProductManagement />
+                        )}
+
+                        {!dataLoading && query?.api === "Key-Management" && (
+                            <KeyManagement />
+                        )}
+
+                        {!(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && query?.api !== "Key-Management" && (
                             <div className="bg-white p-8 rounded-lg shadow-lg w-full text-center">
                                 <h2 className="text-2xl font-semibold mb-4">Coming Soon!</h2>
                                 <p className="text-gray-700 mb-4">

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Inter } from "next/font/google";
-import axios from 'axios';
+// import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Header from '../components/layout/Header'
-import Footer from '../components/layout/Footer'
+// import Header from '../components/layout/Header'
+// import Footer from '../components/layout/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoginStatus } from '../hooks/useLoginStatus';
+import { useLoginStatus } from '../../hooks/useLoginStatus';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -73,8 +73,8 @@ function ProductManagement() {
 
     return (
         <div className={`${inter.className}`}>
-            <Header />
-            <div className={`bg-white wrapper py-16`}>
+            {/* <Header /> */}
+            <div className={`bg-white wrapper p-12`}>
                 <h2 className="text-2xl font-bold mb-6 text-bluedark">Key Management</h2>
                 <form onSubmit={formik.handleSubmit} className="space-y-4">
                     <div>
@@ -107,7 +107,7 @@ function ProductManagement() {
                 </form>
                 <ToastContainer />
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

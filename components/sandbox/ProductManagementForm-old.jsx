@@ -50,7 +50,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
         // }),
         onSubmit: async (values) => {
             try {
-                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${userId}`, values);
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${userId}`, values);
 
                 setProductManagementData(response.data);
                 toast.success("Your Product Management data has been successfully updated.");
