@@ -14,7 +14,7 @@ function ProductManagement() {
 
     useEffect(() => {
         if (user?._id) {
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/sandbox?api=Product-Management/${user?._id}`)
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${user?._id}`)
                 .then(res => {
                     setProductManagementData(res.data);
                 })

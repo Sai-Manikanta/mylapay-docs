@@ -5,7 +5,7 @@ import { Listbox } from '@headlessui/react';
 import axios from 'axios';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { countryList } from '../../data/countryList';
-// import RegisterSuccessModel from './RegisterSuccessModel';
+import RegisterSuccessModel from './RegisterSuccessModel';
 import { FaRegSquare, FaRegCheckSquare } from "react-icons/fa";
 import DatePicker from 'react-datepicker';
 import { ToastContainer, toast } from 'react-toastify';
@@ -32,6 +32,7 @@ const validationSchema = Yup.object().shape({
 
 const ProfileUpdateForm = () => {
     const [loading, setLoading] = useState(false);
+    const [profileData, setProfileData] = useState(null);
     const [initialValues, setInitialValues] = useState({
         entityName: '',
         firstName: '',
@@ -45,8 +46,9 @@ const ProfileUpdateForm = () => {
         dateOfIncorporation: null,
         typeOfEntity: ''
     });
-    const { token } = useLoginStatus();
+    const [isOpen, setIsOpen] = useState(false);
 
+    const { token } = useLoginStatus();
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -59,6 +61,8 @@ const ProfileUpdateForm = () => {
 
                 const userData = response.data.user;
 
+                setProfileData(userData);
+
                 setInitialValues({
                     entityName: userData.entityName,
                     firstName: userData.firstName,
@@ -68,7 +72,7 @@ const ProfileUpdateForm = () => {
                     email: userData.email,
                     mobileNumber: userData.mobileNumber,
                     dateOfIncorporation: userData.dateOfIncorporation,
-                    typeOfEntity: userData.typeOfEntity 
+                    typeOfEntity: userData.typeOfEntity
                 });
             } catch (error) {
                 // toast.error('Error while fetching profile data')
@@ -79,16 +83,41 @@ const ProfileUpdateForm = () => {
     }, [token]);
 
     const handleSignup = async (values, { setSubmitting, setErrors }) => {
-        console.log(values)
-        setLoading(true)
+
+        let data = {};
+
+        if(profileData.firstName !== values.firstName){
+            data.firstName = values.firstName
+        }
+
+        if(profileData.lastName !== values.lastName){
+            data.lastName = values.lastName
+        }
+
+        if(profileData.mobileNumber !== values.mobileNumber){
+            data.mobileNumber = values.mobileNumber
+        }
+
+        const keys = Object.keys(data);
+        const keysLength = keys.length;
+
+        if(!keysLength){
+            return toast.info('No changes!')
+        }
+        
+        console.log(data);
+
+        setLoading(true);
+
         try {
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/profile-update`, values, {
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/update-profile`, { changes: data }, {
                 headers: {
                     Authorization: token
                 }
             });
             // setIsOpen(true);
-            toast.success('Profile data updated successfully.')
+            setIsOpen(true);
+            // toast.success('Profile data updated successfully.')
         } catch (err) {
             if (err.response) {
                 console.log(err.response.data);
@@ -120,14 +149,15 @@ const ProfileUpdateForm = () => {
                 >
                     {({ errors, touched, values, setFieldValue, isSubmitting }) => (
                         <Form className="rounded-3xl bg-[#fff] px-4 py-8 lg:px-8">
-                            <div className="grid gap-10 md:grid-cols-3 mb-10">
+                            <div className="grid gap-10 md:grid-cols-1 mb-10 max-w-md mx-auto">
 
                                 <div className="relative">
                                     <Field
                                         type="text"
                                         name="entityName"
-                                        className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12"
+                                        className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
                                         placeholder=" "
+                                        disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         Entity Name
@@ -141,11 +171,12 @@ const ProfileUpdateForm = () => {
                                         as="div"
                                         value={values.typeOfEntity}
                                         onChange={selectedOption => setFieldValue('typeOfEntity', selectedOption)}
+                                        disabled={true}
                                     >
                                         {({ open }) => (
                                             <>
                                                 <div className="mt-2 relative">
-                                                    <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg border border-gray/30 cursor-default focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 focus:ring-offset-2 focus:ring-offset-gray-100 sm:text-sm">
+                                                    <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-bggray rounded-lg border border-gray/30 cursor-default focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75 focus:ring-offset-2 focus:ring-offset-gray-100 sm:text-sm">
                                                         <span className="block truncate">
                                                             {values.typeOfEntity ? values.typeOfEntity : 'Select a Type of Entity'}
                                                         </span>
@@ -193,8 +224,9 @@ const ProfileUpdateForm = () => {
                                         selected={values.dateOfIncorporation}
                                         onChange={date => setFieldValue('dateOfIncorporation', date)}
                                         dateFormat="dd-MM-yyyy"
-                                        className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition"
+                                        className="w-full bg-white rounded-md border border-gray/30 bg-transparent p-2 font-normal text-para text-sm outline-none transition  disabled:bg-bggray"
                                         placeholderText=" "
+                                        disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         Date of Incorporation
@@ -232,8 +264,9 @@ const ProfileUpdateForm = () => {
                                     <Field
                                         type="text"
                                         name="email"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
                                         placeholder=" "
+                                        disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         Email
@@ -259,7 +292,8 @@ const ProfileUpdateForm = () => {
                                         as="select"
                                         id="country"
                                         name="country"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
+                                        disabled
                                     >
                                         <option value="">Choose country</option>
                                         {countryList.map(country => (
@@ -289,8 +323,9 @@ const ProfileUpdateForm = () => {
                                     <Field
                                         type="text"
                                         name="pincode"
-                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12"
+                                        className="w-full rounded-md border border-gray/30 bg-transparent p-2 font-normal text-sm text-para outline-none transition ltr:pr-12 rtl:pl-12 disabled:bg-bggray"
                                         placeholder=" "
+                                        disabled
                                     />
                                     <label className="absolute -top-3 bg-white px-2 font-normal left-3 text-sm text-para">
                                         Pincode
@@ -370,7 +405,7 @@ const ProfileUpdateForm = () => {
                     )}
                 </Formik>
             </div>
-            {/* <RegisterSuccessModel isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+            <RegisterSuccessModel isOpen={isOpen} setIsOpen={setIsOpen} />
             <ToastContainer />
         </div>
     );
