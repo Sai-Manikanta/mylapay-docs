@@ -81,9 +81,9 @@ const MFAVerification = () => {
                 </Formik>
 
                 <div>
-                    <h6>Try Another Way</h6>
+                    <h6>QR Expired?</h6>
                     <div className="flex space-x-4 text-blue-500 mt-2">
-                        <button className="underline">Send Email</button>
+                        {/* <button className="underline">Send Email</button> */}
                         <button className="underline">Generate New QR</button>
                     </div>
                 </div>

@@ -72,32 +72,32 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
         {
             labelText: 'Authorization',
             nameText: 'authorization',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Switch to smarter, speed, safer payments with Mylapay and elevate your payment experience with higher success rates.'
         },
         {
             labelText: 'Network Tokens',
             nameText: 'networkTokens',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Mylapay’s Network Tokenization allows customer’s card details to be stored securely and be used for recurring transactions'
         },
         {
             labelText: 'Risk',
             nameText: 'risk',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Mylapay’s IntelleWatch Fraud and Risk Management product enables you to keep a check on fraudulent transactions up to 99.999%'
         },
         {
             labelText: 'Dispute',
             nameText: 'dispute',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Using our Dispute API, you can respond to disputes and chargebacks instantly.'
         },
         {
             labelText: 'Value Added Services',
             nameText: 'valueAddedServices',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Our VAS includes FX, BIN, MCC and Cost Checkers that will help you to validate and verify customer information before accepting payments.'
         },
         {
             labelText: 'Webhooks',
             nameText: 'webhooks',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
+            description: 'Get real-time notifications about status updates, newly available reports, and other important events like refund issued or chargeback through our webhooks.'
         }
     ]
 
