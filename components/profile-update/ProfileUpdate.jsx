@@ -46,6 +46,7 @@ const ProfileUpdateForm = () => {
         dateOfIncorporation: null,
         typeOfEntity: ''
     });
+    const [productManagementData, setProductManagementData] = useState({});
     const [isOpen, setIsOpen] = useState(false);
 
     const { token } = useLoginStatus();
@@ -82,29 +83,51 @@ const ProfileUpdateForm = () => {
         fetchProfileData();
     }, [token]);
 
+
+    useEffect(() => {
+        if (token) {
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, {
+                headers: {
+                    Authorization: token
+                }
+            })
+                .then(res => {
+                    // const chosenProductsData = Object?.keys(res?.data?.products)?.filter(key => data[key]);
+                    // console.log(chosenProductsData)
+                    // const prodData = res?.data?.products;
+                    
+                    setProductManagementData(res?.data?.products);
+                })
+                .catch(err => {
+                    setProductManagementData({})
+                    console.log(err)
+                })
+        }
+    }, [token])
+
     const handleSignup = async (values, { setSubmitting, setErrors }) => {
 
         let data = {};
 
-        if(profileData.firstName !== values.firstName){
+        if (profileData.firstName !== values.firstName) {
             data.firstName = values.firstName
         }
 
-        if(profileData.lastName !== values.lastName){
+        if (profileData.lastName !== values.lastName) {
             data.lastName = values.lastName
         }
 
-        if(profileData.mobileNumber !== values.mobileNumber){
+        if (profileData.mobileNumber !== values.mobileNumber) {
             data.mobileNumber = values.mobileNumber
         }
 
         const keys = Object.keys(data);
         const keysLength = keys.length;
 
-        if(!keysLength){
+        if (!keysLength) {
             return toast.info('No changes!')
         }
-        
+
         console.log(data);
 
         setLoading(true);
@@ -138,7 +161,7 @@ const ProfileUpdateForm = () => {
     return (
         <div className='pt-12 pb-8'>
             <h2 className="text-xl font-bold text-bluedark sm:text-3xl md:text-3xl text-center mb-8 px-2">
-                Your Profile Data
+                Your Profile
             </h2>
             <div className="relative z-10 bg-[#fff] rounded-xl border-gray/20 m-4 sm:m-0">
                 <Formik
@@ -388,6 +411,27 @@ const ProfileUpdateForm = () => {
                                     </Listbox>
                                     <ErrorMessage name="productOfInterest" component="div" className="text-sm mt-2 text-red" />
                                 </div> */}
+
+                                {/* <p>{JSON.stringify(productManagementData)}</p>
+                                <p>{JSON.stringify(Object?.keys(productManagementData)?.filter(key => productManagementData[key]))}</p> */}
+
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-4 text-bluedark">
+                                        {Object?.keys(productManagementData)?.filter(key => productManagementData[key])?.length ? "Chosen Products" : "No Products Chosen"}
+                                    </h3>
+                                    <div className="flex flex-wrap space-x-1 space-y-2 justify-start items-end">
+                                        {Object?.keys(productManagementData)?.filter(key => productManagementData[key])?.map((item, i) => {
+                                            return (
+                                                <span key={i} className="px-4 py-1 bg-bluedark text-primary rounded-full capitalize">
+                                                    {item}
+                                                </span>
+                                            )
+                                        })}
+                                        {/* <span className="px-4 py-1 bg-bluedark text-primary rounded-full">3dSS</span>
+                                        <span className="px-4 py-1 bg-bluedark text-primary rounded-full">Intelliengine</span>
+                                        <span className="px-4 py-1 bg-bluedark text-primary rounded-full">Rupos</span> */}
+                                    </div>
+                                </div>
 
 
 

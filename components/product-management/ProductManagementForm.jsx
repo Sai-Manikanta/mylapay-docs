@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ProductManagementForm = ({ userId, productManagementData, setProductManagementData }) => {
+const ProductManagementForm = ({ userToken, productManagementData, setProductManagementData }) => {
     const formik = useFormik({
         initialValues: {
             ...productManagementData.products
@@ -23,7 +23,11 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
         onSubmit: async (values) => {
             // console.log({ userId, products: { ...values } });
             try {
-                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${userId}`, { products: values });
+                const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, { products: values }, {
+                    headers: {
+                        Authorization: userToken
+                    }
+                });
 
                 setProductManagementData(response.data);
                 toast.success("Your Product Management data has been successfully updated.");
@@ -36,7 +40,7 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
 
     const handleReset = async () => {
         try {
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${userId}`, {
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, {
                 products: {
                     merchantPlugins: false,
                     authorization: false,
@@ -45,6 +49,10 @@ const ProductManagementForm = ({ userId, productManagementData, setProductManage
                     dispute: false,
                     valueAddedServices: false,
                     webhooks: false
+                }
+            }, {
+                headers: {
+                    Authorization: userToken
                 }
             });
 

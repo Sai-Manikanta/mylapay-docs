@@ -10,11 +10,15 @@ const inter = Inter({ subsets: ["latin"] });
 
 function ProductManagement() {
     const [productManagementData, setProductManagementData] = useState({});
-    const { user } = useLoginStatus();
+    const { token } = useLoginStatus();
 
     useEffect(() => {
-        if (user?._id) {
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${user?._id}`)
+        if (token) {
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, {
+                headers: {
+                    Authorization: token
+                }
+            })
                 .then(res => {
                     setProductManagementData(res.data);
                 })
@@ -23,7 +27,7 @@ function ProductManagement() {
                     console.log(err)
                 })
         }
-    }, [user?._id])
+    }, [token])
 
     return (
         <div className={`${inter.className}`}>
@@ -83,7 +87,7 @@ function ProductManagement() {
                         </div>
 
                         <ProductManagementForm
-                            userId={user?._id}
+                            userToken={token}
                             productManagementData={productManagementData}
                             setProductManagementData={setProductManagementData}
                         />

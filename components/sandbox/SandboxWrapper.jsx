@@ -28,7 +28,7 @@ function SandboxWrapper() {
     const [sandboxPageData, setSandboxPageData] = useState({});
     const [productManagementData, setProductManagementData] = useState({});
     const [dataLoading, setDataLoading] = useState(true);
-    const { user } = useLoginStatus();
+    const { user, token } = useLoginStatus();
     const router = useRouter();
     const { query } = router;
 
@@ -52,8 +52,12 @@ function SandboxWrapper() {
     }, [query?.api])
 
     useEffect(() => {
-        if (user?._id) {
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management/${user?._id}`)
+        if (token) {
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, {
+                headers: {
+                    Authorization: token
+                }
+            })
                 .then(res => {
                     setProductManagementData(res.data);
                 })
@@ -62,7 +66,7 @@ function SandboxWrapper() {
                     console.log(err)
                 })
         }
-    }, [user?._id])
+    }, [token])
 
     const apisAndcontentNotReadyPages = ["Status", "Network-Tokens", "Risk-Check", "Report-Fraud", "Dispute-Check", "Dispute-Action", "Fx-Checker", "BIN-Checker", "MCC-Checker", "Cost-Checker", "Disputes", "Risky-transaction"];
 
