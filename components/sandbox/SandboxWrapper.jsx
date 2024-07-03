@@ -230,23 +230,64 @@ function SandboxWrapper() {
 
                                 </Disclosure>
 
-                                <li>
-                                    <button
-                                        className={`
-                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
-                                            ${(query?.api === '3DSS-v2.3') ? 'text-primary' : 'text-bluedark'}
-                                       `}
-                                        onClick={() => router.push('/sandbox?api=3DSS-v2.3')}
-                                    >
-                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                            <BsPlugin />
-                                        </span>
-                                        <span className="text-sm font-medium text-left">
-                                            3DSS V2.3
-                                        </span>
-                                    </button>
-                                </li>
 
+                                <Disclosure as="li" defaultOpen={false}>
+                                    {({ open }) => (
+                                        <>
+                                            <Disclosure.Button
+                                                className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === '3DSS-v2.3' || query?.api === '3DSS-v2.2') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                            >
+                                                <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                                    <IoShieldCheckmarkOutline />
+                                                </span>
+                                                <span className="text-sm font-medium">
+                                                3DS Secure
+                                                </span>
+
+                                                <span className='inline-block ml-auto'>
+                                                    {open ? <FaChevronUp className="inline-flex items-center justify-center h-5 w-5" /> : <FaChevronDown className="inline-flex items-center justify-center h-5 w-5" />}
+                                                </span>
+
+
+                                            </Disclosure.Button>
+                                            <Disclosure.Panel className="text-gray-500 pl-10">
+                                                <button
+                                                    onClick={() => router.push('/sandbox?api=3DSS-v2.3')}
+                                                    // disabled={!productManagementData?.risk?.riskCheck}
+                                                    className={`
+        flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+        ${query?.api === '3DSS-v2.3' ? 'text-primary' : 'text-bluedark'}
+        disabled:opacity-50
+    `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    3DSS-v2.3
+                                                    </span>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => router.push('/sandbox?api=3DSS-v2.2')}
+                                                    // disabled={!productManagementData?.risk?.reportFraud}
+                                                    className={`
+        flex flex-row items-center h-12 transform hover:translate-x-2 disabled:hover:translate-x-0 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+        ${query?.api === '3DSS-v2.2' ? 'text-primary' : 'text-bluedark'}
+        disabled:opacity-50
+    `}
+                                                >
+                                                    <span className="text-sm font-medium">
+                                                    3DSS-v2.2
+                                                    </span>
+                                                </button>
+
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+                                </Disclosure>
+
+                            
                                 {/* <Disclosure as="li" defaultOpen={true}>
                                     {({ open }) => (
                                         <>
