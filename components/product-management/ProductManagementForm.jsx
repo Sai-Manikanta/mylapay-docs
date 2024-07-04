@@ -9,13 +9,6 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
     const formik = useFormik({
         initialValues: {
             ...productManagementData.products
-            // merchantPlugins: false,
-            // authorization: false,
-            // networkTokens: false,
-            // risk: false,
-            // dispute: false,
-            // valueAddedServices: false,
-            // webhooks: false,
         },
         // validationSchema: Yup.object({
         //     keyManagementFile: Yup.mixed().required('A file is required'),
@@ -42,7 +35,7 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
         try {
             const response = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product-management`, {
                 products: {
-                    merchantPlugins: false,
+                    ['3DSSecure']: false,
                     authorization: false,
                     networkTokens: false,
                     risk: false,
@@ -64,11 +57,6 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
     }
 
     const productsData = [
-        {
-            labelText: 'Merchant Plugins',
-            nameText: 'merchantPlugins',
-            description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
-        },
         {
             labelText: '3DS Secure',
             nameText: '3DSSecure',
