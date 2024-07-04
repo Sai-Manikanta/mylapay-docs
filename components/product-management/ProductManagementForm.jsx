@@ -70,6 +70,11 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
             description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem optio quis molestias deleniti, quisquam corporis eum hic maxime assumenda repellendus.'
         },
         {
+            labelText: '3DS Secure',
+            nameText: '3DSSecure',
+            description: 'The most advanced and safest authentication method in compliance with PSD2 SCA guidelines for card-not-present payments.'
+        },
+        {
             labelText: 'Authorization',
             nameText: 'authorization',
             description: 'Switch to smarter, speed, safer payments with Mylapay and elevate your payment experience with higher success rates.'
@@ -108,14 +113,16 @@ const ProductManagementForm = ({ userToken, productManagementData, setProductMan
                 <div className="text-[#475569] mt-1">
                     {productsData.map((field) => (
                         <label key={field.nameText} className="flex mb-6 gap-x-2">
-                            <input
-                                type="checkbox"
-                                name={field.nameText}
-                                checked={formik.values[field.nameText]}
-                                onChange={formik?.handleChange}
-                                style={{ width: '50px', height: '25px' }}
-                                className='mt-1'
-                            />
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    name={field.nameText}
+                                    checked={formik.values[field.nameText]}
+                                    onChange={formik?.handleChange}
+                                    style={{ width: '50px', height: '25px' }}
+                                    className='mt-1'
+                                />
+                            </div>
                             <div>
                                 <span className='text-xl text-bluedark'>
                                     {field.labelText}
