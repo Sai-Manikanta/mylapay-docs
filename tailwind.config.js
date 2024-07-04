@@ -49,6 +49,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
       animation: {
         'spin-slow': 'spin 5s linear infinite',
         'typewriter': "typewriter 2s steps(11) forwards"

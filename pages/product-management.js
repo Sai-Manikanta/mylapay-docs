@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Inter } from "next/font/google";
 import axios from 'axios';
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductManagementForm from "../components/product-management/ProductManagementForm";
 import { useLoginStatus } from '../hooks/useLoginStatus';
-
-const inter = Inter({ subsets: ["latin"] });
 
 function ProductManagement() {
     const [productManagementData, setProductManagementData] = useState({});
@@ -26,7 +23,7 @@ function ProductManagement() {
     }, [user?._id])
 
     return (
-        <div className={`${inter.className}`}>
+        <div>
             <Header />
             <div className='bg-white wrapper my-16'>
                 <div>
