@@ -124,7 +124,7 @@
 .editor .editorLineNumber {
   position: absolute;
   left: 0px;
-  color: #cccccc;
+  color: #002060;
   text-align: right;
   width: 40px;
   font-weight: 100;
@@ -133,27 +133,59 @@
 
 /* Product Management Checkboxes */
 .custom-checkbox {
-        width: 20px; /* Adjust size as needed */
-        height: 20px; /* Adjust size as needed */
-        background-color: #fff;
-        border: 2px solid #ccc;
-        border-radius: 3px;
-        display: inline-block;
-        position: relative;
-    }
+  width: 20px;
+  /* Adjust size as needed */
+  height: 20px;
+  /* Adjust size as needed */
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+}
 
-    .custom-checkbox::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 10px; /* Adjust size as needed */
-        height: 10px; /* Adjust size as needed */
-        background-color: #007bff; /* Color when checked */
-        display: none;
-    }
+.custom-checkbox::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  /* Adjust size as needed */
+  height: 10px;
+  /* Adjust size as needed */
+  background-color: #007bff;
+  /* Color when checked */
+  display: none;
+}
 
-    input[type="checkbox"]:checked + .custom-checkbox::before {
-        display: block;
-    }
+input[type="checkbox"]:checked+.custom-checkbox::before {
+  display: block;
+}
+
+
+.editorLineNumber {
+  display: inline-block;
+  width: 2em;
+  user-select: none;
+  opacity: 0.5;
+}
+
+.json-key {
+  color: #c678dd;
+  /* Color for JSON keys */
+  pointer-events: none;
+  /* Prevent editing */
+  user-select: none;
+  /* Prevent selecting */
+}
+
+.json-separator {
+  color: #002060;
+  /* Color for JSON separators (colons) */
+}
+
+.json-value {
+  color: #98c379;
+  /* Color for JSON values */
+}

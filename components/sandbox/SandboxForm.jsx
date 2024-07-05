@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -56,11 +56,27 @@ const validateOrganizationID = async (value) => {
     return errorMessage;
 };
 
-const hightlightWithLineNumbers = (input, language) =>
-    highlight(input, language)
-        .split("\n")
-        .map((line, i) => `<span class='editorLineNumber' style="color:#002060">${i + 1}</span>${line}`)
-        .join("\n");
+const highlightJson = (code) => {
+    const highlighted = highlight(code, languages.json)
+        .split('\n')
+        .map((line, i) => {
+            const keyValueMatch = line.match(/(".*?")(\s*:\s*)(.*)/);
+            if (keyValueMatch) {
+                const key = keyValueMatch[1];
+                const separator = keyValueMatch[2];
+                const value = keyValueMatch[3];
+                return (
+                    `<span class="editorLineNumber">${i + 1}</span>` +
+                    `<span class="json-key">${key}</span>` +
+                    `<span class="json-separator">${separator}</span>` +
+                    `<span class="json-value">${value}</span>`
+                );
+            }
+            return `<span class="editorLineNumber">${i + 1}</span>` + line;
+        })
+        .join('\n');
+    return highlighted;
+};
 
 const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPageData }) => {
     const router = useRouter();
@@ -68,7 +84,42 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
     const [organizationIDValidationStatus, setOrganizationIDValidationStatus] = useState("success") // pending/success/failed
     const [error, setError] = useState(null);
     const [lineNumbers, setLineNumbers] = useState([]);
+    const editorRef = useRef(null);
     const { user } = useLoginStatus();
+
+
+    useEffect(() => {
+        if (editorRef.current) {
+            const textarea = editorRef.current._input;
+            textarea.addEventListener('keydown', handleKeyDown);
+        }
+        return () => {
+            if (editorRef.current) {
+                const textarea = editorRef.current._input;
+                textarea.removeEventListener('keydown', handleKeyDown);
+            }
+        };
+    }, []);
+
+    const handleKeyDown = (event) => {
+        const { selectionStart, selectionEnd, value } = event.target;
+
+        // Prevent editing of keys by intercepting key presses
+        const lines = value.split('\n');
+        const lineStart = value.lastIndexOf('\n', selectionStart - 1) + 1;
+        const lineEnd = value.indexOf('\n', selectionStart);
+        const line = value.substring(lineStart, lineEnd !== -1 ? lineEnd : value.length);
+
+        const keyValueMatch = line.match(/(".*?")(\s*:\s*)(.*)/);
+        if (keyValueMatch) {
+            const keyStart = lineStart + keyValueMatch.index;
+            const keyEnd = keyStart + keyValueMatch[1].length;
+            if (selectionStart >= keyStart && selectionEnd <= keyEnd) {
+                event.preventDefault();
+            }
+        }
+    };
+
     // const [showSecret, setShowSecret] = useState(false);
 
     const [selectedSandboxTestCodes, setSelectedSandboxTestCodes] = useState(JSON.stringify({}, null, 2));
@@ -83,8 +134,8 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
 
     useEffect(() => {
-            setResponseData(null);
-            setSelectedSandboxTestCodes(JSON.stringify({}, null, 2));
+        setResponseData(null);
+        setSelectedSandboxTestCodes(JSON.stringify({}, null, 2));
     }, [query?.api])
 
 
@@ -285,30 +336,9 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
                                                                     checked={field?.checked}
                                                                     id={field?.name}
                                                                     disabled={organizationIDValidationStatus != 'success'}
-                                                                    onChange={e => {
-                                                                        // console.log({
-                                                                        //     parameterFieldCategoryName: parameter?.fieldCategoryName
-                                                                        // })  
+                                                                    onChange={e => { 
                                                                         setSandboxPageData(prevData => {
                                                                             const updatedData = prevData?.requestParams?.map((item, itemIndex) => {
-                                                                                // if(parameter?.fieldCategoryName === item?.fieldCategoryName){
-                                                                                //     console.log({
-                                                                                //         item: item.fieldCategoryName,
-                                                                                //         match: parameter?.fieldCategoryName === item?.fieldCategoryName,
-                                                                                //         parameterFieldCategoryName: parameter?.fieldCategoryName,
-                                                                                //         itemFieldCategoryName: item?.fieldCategoryName,
-                                                                                //     })
-                                                                                // }
-
-                                                                                // console.log({
-                                                                                //     paramIndex,
-                                                                                //     fieldIndex,
-                                                                                //     itemIndex
-                                                                                // })
-                                                                                
-                                                                                // item?.id === parameter?.id - previous
-                                                                                // parameter?.fieldCategoryName === item?.fieldCategoryName - new 
-                                                                                //  paramIndex === itemIndex - based on index
                                                                                 if (paramIndex === itemIndex) {
                                                                                     const updatedFields = parameter?.fields?.map(fi => {
                                                                                         if (fi.name === field?.name) {
@@ -402,18 +432,19 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
                                     <div>
                                         <div className="editor-container">
                                             <Editor
+                                                ref={editorRef}
                                                 value={selectedSandboxTestCodes}
-                                                onValueChange={code => {
+                                                onValueChange={(code) => {
                                                     setSelectedSandboxTestCodes(code);
                                                 }}
-                                                highlight={code => hightlightWithLineNumbers(code, languages.json)}
+                                                highlight={highlightJson}
                                                 padding={10}
                                                 textareaId="codeArea"
                                                 className="editor"
                                                 style={{
                                                     fontFamily: '"Fira code", "Fira Mono", monospace',
                                                     fontSize: 18,
-                                                    outline: 0
+                                                    outline: 0,
                                                 }}
                                             />
                                         </div>
@@ -454,13 +485,9 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
             {responseData && (
                 <div className='px-4 py-8 lg:px-8'>
-
                     <div className='bg-bggray p-4 rounded mb-8'>
                         <h2 className='mb-3'>Status Codes</h2>
                         <div className='flex space-x-4 text-sm'>
-
-
-
                             {apiResponseData?.statusCodes?.map(item => (
                                 <div className='flex rounded-sm overflow-hidden shadow'>
                                     <span className={`py-2 px-4 ${item?.type === "success" ? 'bg-[#22C55E]' : 'bg-[#EF4444]'} text-white`}>
@@ -477,31 +504,24 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
 
                     <div className="grid gap-10 md:grid-cols-2 mb-6 ">
                         <div className='bg-bggray p-4 rounded'>
-
                             <h2 className='mb-3'>Response</h2>
-
                             <div className='relative'>
-
                                 <div className="editor-container bg-white">
-
                                     <Editor
+                                        ref={editorRef}
                                         value={JSON.stringify(apiResponseData?.responseParameters, null, 2)}
-                                        onValueChange={code => {
-                                            setSelectedSandboxTestCodes(code);
-                                        }}
-                                        highlight={code => hightlightWithLineNumbers(code, languages.json)}
+                                        onValueChange={(code) => { }}
+                                        highlight={highlightJson}
                                         padding={10}
                                         textareaId="codeArea"
                                         className="editor"
                                         style={{
                                             fontFamily: '"Fira code", "Fira Mono", monospace',
                                             fontSize: 18,
-                                            outline: 0
+                                            outline: 0,
                                         }}
                                     />
                                 </div>
-
-
                                 <button
                                     className='py-1 px-4 rounded-sm text-sm bg-bluedark text-white absolute top-2 right-5'
                                     type="button"
@@ -520,10 +540,7 @@ const SandboxForm = ({ apiEndPoint, requestParams, apiResponseData, setSandboxPa
                                     COPY
                                 </button>
                             </div>
-
-
                         </div>
-
                         <div className='bg-bggray p-4 rounded'>
                             <h2 className='mb-3'>Description</h2>
                             <p className='text-sm bg-white p-4'>
