@@ -9,12 +9,12 @@ import { IoMdClose, IoMdHome } from "react-icons/io";
 import { SiMicrosoftaccess } from "react-icons/si";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 // import { SiAuthelia } from "react-icons/si";
-import { MdOutlineToken } from "react-icons/md";
+import { MdOutlineToken, MdOutlinePayments } from "react-icons/md";
 import { LiaFighterJetSolid } from "react-icons/lia";
 import { GrBusinessService } from "react-icons/gr";
 import { PiWebhooksLogo } from "react-icons/pi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { BsPlugin } from "react-icons/bs";
+// import { BsPlugin } from "react-icons/bs";
 import { HiOutlineHome } from "react-icons/hi";
 import Sandbox from './SandboxForm';
 import ProfileDropDown from './ProfileDropDown';
@@ -22,6 +22,7 @@ import { useLoginStatus } from '../../hooks/useLoginStatus'
 import mylapaylogo from '../../public/mylapaylogo.png';
 import ProductManagement from '../product-management/ProductManagement';
 import KeyManagement from './KeyManagement';
+import PaymentGatewayForm from './PaymentGatewayForm';
 
 function SandboxWrapper() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -454,6 +455,25 @@ function SandboxWrapper() {
                                     )}
                                 </Disclosure>
 
+
+                                <li>
+                                    <button
+                                        className={`
+                                            flex w-full pr-4 flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800
+                                            ${(query?.api === 'Payment-Gateway') ? 'text-primary' : 'text-bluedark'}
+                                       `}
+                                        onClick={() => router.push('/sandbox?api=Payment-Gateway')}
+                                    >
+                                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                        <MdOutlinePayments />
+                                        </span>
+                                        <span className="text-sm font-medium text-left">
+                                        Payment Gateway
+                                        </span>
+                                    </button>
+                                </li>
+
+                                {/* Payment Gateway */}
 
                                 <li>
                                     <button
@@ -895,6 +915,8 @@ function SandboxWrapper() {
                             </div>
                         )}
 
+                        
+
 
                         {!dataLoading && query?.api === 'Product-Management' && (
                             <ProductManagement />
@@ -904,7 +926,11 @@ function SandboxWrapper() {
                             <KeyManagement />
                         )}
 
-                        {!dataLoading && !(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && query?.api !== "Key-Management" && (
+                        {!dataLoading && query?.api === "Payment-Gateway" && (
+                            <PaymentGatewayForm />
+                        )}
+
+                        {!dataLoading && !(Object.entries(sandboxPageData).length > 0) && query?.api !== 'API-Authentication' && query?.api !== 'Product-Management' && query?.api !== "Key-Management" && query?.api !== "Payment-Gateway" && (
                             <div className="bg-white p-8 rounded-lg shadow-lg w-full text-center">
                                 <h2 className="text-2xl font-semibold mb-4">Coming Soon!</h2>
                                 <p className="text-gray-700 mb-4">
